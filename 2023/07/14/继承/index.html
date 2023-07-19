@@ -25,14 +25,14 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="继承继承和派生1.派生类继承了基类，继承的方式分为公有继承，私有继承和保护继承 2.在公有继承中，基类的public属性和protect属性在派生类中依旧不变都可以访问，而private属性不可访问 2.1 在公有继承中，派生类可以覆盖基类的函数，即派生类实现了基类的函数，且返回值和特征标志相同。     此时在函数中调用的是派生类的函数而不是基类的函数；如果要调用基类的该函数，可以使用作用域解析">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://white-troy.github.io/%E7%BB%A7%E6%89%BF/gouzaoyuxigou.png.png">
-<meta property="og:image" content="https://white-troy.github.io/%E7%BB%A7%E6%89%BF/jichengzhuyi.png">
-<meta property="og:image" content="https://white-troy.github.io/%E7%BB%A7%E6%89%BF/jicheng.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/14/%E7%BB%A7%E6%89%BF/gouzaoyuxigou.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/14/%E7%BB%A7%E6%89%BF/jichengzhuyi.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/14/%E7%BB%A7%E6%89%BF/jicheng.png">
 <meta property="article:published_time" content="2023-07-14T02:55:15.574Z">
-<meta property="article:modified_time" content="2023-07-14T06:56:30.263Z">
+<meta property="article:modified_time" content="2023-07-19T03:38:40.790Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://white-troy.github.io/%E7%BB%A7%E6%89%BF/gouzaoyuxigou.png.png">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/07/14/%E7%BB%A7%E6%89%BF/gouzaoyuxigou.png">
     
     
     <!--- Icon Part-->
@@ -71,7 +71,7 @@
     <script id="hexo-configurations">
     let Global = window.Global || {};
     Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
-    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":true,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
     Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
     Global.data_config = {"masonry":false};
   </script>
@@ -240,8 +240,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-07-14 14:56:30</span>
-            <span class="mobile">2023-07-14 14:56</span>
+            <span class="desktop">2023-07-19 11:38:40</span>
+            <span class="mobile">2023-07-19 11:38</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -276,14 +276,12 @@
     在实例化基类和派生类时，先实例化成员属性，再调用构造函数，确保成员属性可以被构造函数使用
 
 2.3 析构顺序：析构顺序与构造顺序正好相反。
-</code></pre>
-<p><img lazyload src="/images/loading.svg" data-src="/./%E7%BB%A7%E6%89%BF/gouzaoyuxigou.png.png" alt="gouzaoxigou"></p>
+</code></pre><p><img src="/2023/07/14/%E7%BB%A7%E6%89%BF/gouzaoyuxigou.png" alt="gouzaoxigou"></p>
 <p>3.在私有继承中，基类的所有属性都变成派生类的私有属性，不能被外部访问，但可以通过派生类的成员函数间接访问</p>
 <p>4.在保护继承中，基类的public属性编程protect属性，而protect属性不变，private属性不可变，即基类的成员再派生类中变成保护属性，在继承层次结构的外部不可访问</p>
-<p><img lazyload src="/images/loading.svg" data-src="/./%E7%BB%A7%E6%89%BF/jichengzhuyi.png" alt="zhuyi"></p>
+<p><img src="/2023/07/14/%E7%BB%A7%E6%89%BF/jichengzhuyi.png" alt="zhuyi"></p>
 <pre><code>注意： 在三种继承方式中，基类的私有成员会被派生类继承，但无法被派生类直接访问，只能通过基类的public或protect成员函数访问
-</code></pre>
-<p><img lazyload src="/images/loading.svg" data-src="/./%E7%BB%A7%E6%89%BF/jicheng.png" alt="example"></p>
+</code></pre><p><img src="/2023/07/14/%E7%BB%A7%E6%89%BF/jicheng.png" alt="example"></p>
 <p>5.多继承，当某一对象要使用多个基类的成员属性的时候，可以使用多继承来使用不同基类的方法，如：class fish:public base1,public base2,public base3｛｝</p>
 <p>6.使用final关键字来禁止该类作为基类，从而禁止该类被继承，如：class fish final:public base1中，fish类使用了关键字final，则该类就无法当做基类被继承</p>
 
@@ -298,7 +296,7 @@
         <li><strong>Created at:</strong> 2023-07-14 10:55:15</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-07-14 14:56:30
+                <strong>Updated at:</strong> 2023-07-19 11:38:40
             </li>
         
         <li>
@@ -540,10 +538,6 @@
 <script src="/js/tools/codeBlock.js"></script>
 
 
-
-
-    
-<script src="/js/layouts/lazyload.js"></script>
 
 
 

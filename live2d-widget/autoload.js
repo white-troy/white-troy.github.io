@@ -2,7 +2,7 @@
  * @Author: K2SO4 zs1115996793@qq.com
  * @Date: 2023-07-19 10:37:15
  * @LastEditors: K2SO4 zs1115996793@qq.com
- * @LastEditTime: 2023-07-19 10:39:21
+ * @LastEditTime: 2023-07-19 11:25:31
  * @FilePath: \upload4git\themes\hexo-theme-redefine\source\live2d-widget\autoload.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -33,7 +33,7 @@ function loadExternalResource(url, type) {
 }
 
 // 加载 waifu.css live2d.min.js waifu-tips.js
-if (screen.width >= 500) {  //设置最小页面宽度，在大于这个宽度的设备上显示，默认为768
+if (screen.width >= 300) {  //设置最小页面宽度，在大于这个宽度的设备上显示，默认为768
 	Promise.all([
 		loadExternalResource(live2d_path + "waifu.css", "css"),
 		loadExternalResource(live2d_path + "live2d.min.js", "js"),
