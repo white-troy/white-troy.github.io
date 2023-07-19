@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/19/操作符重载/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="单目运算符1.单目运算符只对一个操作数进行操作，作为类成员（非静态函数）的单目运算符没有参数，因为它们使用的参数是当前的实例*this 2.可用于重载（或重新定义）的单目运算符如下图： 3.声明重载运算符的定义如下1234return_type operator operator_type (parameter_type) &amp;#123;  &#x2F;&#x2F; ... 相关的声明 &amp;#125;4.单目递增和单目递">
+<meta property="og:type" content="article">
+<meta property="og:title" content="操作符重载">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="单目运算符1.单目运算符只对一个操作数进行操作，作为类成员（非静态函数）的单目运算符没有参数，因为它们使用的参数是当前的实例*this 2.可用于重载（或重新定义）的单目运算符如下图： 3.声明重载运算符的定义如下1234return_type operator operator_type (parameter_type) &amp;#123;  &#x2F;&#x2F; ... 相关的声明 &amp;#125;4.单目递增和单目递">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E5%8D%95%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E5%8F%8C%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E7%A7%BB%E5%8A%A81.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E7%A7%BB%E5%8A%A82.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E7%A7%BB%E5%8A%A8%E4%BE%8B%E5%AD%90.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E5%AD%97%E9%9D%A2%E9%87%8F.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E4%B8%8D%E8%83%BD%E9%87%8D%E8%BD%BD%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6.png">
+<meta property="article:published_time" content="2023-07-19T12:40:31.132Z">
+<meta property="article:modified_time" content="2023-07-19T12:50:20.873Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E5%8D%95%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            操作符重载 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">操作符重载</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv1</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-19 20:40:31</span>
+        <span class="mobile">2023-07-19 20:40</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-19 20:50:20</span>
+            <span class="mobile">2023-07-19 20:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="单目运算符"><a href="#单目运算符" class="headerlink" title="单目运算符"></a>单目运算符</h1><p>1.单目运算符只对一个操作数进行操作，作为类成员（非静态函数）的单目运算符没有参数，因为它们使用的参数是当前的实例*this</p>
+<p>2.可用于重载（或重新定义）的单目运算符如下图：<br><img src="/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E5%8D%95%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6.png" alt="单目运算符"></p>
+<p>3.声明重载运算符的定义如下<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">return_type operator operator_type (parameter_type) </span><br><span class="line">&#123; </span><br><span class="line"> // ... 相关的声明 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>4.单目递增和单目递减运算符</p>
+<blockquote>
+<p>单目前缀递增运算符（++）的语法如下<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// Unary increment operator (prefix) </span><br><span class="line">Date&amp; operator ++ () </span><br><span class="line">&#123; </span><br><span class="line"> // operator implementation code </span><br><span class="line"> return *this; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>单目前缀运算符在操作数之前执行操作，并返回操作后的值，如++x，会将x的值递增，然后返回递增后的值</p>
+<p>单目后缀递增运算符（++）的返回类型不同，并且总是有一个输入参数，语法如下<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Date operator ++ (int) </span><br><span class="line">&#123; </span><br><span class="line"> // Store a copy of the current state of the object, before incrementing day </span><br><span class="line"> Date copy (*this); </span><br><span class="line"> // increment implementation code </span><br><span class="line"> // Return state before increment (because, postfix) </span><br><span class="line"> return copy; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>单目后缀运算符x++在操作符之后进行操作，但会先返回原始值x，再递增x的值。即后缀运算符会先复制当前对象，再将当前对象执行增减运算，最后返回复制的对象</p>
+</blockquote>
+<p>5.转换运算符（Conversion Operator）是一种特殊的成员函数，它用于将一个类对象转换为其他类型的值。转换运算符可以定义为类的成员函数，并用关键字 operator 后跟要转换的目标类型。以下是将对象转换为char类型的转换运算符声明<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">operator const char*() </span><br><span class="line"> &#123; </span><br><span class="line">    ostringstream formattedDate; // assists string construction </span><br><span class="line">    formattedDate &lt;&lt; month &lt;&lt; &quot; / &quot; &lt;&lt; day &lt;&lt; &quot; / &quot; &lt;&lt; year; </span><br><span class="line">    dateInString = formattedDate.str(); </span><br><span class="line">    return dateInString.c_str(); </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></div><br>5.智能指针（将在智能指针章节详细介绍，TODO：附加智能指针的链接），在智能指针中，解引用运算符和成员选择运算符运用最广。</p>
+<p>   5.1解引用运算符：<br>   是用于访问指针所指向的对象。当我们有一个指向对象的指针时，通过在指针前面加上 * 运算符，可以获得该指针所指向的对象的值。这个过程称为解引用。例子如下：<br>   <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int x = 10;</span><br><span class="line">int* ptr = &amp;x; // 定义指针 ptr 并将其指向 x 的地址</span><br><span class="line">int value = *ptr; // 解引用指针 ptr，得到 x 的值</span><br><span class="line">std::cout &lt;&lt; &quot;Value of x: &quot; &lt;&lt; value &lt;&lt;   std::endl; // 输出 &quot;Value of x: 10&quot;</span><br></pre></td></tr></table></figure></div><br>   5.2成员选择运算符：<br>   成员选择运算符用于访问指向对象的指针所指向的成员。当我们有一个指向对象的指针时，通过在指针后面加上 -&gt; 运算符，可以访问该指针所指向的对象的成员。例子如下：<br>   <div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">class MyClass &#123;</span><br><span class="line">public:</span><br><span class="line">   int value;</span><br><span class="line">   void printValue() &#123;</span><br><span class="line">     std::cout &lt;&lt; &quot;Value: &quot; &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">MyClass obj;</span><br><span class="line">obj.value = 42;</span><br><span class="line"></span><br><span class="line">MyClass* ptr = &amp;obj; // 定义指针 ptr 并将其指向对象 obj</span><br><span class="line">ptr-&gt;printValue(); // 使用指针 ptr 访问对象 obj 的成员函数</span><br><span class="line">std::cout &lt;&lt; &quot;Value through pointer: &quot; &lt;&lt; ptr-&gt;value &lt;&lt; std::endl; // 输出 &quot;Value through pointer: 42&quot;</span><br></pre></td></tr></table></figure></div><br>   在例子中，可以通过 ptr-&gt;printValue() 和 ptr-&gt;value 来访问 obj 的成员函数和成员变量。</p>
+<h1 id="双目运算符"><a href="#双目运算符" class="headerlink" title="双目运算符"></a>双目运算符</h1><p>双目运算符是指需要两个操作数来进行运算的运算符。在C++中，双目运算符接受两个操作数，并对它们进行特定的操作，然后返回一个结果。</p>
+<p>常见的双目运算符包括算术运算符、关系运算符、逻辑运算符等。可用于重载的双目运算符如下：<br><img src="/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E5%8F%8C%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6.png" alt="双目"></p>
+<p>声明重载运算符的定义如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">creturn_type operator_type (parameter1, parameter2); </span><br></pre></td></tr></table></figure></div><br>以类成员的方式实现的双目运算符只接受一个参数，其原因是第二个参数通常是从类属性获得的。以类成员的方式实现的双目运算符的定义如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">return_type operator_type (parameter);</span><br></pre></td></tr></table></figure></div><br>如实现==重载的日期比较运算符就可以按下面这样子写：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bool operator== (const Date&amp; compareTo)&#123;</span><br><span class="line">   return((day == compareTo.day) </span><br><span class="line">   &amp;&amp; (month == compareTo.month) &amp;&amp; (year == compareTo.year));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h1 id="重载复制赋值运算符“-”"><a href="#重载复制赋值运算符“-”" class="headerlink" title="重载复制赋值运算符“=”"></a>重载复制赋值运算符“=”</h1><p>在没有提供复制赋值运算符，这将调用编译器自动给类添加的默认复制赋值运算符。根据类的特征，默认复制赋值运算符可能不可行，这可能导致浅复制，在离开有效运算区间时对象没有被正确的释放，从而导致程序崩溃。</p>
+<p>重载复制幅值运算符的定义如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ClassType&amp; operator= (const ClassType&amp; copySource) </span><br><span class="line">&#123; </span><br><span class="line"> if(this != &amp;copySource) // protection against copy into self </span><br><span class="line"> &#123; </span><br><span class="line"> // copy assignment operator implementation </span><br><span class="line"> &#125; </span><br><span class="line"> return *this; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h1 id="函数运算符operator"><a href="#函数运算符operator" class="headerlink" title="函数运算符operator()"></a>函数运算符operator()</h1><p>operator()让对象像函数，被称为函数运算符。函数运算符用于标准模板库（STL）中，通常是STL算法中。以下是一个使用operator()实现的函数对象<br><img src="/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6.png" alt="函数运算符"></p>
+<h1 id="移动构造函数和移动赋值运算符"><a href="#移动构造函数和移动赋值运算符" class="headerlink" title="移动构造函数和移动赋值运算符"></a>移动构造函数和移动赋值运算符</h1><p>移动构造函数（Move Constructor）和移动赋值运算符（Move Assignment Operator）是C++11标准引入的特性，用于实现对象的移动语义。它们通过将资源所有权从一个对象转移到另一个对象，而不是创建新的副本，从而在处理大型数据或资源管理时提供了更高的效率。</p>
+<p>1.移动构造函数是一个特殊的构造函数，用于从一个右值引用参数创建对象。右值引用参数用 &amp;&amp; 表示。移动构造函数允许从临时对象或即将销毁的对象“窃取”资源，而不是进行深拷贝。<a class="link" target="_blank" rel="noopener" href="https://blog.avdancedu.com/a39d51f9/">参考博文 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>下面通过一个例子来演示移动构造函数的好处：</p>
+<p><img src="/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E7%A7%BB%E5%8A%A81.png" alt="无移动构造函数"><br>在图中的这个例子中，main函数内的A类创建完对象并放入vector中的同时，在vector的内部会再次创建一个A对象，并调用拷贝构造函数进行深拷贝，此时倘若A对象分配的空间很大，那么在vector中也会再次分配一次同样大的空间，这会导致性能的损耗（在深拷贝中，会创建一个全新的对象，新对象和原对象不共享内存，此时如果A需要的内存为2MB，在创建新对象后，整个程序需要的内存就到了4MB的大小（原来的2MB+新创建的A对象的2MB））<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">函数的输出结果：</span><br><span class="line">A construct...          //main中创建的A对象</span><br><span class="line">A copy construct ...    //vector内部创建的A对象</span><br><span class="line">A deconstruct ...       //vector内部创建的A对象被析构</span><br><span class="line">A deconstruct ...       //main中创建的A对象析构</span><br></pre></td></tr></table></figure></div></p>
+<p>如果使用移动构造函数，则会在vector创建A对象时不分配一块新内存，而只是创建了一个和A指向同一块内存地址的新对象，这样传递的效率会高很多,深浅拷贝可以参考链接<a href="%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1.md">类和对象</a>的笔记，以下是增加A的移动构造函数的代码：<br><img src="/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E7%A7%BB%E5%8A%A82.png" alt="A的移动构造函数"></p>
+<p>此时在main函数中传入A的右值就可以，此时可以通过std::move来传入A即可（std::move可以将任何一值变成右值）<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">int main(int argc, char *argv[])&#123;</span><br><span class="line">    std::vector&lt;A&gt; vec;</span><br><span class="line">    vec.push_back(std::move(A()));</span><br><span class="line">&#125;</span><br><span class="line">//函数输出结果如下：</span><br><span class="line">A construct...          //main中创建A对象</span><br><span class="line">A move construct ...    //vector内部通过移动构造函数创建A对象，减少了对堆空间的频繁操作</span><br><span class="line">A deconstruct ...       //释放vector中的A对象</span><br><span class="line">A deconstruct ...       //释放main中创建的A对象</span><br></pre></td></tr></table></figure></div></p>
+<p>从输出的结果可以看出，使用了移动构造函数后，只是创建了一个指向同一个内存地址的新对象，而没开辟一个新的空间出来</p>
+<p>2.移动赋值运算符&amp;&amp;<br>移动赋值运算符是一个特殊的赋值运算符，用于将一个右值引用对象的资源转移到当前对象。右值引用参数用 &amp;&amp; 表示。它允许在对象已经存在的情况下将资源从一个对象转移到另一个对象。</p>
+<p>相比于常规赋值构造函数和复制赋值运算符的声明，移动构造函数和移动赋值运算符的不同之处在于，输入参数的类型为 Sample&amp;&amp;。另外，由于输入参数是要移动的源对象，因<br>此不能使用 const 进行限定，移动赋值运算符的声明格式如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">class ClassName &#123;</span><br><span class="line">public:</span><br><span class="line">    // 移动赋值运算符</span><br><span class="line">    ClassName&amp; operator=(ClassName&amp;&amp; other) &#123;</span><br><span class="line">        // 在这里实现资源的移动</span><br><span class="line">        // 返回 *this</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div></p>
+<p>移动赋值运算符的使用场景是在涉及资源管理的情况下，用于将资源从一个对象转移给另一个对象，避免不必要的资源拷贝，提高了效率。使用移动赋值运算符时，需要确保在转移资源后，原对象不再拥有该资源，避免资源泄漏或重复释放。</p>
+<p>以下是一个使用移动构造函数和移动赋值运算符的例子：<br><img src="/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E7%A7%BB%E5%8A%A8%E4%BE%8B%E5%AD%90.png" alt="移动例子"><br>   在 main 函数中，创建了两个 MyResource 对象 resource1 和 resource2。然后，通过移动赋值运算符 resource2 = std::move(resource1) 将 resource1 的资源转移到了 resource2 中。由于使用了 std::move 将 resource1 转换为右值引用，移动赋值运算符会执行资源的转移操作，而不是进行浅拷贝。转移后，resource1 不再拥有资源，而 resource2 即拥有之前 resource1 的资源。</p>
+<h1 id="用户自定义的字面量"><a href="#用户自定义的字面量" class="headerlink" title="用户自定义的字面量"></a>用户自定义的字面量</h1><p>1.用户可以自定义字面量，如“double pi = 3.14，char firstAlphabet = ‘a’ ”等，用户可以自定义字面量符号来获取想要的结果，以下是自定义字面量的定义方式：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ReturnType operator &quot;&quot; YourLiteral(ValueType value) </span><br><span class="line">&#123; </span><br><span class="line"> // conversion code here </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>上面的参数ValueType只能是下图中的成员，具体使用哪个取决于要用的字面量的性质</p>
+<p><img src="/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E5%AD%97%E9%9D%A2%E9%87%8F.png" alt="字面量"></p>
+<p>下面是一个定义温度字面量”华氏度_F”和”摄氏度_C”，来返回卡尔文温度数值的字面量的例子:<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">struct Temperature </span><br><span class="line">&#123; </span><br><span class="line">double Kelvin; </span><br><span class="line">Temperature(long double kelvin) : Kelvin(kelvin) &#123;&#125; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">Temperature operator&quot;&quot; _C(long double celcius) </span><br><span class="line">&#123; </span><br><span class="line">return Temperature(celcius + 273); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">Temperature operator &quot;&quot; _F(long double fahrenheit) </span><br><span class="line">&#123; </span><br><span class="line">return Temperature((fahrenheit + 459.67) * 5 / 9); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">Temperature k1 = 31.73_F; </span><br><span class="line">Temperature k2 = 0.0_C; </span><br><span class="line"></span><br><span class="line">cout &lt;&lt; &quot;k1 is &quot; &lt;&lt; k1.Kelvin &lt;&lt; &quot; Kelvin&quot; &lt;&lt; endl; </span><br><span class="line">cout &lt;&lt; &quot;k2 is &quot; &lt;&lt; k2.Kelvin &lt;&lt; &quot; Kelvin&quot; &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>在这个例子中，输出的k1与k2均为273卡尔文，在Temperature operator”” _C 和 Temperature operator “” _F 中定义了输入的摄氏度和华氏度是如何转换为卡尔文温度的</p>
+<h1 id="不能重载的运算符"><a href="#不能重载的运算符" class="headerlink" title="不能重载的运算符"></a>不能重载的运算符</h1><p>如图：<br><img src="/2023/07/19/%E6%93%8D%E4%BD%9C%E7%AC%A6%E9%87%8D%E8%BD%BD/%E4%B8%8D%E8%83%BD%E9%87%8D%E8%BD%BD%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6.png" alt="不可重载"></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 操作符重载</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-19 20:40:31</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-19 20:50:20
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/19/操作符重载/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/19/hexo%E5%9B%BE%E7%89%87%E6%B8%B2%E6%9F%93/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">hexo图片加载失败的解决方法</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">操作符重载</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">单目运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%8C%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">双目运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E8%BD%BD%E5%A4%8D%E5%88%B6%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6%E2%80%9C-%E2%80%9D"><span class="nav-text">重载复制赋值运算符“&#x3D;”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E8%BF%90%E7%AE%97%E7%AC%A6operator"><span class="nav-text">函数运算符operator()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%BB%E5%8A%A8%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E5%92%8C%E7%A7%BB%E5%8A%A8%E8%B5%8B%E5%80%BC%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">移动构造函数和移动赋值运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%88%B7%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-text">用户自定义的字面量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8D%E8%83%BD%E9%87%8D%E8%BD%BD%E7%9A%84%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-text">不能重载的运算符</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
