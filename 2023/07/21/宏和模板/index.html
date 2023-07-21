@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/21/宏和模板/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="宏在C++中，宏是一种预处理指令，用于在编译代码之前进行文本替换。它是C++预处理器的一部分，用于在编译阶段对源代码进行简单的文本替换，将宏定义的标识符替换为相应的文本。 宏可以用于定义常量，如可以在程序开始时定义一个常量#define PI 3.14，这样在下面遇到标识符PI时，程序就会认识到这是3.14(宏仅仅是简单的文本替换，没有进行类型检查，所以要设置正确的参数类型) 宏也可以用于定义函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习笔记：宏和模板">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/21/%E5%AE%8F%E5%92%8C%E6%A8%A1%E6%9D%BF/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="宏在C++中，宏是一种预处理指令，用于在编译代码之前进行文本替换。它是C++预处理器的一部分，用于在编译阶段对源代码进行简单的文本替换，将宏定义的标识符替换为相应的文本。 宏可以用于定义常量，如可以在程序开始时定义一个常量#define PI 3.14，这样在下面遇到标识符PI时，程序就会认识到这是3.14(宏仅仅是简单的文本替换，没有进行类型检查，所以要设置正确的参数类型) 宏也可以用于定义函数">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/21/%E5%AE%8F%E5%92%8C%E6%A8%A1%E6%9D%BF/%E5%AE%8F%E7%9A%84%E9%97%AE%E9%A2%98.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/21/%E5%AE%8F%E5%92%8C%E6%A8%A1%E6%9D%BF/%E9%9D%99%E6%80%81%E7%9B%AE%E6%A0%87.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/21/%E5%AE%8F%E5%92%8C%E6%A8%A1%E6%9D%BF/tuple.png">
+<meta property="article:published_time" content="2023-07-21T09:01:23.407Z">
+<meta property="article:modified_time" content="2023-07-21T09:02:48.833Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/07/21/%E5%AE%8F%E5%92%8C%E6%A8%A1%E6%9D%BF/%E5%AE%8F%E7%9A%84%E9%97%AE%E9%A2%98.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++学习笔记：宏和模板 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">C++学习笔记：宏和模板</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv2</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-21 17:01:23</span>
+        <span class="mobile">2023-07-21 17:01</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-21 17:02:48</span>
+            <span class="mobile">2023-07-21 17:02</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h1><p>在C++中，宏是一种预处理指令，用于在编译代码之前进行文本替换。它是C++预处理器的一部分，用于在编译阶段对源代码进行简单的文本替换，将宏定义的标识符替换为相应的文本。</p>
+<p>宏可以用于定义常量，如可以在程序开始时定义一个常量#define PI 3.14，这样在下面遇到标识符PI时，程序就会认识到这是3.14(宏仅仅是简单的文本替换，没有进行类型检查，所以要设置正确的参数类型)</p>
+<p>宏也可以用于定义函数，通过宏，可以创建简单的代码片段，类似于函数的功能。当宏被调用时，预处理器会将宏名替换为相应的代码块，因此，宏调用的效率比函数调用高，但它不能像函数那样拥有独立的作用域和类型检查。此外，宏也可以允许在多个地方使用相同的代码片段，提高代码的重用性</p>
+<p>在有预处理指令（如#ifdef, #ifndef, #else, #endif等）的地方，可以根据不同的定义使用不同的代码块，从而实现在不同平台下编译不同的代码（如#ifdef WINDOWS #ifdef LINUX）</p>
+<h2 id="使用-define-定义常量"><a href="#使用-define-定义常量" class="headerlink" title="使用#define 定义常量"></a>使用#define 定义常量</h2><p>使用#define 定义常量的语法如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define identifier value</span><br></pre></td></tr></table></figure></div><br>如可以定义一个数组长度为25时，就可以写作：#define ARRAY_LENGTH 25。下面是一个使用#define定义常量的例子<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include&lt;string&gt; </span><br><span class="line">using namespace std; </span><br><span class="line">//使用#define定义了一些常量</span><br><span class="line">#define ARRAY_LENGTH 25 </span><br><span class="line">#define PI 3.1416 </span><br><span class="line">#define MY_DOUBLE double </span><br><span class="line">#define FAV_WHISKY &quot;Jack Daniels&quot; </span><br><span class="line"> </span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">int numbers [ARRAY_LENGTH] = &#123;0&#125;; </span><br><span class="line">cout &lt;&lt; &quot;Array’s length: &quot; &lt;&lt; sizeof(numbers) / sizeof(int) &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">cout &lt;&lt; &quot;Enter a radius: &quot;; </span><br><span class="line">MY_DOUBLE radius = 0; </span><br><span class="line">cin &gt;&gt; radius; </span><br><span class="line">cout &lt;&lt; &quot;Area is: &quot; &lt;&lt; PI * radius * radius &lt;&lt; endl; </span><br><span class="line">//初始化一个string对象用于接收定义的常量</span><br><span class="line">string favoriteWhisky (FAV_WHISKY); </span><br><span class="line">cout &lt;&lt; &quot;My favorite drink is: &quot; &lt;&lt; FAV_WHISKY &lt;&lt; endl;</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>鉴于#define只是进行文本替换而没检查类型，可能会出现下面的情况：<br><img src="/2023/07/21/%E5%AE%8F%E5%92%8C%E6%A8%A1%E6%9D%BF/%E5%AE%8F%E7%9A%84%E9%97%AE%E9%A2%98.png" alt="宏的问题"></p>
+<h2 id="使用宏避免多次包含"><a href="#使用宏避免多次包含" class="headerlink" title="使用宏避免多次包含"></a>使用宏避免多次包含</h2><p>C++中的多次包含是指同一个头文件在一个编译单元（源文件）中多次被包含（通过#include预处理指令）。多次包含可能会导致重复定义，造成编译错误或其他问题（无限递归）。为了避免这种情况，可以使用多次包含保护（也称为预处理器宏保护或头文件保护）来确保头文件的内容只被处理一次。<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">多次包含的例子</span><br><span class="line">在header1.h中的代码</span><br><span class="line">#include &quot;header2.h&quot; // 包含 header2.h</span><br><span class="line"></span><br><span class="line">class Class1 &#123;</span><br><span class="line">public:</span><br><span class="line">    int value;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">在header2.h中的代码</span><br><span class="line">#include &quot;header1.h&quot; // 包含 header1.h</span><br><span class="line"></span><br><span class="line">class Class2 &#123;</span><br><span class="line">public:</span><br><span class="line">    double data;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div><br>在这个例子中，header1.h 包含了 header2.h，而 header2.h 又包含了 header1.h，形成了循环包含。在实际编译时，这将导致编译器报错。为了解决这个问题，通常会在头文件中使用多次包含保护，如下代码所示<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">添加了包含保护的header1.h</span><br><span class="line">#ifndef HEADER1_H_</span><br><span class="line">#define HEADER1_H_</span><br><span class="line"></span><br><span class="line">#include &quot;header2.h&quot; // 包含 header2.h</span><br><span class="line"></span><br><span class="line">class Class1 &#123;</span><br><span class="line">public:</span><br><span class="line">    int value;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#endif // end of header1.h</span><br><span class="line"></span><br><span class="line">添加了包含保护的header2.h</span><br><span class="line">#ifndef HEADER2_H_</span><br><span class="line">#define HEADER2_H_</span><br><span class="line"></span><br><span class="line">#include &quot;header1.h&quot; // 包含 header1.h</span><br><span class="line"></span><br><span class="line">class Class2 &#123;</span><br><span class="line">public:</span><br><span class="line">    double data;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#endif // end of header2.h</span><br></pre></td></tr></table></figure></div><br>在上面的例子中，预处理器首次处理 header1.h 并遇到#ifndef 后，发现宏 HEADER1<em>H</em>还未定义，因此继续处理（定义了HEADER1<em>H</em>）。在预处理器进入包含的header2.h中，又包含了header1.h，此时进入header1.h时由于一开始已经定义了宏 HEADER1<em>H</em>，则不会触发#ifndef条件，则函数不会继续包含一次header2.h，这样就避免了多次包含的递归问题。</p>
+<h2 id="使用-define-编写宏函数"><a href="#使用-define-编写宏函数" class="headerlink" title="使用#define 编写宏函数"></a>使用#define 编写宏函数</h2><p>使用 #define 预处理指令定义宏函数，指定宏名和宏体（替换文本）。宏体可以是任意有效的C++代码片段，包括表达式、语句、甚至是其他宏。宏函数的优点是在预处理阶段进行替换，避免了函数调用的开销，从而提高了执行效率。但宏函数也有一些缺点和注意事项：</p>
+<ol>
+<li>宏函数是简单的文本替换，没有类型检查和作用域，可能导致不符合预期的结果</li>
+<li>宏函数不会进行代码块的花括号 {} 包裹</li>
+<li>使用宏函数时需要注意表达式的正确性和括号的使用，以避免优先级和运算顺序带来的问题，这也是在定义宏函数中使用大量括号的原因，如下面这个定义计算圆面积的宏函数：</li>
+</ol>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">#define AREA_CIRCLE(r) (PI*(r)*(r))</span><br><span class="line">//如果省略部分括号变为(PI*r*r)，则在输入r=4+6时可能会出现计算错误的问题，因为宏只是简单的文本替换</span><br></pre></td></tr></table></figure></div>
+<h2 id="使用-assert-宏验证表达式"><a href="#使用-assert-宏验证表达式" class="headerlink" title="使用 assert 宏验证表达式"></a>使用 assert 宏验证表达式</h2><p>在使用assert前记得要#include<assert.h>！</assert.h></p>
+<p>下面是使用assert的语法：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert (expression that evaluates to true or false);</span><br></pre></td></tr></table></figure></div><br>可使用 assert 对函数的输入参数进行验证,从而在调试的过程中快速的找到一些错误，这与python的assert类似</p>
+<h1 id="模板"><a href="#模板" class="headerlink" title="模板"></a>模板</h1><p>C++的模板（Templates）是一种泛型编程的特性，它允许编写通用的代码，可以用于处理多种不同的数据类型，而无需为每种数据类型编写重复的代码。模板在C++中被广泛应用于容器类（例如STL中的vector、list等）、算法（例如STL中的sort、find等）、函数和类的设计等场景，使得代码更加灵活和可重用。</p>
+<p>模板的工作原理是在编译时根据模板参数生成特定类型的函数或类的实例化代码。在实际使用中，通过传递不同的数据类型作为模板参数，编译器会根据模板参数生成对应类型的具体代码。</p>
+<p>在C++中有两种类型的模板：</p>
+<ol>
+<li>函数模板（Function Templates）：用于定义通用的函数，可以处理多种类型的参数。函数模板通过使用template关键字和模板参数来定义。</li>
+<li>类模板（Class Templates）：用于定义通用的类，可以适用于多种数据类型。类模板通过使用template关键字和模板参数来定义。<br>无论是哪种类型，都是以关键字template打头，然后是类型参数列表。</li>
+</ol>
+<h2 id="各种类型的模板声明"><a href="#各种类型的模板声明" class="headerlink" title="各种类型的模板声明"></a>各种类型的模板声明</h2><p>模板声明可以是：</p>
+<ol>
+<li>函数的声明或定义；</li>
+<li>类的定义或声明；</li>
+<li>类模板的成员函数或成员类的声明或定义；</li>
+<li>类模板的静态数据成员的定义；</li>
+<li>嵌套在类模板中的类的静态数据成员的定义；</li>
+<li>类或类模板的成员模板的定义</li>
+</ol>
+<h2 id="模板函数"><a href="#模板函数" class="headerlink" title="模板函数"></a>模板函数</h2><p>如果要编写一个适用于不同类型参数的函数，则可以使用模板，下面是一个声明模板的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename objType&gt; </span><br><span class="line">const objType&amp; GetMax(const objType&amp; value1, const objType&amp; value2) </span><br><span class="line">&#123; </span><br><span class="line"> if (value1 &gt; value2) </span><br><span class="line"> return value1; </span><br><span class="line"> else </span><br><span class="line"> return value2; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>在上面的例子中，使用template定义了一个模板，该模板接收的模板参数为objType，然后定义了一个const类型的常量引用（使用常量引用避免了参数传递时的数据拷贝。如果不使用引用，而是使用普通的值传递，将会复制整个对象的内容到函数的形参中，这对于大型对象或复杂数据结构来说可能会非常耗时和占用内存。而使用常量引用，只是传递对象的地址，不会复制整个对象的内容，因此可以提高函数的执行效率。）函数模板”const objType&amp; GetMax(const objType&amp; value1, const objType&amp; value2) “，定义完模板后，便可以像下面的示例代码一样使用：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int num1 = 25; </span><br><span class="line">int num2 = 40; </span><br><span class="line">int maxVal = GetMax &lt;int&gt; (num1, num2); </span><br><span class="line">double double1 = 1.1; </span><br><span class="line">double double2 = 1.001; </span><br><span class="line">double maxVal = GetMax &lt;double&gt;(double1, double2);</span><br></pre></td></tr></table></figure></div><br>在上面的代码中，使用<int>会将模板参数 objType 指定为 int，即令函数模板变为：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const int&amp; GetMax(const int&amp; value1, const int&amp; value2) </span><br><span class="line">&#123; </span><br><span class="line"> if (value1 &gt; value2) </span><br><span class="line"> return value1; </span><br><span class="line"> else </span><br><span class="line"> return value2; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>然而，实际上调用模板函数时并非一定要指定类型，编译器会根据传入的数值调用不同类型的模板，但要注意的是，上面的这段函数传入时数据类型要一致，否则编译器会产生一个编译错误。这是因为 C++ 中不同的数据类型之间通常不能直接进行比较运算。</int></p>
+<h2 id="模板类"><a href="#模板类" class="headerlink" title="模板类"></a>模板类</h2><p>在模板函数中，可以不指定类型的调用模板函数，但是对于模板类，则需要显式的声明。</p>
+<p>模板参数列表包含多个参数，参数之间用逗号分隔，因此，可以声明一个带有多个参数的模板类型，并且指定默认类型，下面是一个包含两个成员属性的模板类的示例代码：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"> #include &lt;iostream&gt; </span><br><span class="line"> using namespace std; </span><br><span class="line"> </span><br><span class="line"> // template with default params: int &amp; double </span><br><span class="line"> template &lt;typename T1=int, typename T2=double&gt; </span><br><span class="line"> class HoldsPair </span><br><span class="line"> &#123; </span><br><span class="line"> private: </span><br><span class="line">   T1 value1; </span><br><span class="line">   T2 value2; </span><br><span class="line"> public: </span><br><span class="line">   HoldsPair(const T1&amp; val1, const T2&amp; val2) // constructor </span><br><span class="line">   : value1(val1), value2(val2) &#123;&#125; </span><br><span class="line"> </span><br><span class="line"> // Accessor functions </span><br><span class="line">   const T1 &amp; GetFirstValue () const </span><br><span class="line">   &#123; </span><br><span class="line">    return value1; </span><br><span class="line">   &#125; </span><br><span class="line"> </span><br><span class="line">   const T2&amp; GetSecondValue () const </span><br><span class="line">   &#123; </span><br><span class="line">    return value2; </span><br><span class="line">   &#125; </span><br><span class="line"> &#125;; </span><br><span class="line"> </span><br><span class="line"> int main ()</span><br><span class="line">  &#123; </span><br><span class="line">    HoldsPair&lt;&gt; pairIntDbl (300, 10.09); </span><br><span class="line">    HoldsPair&lt;short,const char*&gt;pairShortStr(25,&quot;Learn templates, love C++”); </span><br><span class="line">    //在此处实例化了模板</span><br><span class="line">    cout &lt;&lt; &quot;The first object contains -&quot; &lt;&lt; endl; </span><br><span class="line">    cout &lt;&lt; &quot;Value 1: &quot; &lt;&lt; pairIntDbl.GetFirstValue () &lt;&lt; endl; </span><br><span class="line">    cout &lt;&lt; &quot;Value 2: &quot; &lt;&lt; pairIntDbl.GetSecondValue () &lt;&lt; endl; </span><br><span class="line"> </span><br><span class="line">    cout &lt;&lt; &quot;The second object contains -&quot; &lt;&lt; endl; </span><br><span class="line">    cout &lt;&lt; &quot;Value 1: &quot; &lt;&lt; pairShortStr.GetFirstValue () &lt;&lt; endl; </span><br><span class="line">    cout &lt;&lt; &quot;Value 2: &quot; &lt;&lt; pairShortStr.GetSecondValue () &lt;&lt; endl; </span><br><span class="line"> </span><br><span class="line">    return 0; </span><br><span class="line">  &#125;</span><br><span class="line">//输出结果：</span><br><span class="line">    The first object contains - </span><br><span class="line">    Value 1: 300 </span><br><span class="line">    Value 2: 10.09 </span><br><span class="line">    The second object contains - </span><br><span class="line">    Value 1: 25 </span><br><span class="line">    Value 2: Learn templates, love C++</span><br></pre></td></tr></table></figure></div><br>上面的示例演示了如何声明模板类 HoldsPair 来存储两个值，这两个值的类型取决于模板的参数列表。第 1 行有一个模板参数列表，它定义了两个参数（T1 和 T2），这两个参数的默认类型分别为 int<br>和 double。存取器函数 GetFirstValue ()和 GetSecondValue()用于查询对象的值，它们将根据模板实例化语法返回正确的对象类型。HoldsPair 定义了一种模式，可通过重用该模式针对不同的变量类型实现相同的逻辑。因此，使用模板可提高代码的可复用性。</p>
+<p>在上面的代码中，main函数通过HoldsPair<short,const char*>pairShortStr(25,”Learn templates, love C++”);实例化了类，这个过程就是实例化模板，但是在有些情况下，使用特定的类型实例化模板时，需要显式地指定不同的行为。这就是<br>具体化模板，具体化模板的代码必须在模板定义后面。下面是一个具体化模板的示例：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">T add(T a, T b) &#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;Generic add()&quot; &lt;&lt; std::endl;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 模板具体化：特殊处理 char 类型的相加</span><br><span class="line">template &lt;&gt;</span><br><span class="line">char add(char a, char b) &#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;Specific add() for char&quot; &lt;&lt; std::endl;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    int intResult = add(5, 10);     // 实例化为 int 类型的函数：int add(int, int)</span><br><span class="line">    double doubleResult = add(2.5, 3.5); // 实例化为 double 类型的函数：double add(double, double)</span><br><span class="line"></span><br><span class="line">    char charResult = add(&#x27;A&#x27;, &#x27;B&#x27;); // 使用模板具体化：char add(char, char)</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; &quot;Int Result: &quot; &lt;&lt; intResult &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; &quot;Double Result: &quot; &lt;&lt; doubleResult &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; &quot;Char Result: &quot; &lt;&lt; charResult &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>在上面的例子中，程序为特定类型 char 提供了一个模板具体化（即针对char类做出不同于通用类型的操作，在这里是输出”Specific add() for char”）。在具体化版本的函数中，实现了特定的相加操作，并输出了不同于通用版本的消息。</short,const></p>
+<p>当程序调用 add(‘A’, ‘B’) 时，由于参数类型是 char，编译器会优先匹配模板具体化版本，而不是通用的模板。这样，输出将是 “Specific add() for char”，并且返回 A + B 的结果。</p>
+<h2 id="模板类和静态成员"><a href="#模板类和静态成员" class="headerlink" title="模板类和静态成员"></a>模板类和静态成员</h2><p>模板类的静态成员由特定具体化的所有实例共享，也就是说，如果模板类包含静态成员，该成员将在针对 int 具体化的所有实例之间共享；同样，它还将在针对 double 具体化的所有实例之间共享，且与针对 int 具体化的实例无关。</p>
+<p>换句话说，可以认为编译器创建了两个版本的 x：x_int 用于针对 int 具体化的实例，而 x_double 针对 double 具体化的实例，下面是一个静态成员对模板类和实例的影响的示例代码：<br><img src="/2023/07/21/%E5%AE%8F%E5%92%8C%E6%A8%A1%E6%9D%BF/%E9%9D%99%E6%80%81%E7%9B%AE%E6%A0%87.png" alt="静态成员模板"></p>
+<p>在main函数中，分别为针对 int 和 double 的模板具体化设置了成员 staticVal。输出表明，编译器<br>在两个不同的静态成员中存储了两个不同的值，但这两个静态成员都名为 staticVal。也就是说，对于针<br>对每种类型具体化的类，编译器确保其静态变量不受其他类的影响，template<typename t> int TestStatic<T>::staticVal;这一行用于初始化模板类的静态成员，通用的初始化语法如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">template&lt;template parameters&gt; StaticType </span><br><span class="line">ClassName&lt;Template Arguments&gt;::StaticVarName;</span><br></pre></td></tr></table></figure></div></T></typename></p>
+<h2 id="参数数量可变的模板"><a href="#参数数量可变的模板" class="headerlink" title="参数数量可变的模板"></a>参数数量可变的模板</h2><p>C++11引入了参数数量可变的模板（Variadic Templates）特性，允许在模板中接受可变数量的参数，从而使模板更加灵活和通用。</p>
+<p>参数数量可变的模板的基本语法是使用三个点号’…’ 来表示参数包（Parameter Pack）。在模板参数列表中，可以将一个参数包（即一个参数的集合）放在末尾位置，并用’…’表示。然后在模板定义中，可以使用 sizeof’…’ 操作符获取参数包中的参数数量，以及通过展开参数包的方式处理其中的参数。下面是一个示例：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">// 递归终止版本</span><br><span class="line">void print() &#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;No arguments.&quot; &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 可变参数版本</span><br><span class="line">template&lt;typename T, typename... Args&gt;</span><br><span class="line">void print(T value, Args... args) &#123;</span><br><span class="line">    std::cout &lt;&lt; &quot;Argument: &quot; &lt;&lt; value &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; &quot;Remaining arguments count: &quot; &lt;&lt; sizeof...(args) &lt;&lt; std::endl;</span><br><span class="line">    print(args...); // 递归调用处理剩余参数</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    print(1, 2.5, &quot;Hello&quot;, &#x27;A&#x27;);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div><br>在上述例子中，程序定义了一个可变参数函数模板 ‘print’。函数模板有两个版本：一个是递归终止版本，用于处理不带参数的情况，另一个是可变参数版本（接受一个 T 类型的参数 value 和一个参数包 Args… args。），用于处理带参数的情况。</p>
+<p>在 print 函数模板的实现中，程序首先输出当前参数 value，然后通过递归调用 print(args…) 处理剩余的参数，同时使用 sizeof… 操作符输出剩余参数包中的参数数量。由于参数数量可变，递归调用会不断展开参数包，直到参数包为空，即调用了递归终止版本，结束递归。</p>
+<p>在 main 函数中，调用 print 函数模板并传入不同类型和数量的参数。编译器会根据实际调用的参数推导模板参数类型，并生成相应的函数实例。</p>
+<p>通过支持参数数量可变的模板，C++还打开了支持元组的大门。std::tuple 就是实现元组的模板类，可使用任意数量的元素来实例化这个模板类，其中每个元素都可为任何类型。要访问这些元素，可使用标准库函数 std::get，下面是实例化并使用 std::tuple的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;tuple&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    // 创建一个 std::tuple 包含不同类型的元素</span><br><span class="line">    std::tuple&lt;int, double, std::string&gt; myTuple(42, 3.14, &quot;Hello&quot;);</span><br><span class="line"></span><br><span class="line">    // 使用 std::get 访问元素，并打印</span><br><span class="line">    std::cout &lt;&lt; &quot;First element: &quot; &lt;&lt; std::get&lt;0&gt;(myTuple) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; &quot;Second element: &quot; &lt;&lt; std::get&lt;1&gt;(myTuple) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; &quot;Third element: &quot; &lt;&lt; std::get&lt;2&gt;(myTuple) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    // 修改元素的值</span><br><span class="line">    std::get&lt;0&gt;(myTuple) = 100;</span><br><span class="line">    std::get&lt;2&gt;(myTuple) = &quot;World&quot;;</span><br><span class="line"></span><br><span class="line">    // 再次打印修改后的元素</span><br><span class="line">    std::cout &lt;&lt; &quot;First element (modified): &quot; &lt;&lt; std::get&lt;0&gt;(myTuple) &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; &quot;Third element (modified): &quot; &lt;&lt; std::get&lt;2&gt;(myTuple) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//程序输出结果：</span><br><span class="line">First element: 42</span><br><span class="line">Second element: 3.14</span><br><span class="line">Third element: Hello</span><br><span class="line">First element (modified): 100</span><br><span class="line">Third element (modified): World</span><br></pre></td></tr></table></figure></div></p>
+<p>在上述示例中，首先创建了一个 std::tuple，其中包含一个 int 类型的元素、一个 double 类型的元素和一个 std::string 类型的元素。然后可以使用 std::get 函数来访问元素，并对元素进行读写操作。</p>
+<p>std::get<index>(tuple) 函数用于访问 tuple 中的元素，其中 index 表示元素的索引，从 0 开始计数。例如，std::get<0>(myTuple) 获取第一个元素，即整数 42。</0></index></p>
+<p>注意，std::tuple 的元素是在编译时确定类型的，因此可以在一个 std::tuple 中包含不同类型的元素。而且，元素的类型可以是任何合法的 C++ 类型，包括用户自定义类型。这使得 std::tuple 在某些情况下非常有用，例如返回多个值的函数或需要将多个值组合在一起传递的情况。</p>
+<p>下面给出另一个关于std::tuple的例子：<br><img src="/2023/07/21/%E5%AE%8F%E5%92%8C%E6%A8%A1%E6%9D%BF/tuple.png" alt="tuple"></p>
+<p>在上面的例子中，第15、18 和 21 行实例化了三个 std::tuple：tup1 包含三个成员，一个 int、一个 char 和一个 std::string；tup2 包含一个 double 成员和一个 bool 成员，它还通过关键字 auto 使用了编译器的类型自动推断功能；tup3实际上是一个包含 5 个成员的元素，它们的类型分别为 double、bool、int、char 和 string，这是使用模<br>板函数 std::tuple_cat 拼接的结果。</p>
+<p>第 5～14 行的模板函数 DisplayTupleInfo()演示了如何使用 tuple_size，它在编译阶段获得特定的<br>std::tuple 实例化包含的元素数。第 10 行使用的 std::get 是一种访问元组中各个元素的机制，它使用从零开始的索引。最后，第 26 行的 std::tie 演示了如何将元组的内容拆封（复制）到对象中。我们使用了std::ignore 让 tie 忽略不感兴趣的元组成员。</p>
+<h2 id="使用-static-assert-执行编译阶段检查"><a href="#使用-static-assert-执行编译阶段检查" class="headerlink" title="使用 static_assert 执行编译阶段检查"></a>使用 static_assert 执行编译阶段检查</h2><p>与assert宏类似，在调试阶段可以通过assert对程序进行检查，在不满足指定条件时禁止编译。如要禁止针对类型 int 实例化模板类，可使用 static_assert( )，并将 sizeof(T)与 sizeof(int)进行比较，<br>如果它们相等，就显示一条错误消息：<br>static_assert(sizeof(T) != sizeof(int), “No int please!”);</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++学习笔记：宏和模板</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-21 17:01:23</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-21 17:02:48
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/21/宏和模板/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/20/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：类型转换</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">C++学习笔记：宏和模板</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8F"><span class="nav-text">宏</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-define-%E5%AE%9A%E4%B9%89%E5%B8%B8%E9%87%8F"><span class="nav-text">使用#define 定义常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%8F%E9%81%BF%E5%85%8D%E5%A4%9A%E6%AC%A1%E5%8C%85%E5%90%AB"><span class="nav-text">使用宏避免多次包含</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-define-%E7%BC%96%E5%86%99%E5%AE%8F%E5%87%BD%E6%95%B0"><span class="nav-text">使用#define 编写宏函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-assert-%E5%AE%8F%E9%AA%8C%E8%AF%81%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">使用 assert 宏验证表达式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF"><span class="nav-text">模板</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%84%E7%A7%8D%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%A8%A1%E6%9D%BF%E5%A3%B0%E6%98%8E"><span class="nav-text">各种类型的模板声明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E5%87%BD%E6%95%B0"><span class="nav-text">模板函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E7%B1%BB"><span class="nav-text">模板类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E7%B1%BB%E5%92%8C%E9%9D%99%E6%80%81%E6%88%90%E5%91%98"><span class="nav-text">模板类和静态成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E6%95%B0%E9%87%8F%E5%8F%AF%E5%8F%98%E7%9A%84%E6%A8%A1%E6%9D%BF"><span class="nav-text">参数数量可变的模板</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-static-assert-%E6%89%A7%E8%A1%8C%E7%BC%96%E8%AF%91%E9%98%B6%E6%AE%B5%E6%A3%80%E6%9F%A5"><span class="nav-text">使用 static_assert 执行编译阶段检查</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
