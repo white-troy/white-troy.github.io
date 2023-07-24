@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/24/标准模板库/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="标准模板库简介C++的标准模板库（Standard Template Library，STL）是C++标准库的一个重要组成部分，它为开发人员提供了一组通用的模板类和函数，用于处理常见的数据结构和算法。STL是C++标准的核心部分，包含三个主要组件：容器，算法和迭代器 STL容器STL提供了多种容器类，用于存储和管理数据。常见的容器有：vector（动态数组）、list（双向链表）、deque（双端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习笔记：模板库（1）">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/24/%E6%A0%87%E5%87%86%E6%A8%A1%E6%9D%BF%E5%BA%93/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="标准模板库简介C++的标准模板库（Standard Template Library，STL）是C++标准库的一个重要组成部分，它为开发人员提供了一组通用的模板类和函数，用于处理常见的数据结构和算法。STL是C++标准的核心部分，包含三个主要组件：容器，算法和迭代器 STL容器STL提供了多种容器类，用于存储和管理数据。常见的容器有：vector（动态数组）、list（双向链表）、deque（双端">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-24T08:42:33.849Z">
+<meta property="article:modified_time" content="2023-07-24T08:42:06.032Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++学习笔记：模板库（1） -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">C++学习笔记：模板库（1）</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv2</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-24 16:42:33</span>
+        <span class="mobile">2023-07-24 16:42</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-24 16:42:06</span>
+            <span class="mobile">2023-07-24 16:42</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h1 id="标准模板库简介"><a href="#标准模板库简介" class="headerlink" title="标准模板库简介"></a>标准模板库简介</h1><p>C++的标准模板库（Standard Template Library，STL）是C++标准库的一个重要组成部分，它为开发人员提供了一组通用的模板类和函数，用于处理常见的数据结构和算法。STL是C++标准的核心部分，包含三个主要组件：容器，算法和迭代器</p>
+<h2 id="STL容器"><a href="#STL容器" class="headerlink" title="STL容器"></a>STL容器</h2><p>STL提供了多种容器类，用于存储和管理数据。常见的容器有：vector（动态数组）、list（双向链表）、deque（双端队列）、set（集合）、map（映射表）等。STL提供了顺序容器和关联容器两种类型，这两种容器用于不同的数据储存和访问方式。另外，STL还提供了容器适配器的类，是顺序容器和关联容器的变种，包含的功能有限，用于满足特殊的需求。</p>
+<h3 id="概念补充：复杂度"><a href="#概念补充：复杂度" class="headerlink" title="概念补充：复杂度"></a>概念补充：复杂度</h3><p>复杂度用于衡量算法或数据结构的性能和效率，主要分为时间复杂度和空间复杂度两种,好的算法应该具备时间效率高和存储量低的特点</p>
+<h4 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h4><p>时间复杂度衡量算法在执行时所需的时间资源，即运行当前程序（通常指代的是算法（该算法说的是操作数据，解决程序问题的方法，不仅仅指代AI算法））所需要消耗的时间。通常使用大 O 表示法（Big O Notation）来表示时间复杂度。大 O 表示法表示算法的最坏情况下的执行时间与输入规模 n 的增长率之间的关系。常见的时间复杂度有：</p>
+<p>1.O(1),常数复杂度：表示算法的执行时间与输入规模无关，执行时间恒定。无论代码执行了多少行，只要是没有循环等复杂结构，那这个代码的时间复杂度就都是O(1)，示例代码：</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">int i = 1;</span><br><span class="line">int j = 2;</span><br><span class="line">++i;</span><br></pre></td></tr></table></figure></div>
+<p>2.O(log n),对数复杂度：表示算法的执行时间随着输入规模 n 的增长而增长，但增长速率相对较慢。示例代码：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int 1 =1;</span><br><span class="line">while(i&lt;n)&#123;</span><br><span class="line">    i = i*2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>在上面的这段代码中，i每次乘完2都离n越来越近，当执行x次后i大于等于n，此时退出循环，即2^x=n，则x=nlog2，也就是执行nlog2次后，代码结束了，因此时间复杂度为O(logn)</p>
+<p>3.O(n),线性复杂度：表示算法的执行时间与输入规模 n 成线性关系，增长速率与输入规模相同。示例代码：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for(i=1;i&lt;n;i++)&#123;</span><br><span class="line">    j=i;</span><br><span class="line">    j++k</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>在上面这段代码中，for循环会执行n遍，所以时间复杂度是O(N)</p>
+<p>4.O(n logn),线性对数复杂度：表示算法的执行时间随着输入规模 n 的增长而稍微快于线性增长。示例代码如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for(m=1;m&lt;n;m++)&#123;</span><br><span class="line">    int 1 =1;</span><br><span class="line">    while(i&lt;n)&#123;</span><br><span class="line">        i = i*2;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>在上面的这段代码中，for循环的复杂度为O(n),此时对数复杂度while会执行n次，这就是线性对数复杂度。<br>5.O(n^2),平方复杂度：表示算法的执行时间随着输入规模 n 的增长而成平方关系。如在for的内部再嵌套一层for:<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">for(x=1; i&lt;=n; x++)&#123;</span><br><span class="line">    for(i=1; i&lt;=n; i++)&#123;</span><br><span class="line">        j = i;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>6.O(2^n),指数复杂度：表示算法的执行时间随着输入规模 n 的增长而成指数关系，增长速率非常快。如使用递归的方式计算斐波那契数列第n项的值(每次递归都会产生两个新的递归调用)：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">int fibonacci(int n) &#123;</span><br><span class="line">    if (n &lt;= 0) return 0;</span><br><span class="line">    if (n == 1) return 1;</span><br><span class="line">    return fibonacci(n - 1) + fibonacci(n - 2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h4><p>空间复杂度衡量算法在执行时所需的额外内存空间。通常使用大 O 表示法来表示空间复杂度，表示算法所需的额外空间与输入规模 n 的增长率之间的关系。</p>
+<p>空间复杂度与时间复杂度类似，也有常数空间复杂度 O(1) 和线性空间复杂度 O(n) 等。在使用空间时，需要注意算法是否创建了新的数据结构或临时变量来存储数据，这些都会影响空间复杂度。</p>
+<h3 id="顺序容器"><a href="#顺序容器" class="headerlink" title="顺序容器"></a>顺序容器</h3><p>顺序容器是一种线性存储数据的容器（如数组和链表），元素的排列顺序与它们被插入的顺序一致。这些容器允许通过位置或迭代器来访问元素，可以随机访问其中的元素，具有插入速度快但查找相对较慢，适用于需要频繁随机访问的场景。</p>
+<p>常见的顺序容器有：</p>
+<ol>
+<li>std::vector：操作与动态数组一样，支持随机访问和动态增减元素</li>
+<li>std::list: 操作与双向链表类似，内部使用双向链表的数据结构来存储数据，支持快速的插入和删除操作，但不支持随机访问</li>
+<li>std::deque: 双端队列，支持随机访问和在头尾进行快速的插入和删除操作，但不支持随机访问</li>
+<li>std::forward_list: 类似于std::list，但是是一个单向的链表，只能沿一个方向遍历</li>
+<li>补充： 在链表中，元素之间的相对位置是由指针来维护的，而不是通过元素的索引。这意味着链表不支持直接的随机访问，即不能像数组或 std::vector 那样通过索引快速访问元素。如果需要访问链表中的第N个元素，需要从链表头或尾开始逐个遍历节点，直到达到目标位置。因此，链表的访问时间复杂度是O(N)，其中N是目标位置的索引。</li>
+</ol>
+<h3 id="关联容器"><a href="#关联容器" class="headerlink" title="关联容器"></a>关联容器</h3><p>关联容器是一种基于键（Key）的数据结构，每个元素都有一个唯一的键值，根据这个键值可以快速检索和访问元素。关联容器使用树结构（如红黑树）来组织数据，因此对于大规模数据的查找操作具有较好的性能。关联容器中的元素是按照键值有序存储的。</p>
+<p>常见的关联容器有：</p>
+<ol>
+<li>std::set：存储各不相同的值，在插入时进行排序；容器的复杂度为对数。无重复元素的集合，元素按照键值对有序存储</li>
+<li>std::unordered_set：存储各不相同的值，在插入时进行排序；容器的复杂度为常数。这种容器是 C++11 新增的。</li>
+<li>std::map：存储键-值对，并根据唯一的键排序（按照键值有序存储）；容器的复杂度为对数。</li>
+<li>std::unordered_map：存储键-值对，并根据唯一的键排序；容器的复杂度为对数。这种容器是<br>C++11 新增的。</li>
+<li>std::multiset：与 set 类似，但允许存储多个值相同的项，即值不需要是唯一的（允许重复元素）。元素按照键值对有序存储</li>
+<li>std::unordered_multiset：与 unordered_set 类似，但允许存储多个值相同的项，即值不需要是唯一的。这种容器是 C++11 新增的。</li>
+<li>std::multimap：与 map 类似，但不要求键是唯一的。按照键值有序存储</li>
+<li>std::unordered_multimap：与 unordered_map 类似，但不要求键是唯一的。这种容器是 C++11新增的。</li>
+</ol>
+<h3 id="容器适配器"><a href="#容器适配器" class="headerlink" title="容器适配器"></a>容器适配器</h3><p>容器适配器（Container Adapters）是C++标准模板库（STL）提供的一种特殊类型的容器，它们是通过对其他STL容器进行封装和适配而创建的。容器适配器允许使用不同的接口来访问已有容器的功能，从而方便地实现特定功能或实现不同的数据结构。主要有以下三种常见的适配器：</p>
+<ol>
+<li>std::stack：std::stack 是一个基于某个已有容器的适配器，它提供了栈（stack）的功能，即先进后出（Last-In-First-Out，LIFO）的数据结构，亦可在栈顶插入和删除元素。默认情况下，std::stack 使用 std::deque 作为其底层容器，但也可以通过指定其他容器类型来实现不同的底层数据结构。</li>
+<li>std::queue：std::queue 是另一个基于已有容器的适配器，它提供了队列（queue）的功能，即先进先出（First-In-First-Out，FIFO）的数据结构，可以删除最先插入的元素。默认情况下，std::queue 使用 std::deque 作为其底层容器，但同样也可以通过指定其他容器类型来实现不同的底层数据结构。</li>
+<li>std::priority_queue：std::priority_queue 是一个基于已有容器的适配器，它提供了优先队列（priority queue）的功能，即能够按照元素的优先级进行插入和弹出。默认情况下，std::priority_queue 使用 std::vector 作为其底层容器，但同样也可以通过指定其他容器类型来实现不同的底层数据结构。</li>
+</ol>
+<h2 id="STL迭代器"><a href="#STL迭代器" class="headerlink" title="STL迭代器"></a>STL迭代器</h2><p>STL迭代器（Iterator）是一种通用的接口，用于在STL容器中遍历和访问元素，而无需关心容器的具体类型和实现细节。迭代器提供了一种统一的方法来访问容器中的元素，使得算法可以在不关心容器类型的情况下工作，从而增加了代码的灵活性和可重用性。</p>
+<p>STL中的每个容器都有自己的迭代器类型，它们的特性和行为可能会有所不同，但在使用时，它们遵循相同的接口规范。迭代器通常支持以下操作：</p>
+<ol>
+<li>解引用（Dereferencing）：通过 * 运算符获取迭代器所指向的元素的值</li>
+<li>移动（Advancing）：通过 ++ 运算符将迭代器指向下一个元素。</li>
+<li>比较（Comparing）：通过 ==、!= 等运算符比较两个迭代器是否相等。</li>
+<li>访问容器成员函数：某些迭代器还可以通过特定的成员函数访问容器的元素，例如 -&gt; 运算符用于访问指向对象的成员。</li>
+</ol>
+<p>STL 中的迭代器是模板类，从某种程度上说，它们是泛型指针，最简单的迭代器是指针，给定一个指向数组中的第一个元素的指针，可递增该指针使其指向下一个元素，还可直接对当前位置的元素进行操作。STL提供的迭代器可以分为输入迭代器和输出迭代器两种。</p>
+<ol>
+<li>输入迭代器：通过对输入迭代器解除引用，它将引用对象，而对象可能位于集合中。最严格的输入迭代器确保只能以只读的方式访问对象。</li>
+<li>输出迭代器：输出迭代器让程序员对集合执行写入操作。最严格的输出迭代器确保只能执行写入操作。</li>
+</ol>
+<p>这两种基本迭代器可以进一步分为前项迭代器，双徐昂迭代器和随机访问迭代器这三类：</p>
+<ol>
+<li>前向迭代器：这是输入迭代器和输出迭代器的一种细化，它允许输入与输出。前向迭代器可以是 const 的，只能读取它指向的对象；也可以改变对象，即可读写对象。前向迭代器通常用于单向链表。</li>
+<li>双向迭代器：这是前向迭代器的一种细化（可以视为继承或者具体化），可对其执行递减操作，从而向后移动。双向迭代器通常用于双向链表。</li>
+<li>随机访问迭代器：这是对双向迭代器的一种细化，可将其加减一个偏移量，还可将两个迭代器相减以得到集合中两个元素的相对距离。随机访问迭代器通常用于数组。</li>
+</ol>
+<h2 id="STL算法"><a href="#STL算法" class="headerlink" title="STL算法"></a>STL算法</h2><p>STL（标准模板库）提供了丰富的基本算法，这些算法是对通用的数据结构和容器的操作。这些算法是通过迭代器来工作的，使得它们能够在不同类型的容器上通用使用，从而提高了代码的灵活性和可重用性。以下是一些常见的STL基本算法：</p>
+<ol>
+<li>std::find(): 在容器中查找指定值的元素，返回一个指向第一个匹配元素的迭代器，如果未找到，则返回末尾迭代器。</li>
+<li>std::sort(): 对容器中的元素进行排序，默认按照升序进行排序，可以通过自定义比较函数来实现其他排序方式。</li>
+<li>std::reverse(): 将容器中的元素逆序排列。</li>
+<li>std::copy(): 将一个容器中的元素复制到另一个容器中。</li>
+<li>std::max_element() 和 std::min_element(): 分别查找容器中的最大和最小元素，返回指向它们的迭代器。</li>
+<li>std::count(): 计算容器中指定值的元素个数。</li>
+<li>std::accumulate(): 对容器中的元素进行累积操作，例如求和。</li>
+<li>std::for_each(): 对容器中的每个元素执行指定操作。</li>
+<li>std::transform(): 对容器中的元素进行转换，并将结果存储到另一个容器中。</li>
+<li>std::remove(): 在容器中删除指定值的元素，返回一个指向新的结尾的迭代器。</li>
+<li>std::unique(): 在容器中移除相邻的重复元素，返回一个指向新的结尾的迭代器。</li>
+</ol>
+<p>以下是一个使用std::vector储存一些整数，然后使用std::find来查找的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;algorithm&gt; // 包含 std::find 算法的头文件</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    // 创建一个存储整数的 std::vector 容器</span><br><span class="line">    std::vector&lt;int&gt; numbers = &#123;10, 20, 30, 40, 50&#125;;</span><br><span class="line">    // 在numbers中插入一个新元素</span><br><span class="line">    numbers.push_back(60);</span><br><span class="line">    // 在容器中查找整数 30</span><br><span class="line">    int target = 30;</span><br><span class="line">    std::vector&lt;int&gt;::iterator it = std::find(numbers.begin(), numbers.end(), target);</span><br><span class="line"></span><br><span class="line">    // 检查是否找到目标整数</span><br><span class="line">    if (it != numbers.end()) &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;找到了整数 &quot; &lt;&lt; target &lt;&lt; &quot;，它在容器中的位置是 &quot; &lt;&lt; std::distance(numbers.begin(), it) &lt;&lt; std::endl;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;未找到整数 &quot; &lt;&lt; target &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>在上述代码中，程序创建一个 std::vector<int> 容器并初始化其中的整数。然后使用 std::find 算法来查找整数 30 是否在容器中。std::find 函数接受三个参数：容器的起始迭代器(begin())、容器的结束迭代器(end())和要查找的值。它会在容器中查找目标值，并返回一个指向找到元素的迭代器，如果未找到，则返回容器的结束迭代器。</int></p>
+<p>在本例中，程序查找整数 30 是否在 numbers 容器中，并使用迭代器 it 存储查找结果。然后检查迭代器 it 是否等于容器的结束迭代器 numbers.end()，如果不等于，则表示找到了目标整数，输出它在容器中的位置；如果等于，则表示未找到目标整数。</p>
+<p>在C++11中，可以将迭代器声明的变量类型声明为 auto，当使用auto声明变量时，编译器会根据等号右侧的表达式自动推断出变量的类型<br>下面是使用auto关键字声明迭代器的代码：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;algorithm&gt; // 包含 std::find 算法的头文件</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    // 创建一个存储整数的 std::vector 容器</span><br><span class="line">    std::vector&lt;int&gt; numbers = &#123;10, 20, 30, 40, 50&#125;;</span><br><span class="line"></span><br><span class="line">    // 在容器中查找整数 30</span><br><span class="line">    int target = 30;</span><br><span class="line">    auto it = std::find(numbers.begin(), numbers.end(), target); // 使用 auto 关键字声明迭代器变量</span><br><span class="line"></span><br><span class="line">    // 检查是否找到目标整数</span><br><span class="line">    if (it != numbers.end()) &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;找到了整数 &quot; &lt;&lt; target &lt;&lt; &quot;，它在容器中的位置是 &quot; &lt;&lt; std::distance(numbers.begin(), it) &lt;&lt; std::endl;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;未找到整数 &quot; &lt;&lt; target &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>在上面的代码中，编译器会根据 std::find 的返回值类型自动推导出 it 的类型，即 std::vector<int>::iterator。这样可以使代码更加简洁和易读。使用 auto 关键字适用于大多数情况下，但请注意确保初始化表达式具有明确的类型，以避免编译错误或意外的类型推导。</int></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++学习笔记：模板库（1）</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-24 16:42:33</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-24 16:42:06
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/24/标准模板库/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/07/24/%E6%A8%A1%E6%9D%BF%E5%BA%93string/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：模板库（2）：string类</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/21/%E5%AE%8F%E5%92%8C%E6%A8%A1%E6%9D%BF/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：宏和模板</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">C++学习笔记：模板库（1）</div>
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%A8%A1%E6%9D%BF%E5%BA%93%E7%AE%80%E4%BB%8B"><span class="nav-text">标准模板库简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#STL%E5%AE%B9%E5%99%A8"><span class="nav-text">STL容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%E8%A1%A5%E5%85%85%EF%BC%9A%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-text">概念补充：复杂度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8"><span class="nav-text">顺序容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%AE%B9%E5%99%A8"><span class="nav-text">关联容器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%B9%E5%99%A8%E9%80%82%E9%85%8D%E5%99%A8"><span class="nav-text">容器适配器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STL%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="nav-text">STL迭代器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STL%E7%AE%97%E6%B3%95"><span class="nav-text">STL算法</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

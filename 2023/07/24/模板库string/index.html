@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/24/模板库string/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="STL string类std::string 类属于C++标准库的头文件&lt; string &gt;，它在标准命名空间 std 中定义。使用 std::string 类需要包含 &lt; string &gt; 头文件，并在代码中使用 std::string 类型。 char和std::string处理字符串的区别在c++中，可以用char和char*来处理字符串，同样的，也可以用std::s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习笔记：模板库（2）：string类">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/24/%E6%A8%A1%E6%9D%BF%E5%BA%93string/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="STL string类std::string 类属于C++标准库的头文件&lt; string &gt;，它在标准命名空间 std 中定义。使用 std::string 类需要包含 &lt; string &gt; 头文件，并在代码中使用 std::string 类型。 char和std::string处理字符串的区别在c++中，可以用char和char*来处理字符串，同样的，也可以用std::s">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-24T13:49:16.777Z">
+<meta property="article:modified_time" content="2023-07-24T13:48:36.991Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++学习笔记：模板库（2）：string类 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">C++学习笔记：模板库（2）：string类</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv2</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-24 21:49:16</span>
+        <span class="mobile">2023-07-24 21:49</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-24 21:48:36</span>
+            <span class="mobile">2023-07-24 21:48</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="STL-string类"><a href="#STL-string类" class="headerlink" title="STL string类"></a>STL string类</h2><p>std::string 类属于C++标准库的头文件&lt; string &gt;，它在标准命名空间 std 中定义。使用 std::string 类需要包含 &lt; string &gt; 头文件，并在代码中使用 std::string 类型。</p>
+<h3 id="char和std-string处理字符串的区别"><a href="#char和std-string处理字符串的区别" class="headerlink" title="char和std::string处理字符串的区别"></a>char和std::string处理字符串的区别</h3><p>在c++中，可以用char和char*来处理字符串，同样的，也可以用std::string来处理，他们之间的区别如下：</p>
+<ol>
+<li>char 是 C++ 中的基本字符类型，用于表示一个单个字符。在内存中，char 类型通常占用一个字节（8位），可以表示 ASCII 字符集中的字符，范围是 -128 到 127 或 0 到 255（根据有无符号性而定）。如’char a = ‘A’’,在处理长字符串时，得通过char staticString[strlength]来处理，这个长度是静态的，无法调整静态数组的长度</li>
+<li>char<em> 是指向字符的指针类型，也称为 C 风格字符串（C-style string）或字符数组,在 C++ 中，char</em> 通常用于表示以空字符 ‘\0’ 结尾的字符序列，即以空字符为字符串的结束标志。如’char<em> str = “Hello”‘，可以通过 char</em> dynamicString = new char [strlength]来获得一个动态分配的字符数组，但是如果要在运行阶段改变数组长度，则必须先释放内存，在重新分配内存</li>
+<li>std::string 是 C++ 标准库中提供的字符串类，是一种动态字符串类型，用于表示可变长度的字符串。std::string 封装了字符序列，并提供了丰富的成员函数来方便地进行字符串操作。它可以自动处理字符串的内存管理，不需要手动分配或释放内存。STL 字符串类 std::string 和 std::wstring 分别模拟了普通字符串和宽字符串</li>
+</ol>
+<h2 id="使用string类"><a href="#使用string类" class="headerlink" title="使用string类"></a>使用string类</h2><p>最常用的字符串包括：复制，连接，查找字符和子字符串，截短，使用STL来实现字符串反转和大小写转换，在使用string类时，必须包含头文件&lt; string &gt;</p>
+<h3 id="实例化和复制STL-string"><a href="#实例化和复制STL-string" class="headerlink" title="实例化和复制STL string"></a>实例化和复制STL string</h3><p>可以通过多种方式创建字符串对象，例如使用字符串字面值，字符数组，或其他字符串对象来初始化std::string：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::string str1 = &quot;Hello&quot;;         // 使用字符串字面值初始化</span><br><span class="line">std::string str2 = &quot;World&quot;;</span><br><span class="line">std::string str3 = str1 + &quot; &quot; + str2; // 字符串拼接</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="访问std-string的内容"><a href="#访问std-string的内容" class="headerlink" title="访问std::string的内容"></a>访问std::string的内容</h3><p>可以使用迭代器或者索引操作符’[]’来访问和修改字符串的内容，字符串的内容可以动态改变</p>
+<p>使用索引操作符’[]’访问字符串的代码如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string&gt; </span><br><span class="line">#include &lt;iostream&gt;  </span><br><span class="line"> int main () </span><br><span class="line"> &#123; </span><br><span class="line">    using namespace std; </span><br><span class="line"> </span><br><span class="line">    string stlString (&quot;Hello String&quot;); // sample  </span><br><span class="line">    // 声明使用索引操作符 </span><br><span class="line">    cout &lt;&lt; &quot;Display elements in string using array-syntax: &quot; &lt;&lt; endl; </span><br><span class="line">    for (size_t charCounter = 0; </span><br><span class="line">    charCounter &lt; stlString.length(); </span><br><span class="line">    ++ charCounter) //通过for循环来递增索引操作符的下标</span><br><span class="line">    &#123; </span><br><span class="line">        cout &lt;&lt; &quot;Character [&quot; &lt;&lt; charCounter &lt;&lt; &quot;] is: &quot;; </span><br><span class="line">        cout &lt;&lt; stlString [charCounter] &lt;&lt; endl; </span><br><span class="line">    &#125; </span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    // Access contents as a const char* </span><br><span class="line">    cout &lt;&lt; &quot;The char* representation of the string is: &quot;; </span><br><span class="line">    cout &lt;&lt; stlString.c_str () &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    return 0; </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></div><br>使用迭代器访问字符串的代码如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string&gt; </span><br><span class="line">#include &lt;iostream&gt;  </span><br><span class="line"> int main () </span><br><span class="line"> &#123; </span><br><span class="line">    using namespace std; </span><br><span class="line"> </span><br><span class="line">    string stlString (&quot;Hello String&quot;); // sample</span><br><span class="line">    // Access the contents of a string using iterators </span><br><span class="line">    cout &lt;&lt; &quot;Display elements in string using iterators: &quot; &lt;&lt; endl; </span><br><span class="line">    int charOffset = 0; </span><br><span class="line">    //声明迭代器</span><br><span class="line">    string::const_iterator charLocator; </span><br><span class="line">    for (auto charLocator = stlString.cbegin(); </span><br><span class="line">    charLocator != stlString.cend (); </span><br><span class="line">    ++ charLocator) //也可使用auto来让编译器自动确定用什么类型的字符串</span><br><span class="line">    &#123; </span><br><span class="line">        cout &lt;&lt; &quot;Character [&quot; &lt;&lt; charOffset ++ &lt;&lt; &quot;] is: &quot;;</span><br><span class="line">        cout &lt;&lt; *charLocator &lt;&lt; endl; </span><br><span class="line">    &#125; </span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    // Access contents as a const char* </span><br><span class="line">    cout &lt;&lt; &quot;The char* representation of the string is: &quot;; </span><br><span class="line">    cout &lt;&lt; stlString.c_str () &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    return 0; </span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="拼接字符串"><a href="#拼接字符串" class="headerlink" title="拼接字符串"></a>拼接字符串</h3><p>要拼接字符串，可以使用+=，也可以使用成员函数append()<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">string sampleStr1 (&quot;Hello&quot;); </span><br><span class="line">string sampleStr2 (&quot; String! &quot;); </span><br><span class="line">sampleStr1 += sampleStr2; // use std::string::operator+= </span><br><span class="line">// alternatively use std::string::append() </span><br><span class="line">sampleStr1.append (sampleStr2); // (overloaded for char* too)</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="查找字符或子字符串"><a href="#查找字符或子字符串" class="headerlink" title="查找字符或子字符串"></a>查找字符或子字符串</h3><p>可以使用 find() 成员函数或 std::string::npos 来查找子串在字符串中的位置。<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">std::string subStr = str1.substr(2, 3); // 截取从索引2开始的3个字符，结果为 &quot;llo&quot;</span><br><span class="line">size_t charPos = sampleStr.find (&quot;day&quot;, 0);</span><br><span class="line">if (charPos != string::npos) </span><br><span class="line"> cout &lt;&lt; &quot;First instance of \&quot;day\&quot; was found at position &quot; &lt;&lt; charPos; </span><br><span class="line">else </span><br><span class="line"> cout &lt;&lt; &quot;Substring not found.&quot; &lt;&lt; endl;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="截短STL-string"><a href="#截短STL-string" class="headerlink" title="截短STL string"></a>截短STL string</h3><p>STL string 类提供了 erase()函数，具有以下用途。</p>
+<ol>
+<li><p>在给定偏移位置和字符数时删除指定数目的字符。<br> string sampleStr (“Hello String! Wake up to a beautiful day!”); </p>
+<p> sampleStr.erase (13, 28); // Hello String!</p>
+</li>
+<li>在给定指向字符的迭代器时删除该字符。<br> sampleStr.erase (iCharS); // iterator points to a specific character</li>
+<li>在给定由两个迭代器指定的范围时删除该范围内的字符。<br> sampleStr.erase (sampleStr.begin (), sampleStr.end ()); // erase from begin to end</li>
+</ol>
+<h3 id="字符串反转"><a href="#字符串反转" class="headerlink" title="字符串反转"></a>字符串反转</h3><p>有时需要反转字符串的内容。假设要判断用户输入的字符串是否为回文，方法之一是将其反转，再与原来的字符串进行比较，下面是一段示范代码：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string&gt; </span><br><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include &lt;algorithm&gt; </span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line"> using namespace std;  </span><br><span class="line"> string sampleStr (&quot;Hello String! We will reverse you!&quot;); </span><br><span class="line"> cout &lt;&lt; &quot;The original sample string is: &quot; &lt;&lt; endl; </span><br><span class="line"> cout &lt;&lt; sampleStr &lt;&lt; endl &lt;&lt; endl;  </span><br><span class="line"> reverse (sampleStr.begin (), sampleStr.end ());</span><br><span class="line"> cout &lt;&lt; &quot;After applying the std::reverse algorithm: &quot; &lt;&lt; endl; </span><br><span class="line"> cout &lt;&lt; sampleStr &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line"> return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>实例中的std::reverse()算法根据两个输入参数指定的边界反转边界内的内容。在这里，两个边界分别是 string 对象的开头和末尾，因此整个字符串都被反转。只要提供合适的输入参数，也可将字符串的一部分反转。注意，边界不能超过 end()。</p>
+<h3 id="字符串的大小写转换"><a href="#字符串的大小写转换" class="headerlink" title="字符串的大小写转换"></a>字符串的大小写转换</h3><p>要对字符串进行大小写转换，可使用算法 std::transform()，它对集合中的每个元素执行一个用户指定的函数。在这里，集合是 string 对象本身。下面是一个示例：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;string&gt; </span><br><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include &lt;algorithm&gt; </span><br><span class="line"></span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line">    using namespace std; </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Please enter a string for case-convertion:&quot; &lt;&lt; endl; </span><br><span class="line">    cout &lt;&lt; &quot;&gt; &quot;; </span><br><span class="line"></span><br><span class="line">    string inStr; </span><br><span class="line">    getline (cin, inStr); </span><br><span class="line">    cout &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    transform(inStr.begin(), inStr.end(), inStr.begin(), ::toupper); //字符串全部转为大写</span><br><span class="line">    cout &lt;&lt; &quot;The string converted to upper case is: &quot; &lt;&lt; endl; </span><br><span class="line">    cout &lt;&lt; inStr &lt;&lt; endl &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    transform(inStr.begin(), inStr.end(), inStr.begin(), ::tolower); //字符串全部转为小写</span><br><span class="line">    cout &lt;&lt; &quot;The string converted to lower case is: &quot; &lt;&lt; endl; </span><br><span class="line">    cout &lt;&lt; inStr &lt;&lt; endl &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="基于模板的-STL-string-实现"><a href="#基于模板的-STL-string-实现" class="headerlink" title="基于模板的 STL string 实现"></a>基于模板的 STL string 实现</h2><p>std::string 类实际上是 STL 模板类 std::basic_string <T>的具体化。容器类 basic_string的模板声明如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">template&lt;class _Elem, class _Traits, class _Ax&gt;  class basic_string</span><br></pre></td></tr></table></figure></div><br>在该模板定义中，最重要的参数是第一个：_Elem，它指定了 basic_string 对象将存储的数据类型。<br>因此，std::string 使用_Elem=char 具体化模板basic_string 的结果，而 wstring 使用_Elem= wchar 具体化模板 basic_string 的结果，即<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string类的定义：</span><br><span class="line">typedef basic_string&lt;char, char_traits&lt;char&gt;, allocator&lt;char&gt; &gt; string;</span><br><span class="line">wstring类的定义：</span><br><span class="line">typedef basic_string&lt;wchar_t, char_traits&lt;wchar_t&gt;, allocator&lt;wchar_t&gt; &gt; string;</span><br></pre></td></tr></table></figure></div></T></p>
+<h2 id="C-14新增的操作符-“”s"><a href="#C-14新增的操作符-“”s" class="headerlink" title="C++14新增的操作符 “”s"></a>C++14新增的操作符 “”s</h2><p>C++14 标准库支持将用引号扩起的字符串转换为 std::basic_string&lt; t &gt;的 operator “”s，operator “”s 是一个用户自定义字面量操作符，它用来创建 std::string 对象。这个操作符允许在字符串字面值后面添加 s，表示将该字符串字面值转换为 std::string 类型。例如：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    std::string str = &quot;Hello, world!&quot;s; // 使用 &quot;&quot;s 创建 std::string 对象</span><br><span class="line">    std::cout &lt;&lt; str &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>示例使用 “”s 操作符将字符串字面值 “Hello, world!” 转换为 std::string 对象 str。这样就可以直接使用这个字符串字面值来初始化 std::string，而无需显式调用构造函数。，而下面的示例代码则能反映出””s对含有空字符串的作用<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> #include&lt;iostream&gt; </span><br><span class="line"> using namespace std;  </span><br><span class="line"> int main() </span><br><span class="line"> &#123; </span><br><span class="line"> string str1(&quot;Traditional string \0 initialization&quot;); </span><br><span class="line"> cout &lt;&lt; &quot;Str1: &quot; &lt;&lt; str1 &lt;&lt; &quot; Length: &quot; &lt;&lt; str1.length() &lt;&lt; endl; </span><br><span class="line"> </span><br><span class="line"> string str2(&quot;C++14 \0 initialization using literals&quot;s); </span><br><span class="line"> cout &lt;&lt; &quot;Str2: &quot; &lt;&lt; str2 &lt;&lt; &quot; Length: &quot; &lt;&lt; str2.length() &lt;&lt; endl; </span><br><span class="line"> </span><br><span class="line"> return 0; </span><br><span class="line"> &#125;</span><br><span class="line">//输出结果</span><br><span class="line">Str1: Traditional string Length: 19 </span><br><span class="line">Str2: C++14 initialization using literals Length: 37</span><br></pre></td></tr></table></figure></div><br>str1使用常规字符串字面量创建一个 std::string 实例。注意到这个字符串中间的空字符导致 str1根本不包含单词 initialization。str2使用了 C++14 引入的 operator “”s，这让实例 str2 能够包含并操作含有空字符的字符缓冲区。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++学习笔记：模板库（2）：string类</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-24 21:49:16</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-24 21:48:36
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/24/模板库string/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/24/%E6%A0%87%E5%87%86%E6%A8%A1%E6%9D%BF%E5%BA%93/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：模板库（1）</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">C++学习笔记：模板库（2）：string类</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#STL-string%E7%B1%BB"><span class="nav-text">STL string类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#char%E5%92%8Cstd-string%E5%A4%84%E7%90%86%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-text">char和std::string处理字符串的区别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8string%E7%B1%BB"><span class="nav-text">使用string类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96%E5%92%8C%E5%A4%8D%E5%88%B6STL-string"><span class="nav-text">实例化和复制STL string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AEstd-string%E7%9A%84%E5%86%85%E5%AE%B9"><span class="nav-text">访问std::string的内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8B%BC%E6%8E%A5%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">拼接字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E5%AD%97%E7%AC%A6%E6%88%96%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-text">查找字符或子字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%88%AA%E7%9F%ADSTL-string"><span class="nav-text">截短STL string</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8D%E8%BD%AC"><span class="nav-text">字符串反转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E5%A4%A7%E5%B0%8F%E5%86%99%E8%BD%AC%E6%8D%A2"><span class="nav-text">字符串的大小写转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%A8%A1%E6%9D%BF%E7%9A%84-STL-string-%E5%AE%9E%E7%8E%B0"><span class="nav-text">基于模板的 STL string 实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#C-14%E6%96%B0%E5%A2%9E%E7%9A%84%E6%93%8D%E4%BD%9C%E7%AC%A6-%E2%80%9C%E2%80%9Ds"><span class="nav-text">C++14新增的操作符 “”s</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
