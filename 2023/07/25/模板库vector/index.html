@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/25/模板库vector/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="动态数组vectorstd::vector 是 C++ 标准模板库（STL）中的一个顺序容器，用于存储动态大小的元素序列。它提供了动态数组的功能，并且在内存中连续存储元素，因此支持高效的随机访问，使用时要包含头文件&lt; vector &gt;，它的特点如下：  在 vector 容器中，根据下标随机访问某个元素的时间是常数，在尾部添加一个元素的时间大多数情况下也是常数，即在末尾插入元素的所需时">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习笔记：模板库（3）：vector类">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="动态数组vectorstd::vector 是 C++ 标准模板库（STL）中的一个顺序容器，用于存储动态大小的元素序列。它提供了动态数组的功能，并且在内存中连续存储元素，因此支持高效的随机访问，使用时要包含头文件&lt; vector &gt;，它的特点如下：  在 vector 容器中，根据下标随机访问某个元素的时间是常数，在尾部添加一个元素的时间大多数情况下也是常数，即在末尾插入元素的所需时">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/vector%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/vector%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/deque%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/%E6%B3%A8%E6%84%8F.png">
+<meta property="article:published_time" content="2023-07-25T13:40:52.422Z">
+<meta property="article:modified_time" content="2023-07-25T04:50:03.962Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/vector%E7%BB%93%E6%9E%84.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++学习笔记：模板库（3）：vector类 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">C++学习笔记：模板库（3）：vector类</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv2</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-25 21:40:52</span>
+        <span class="mobile">2023-07-25 21:40</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-25 12:50:03</span>
+            <span class="mobile">2023-07-25 12:50</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="动态数组vector"><a href="#动态数组vector" class="headerlink" title="动态数组vector"></a>动态数组vector</h2><p>std::vector 是 C++ 标准模板库（STL）中的一个顺序容器，用于存储动态大小的元素序列。它提供了动态数组的功能，并且在内存中连续存储元素，因此支持高效的随机访问，使用时要包含头文件&lt; vector &gt;，它的特点如下：</p>
+<ol>
+<li>在 vector 容器中，根据下标随机访问某个元素的时间是常数，在尾部添加一个元素的时间大多数情况下也是常数，即在末尾插入元素的所需时间不随数组大小而异。</li>
+<li>在中间插入或删除元素时，因为要移动多个元素，因此速度较慢，所需的时间与该元素后面的元素个数成正比。</li>
+<li>在 vector 容器中，用一个动态分配的数组来存放元素，因此根据下标访问某个元素的时间是固定的，与元素个数无关，存储的元素数是动态的，而 vector 类负责管理内存。</li>
+</ol>
+<p><img src="/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/vector%E7%BB%93%E6%9E%84.png" alt="vector"></p>
+<h2 id="vector的使用"><a href="#vector的使用" class="headerlink" title="vector的使用"></a>vector的使用</h2><p>vector是一个模板类，需要进行实例化才能使用,参考<a href="./宏和模板.md">宏和模板</a>。它的一些常用的成员函数如下:<br><img src="/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/vector%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0.png" alt="成员函数"></p>
+<h3 id="实例化vector"><a href="#实例化vector" class="headerlink" title="实例化vector"></a>实例化vector</h3><p>要实例化vector，需要指定要在该动态数组中存储的对象类型：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;int&gt; dynIntArray; // vector containing integers </span><br><span class="line">std::vector&lt;float&gt; dynFloatArray; // vector containing floats </span><br><span class="line">std::vector&lt;Tuna&gt; dynTunaArray; // vector containing Tunas </span><br><span class="line">要声明指向 list 中元素的迭代器，可以这样做：</span><br><span class="line">std::vector&lt;int&gt;::const_iterator elementInVec; </span><br><span class="line">如果需要可用于修改值或调用非 const 函数的迭代器，可使用 iterator 代替 const_iterator。</span><br></pre></td></tr></table></figure></div><br>下面是一个各种实例化 std::vector 的方式：指定长度和初始值以及复制另一个 vector 中的值的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;vector&gt; </span><br><span class="line"></span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line"> // vector of integers 使用默认构造函数构造</span><br><span class="line"> std::vector&lt;int&gt; integers; </span><br><span class="line"></span><br><span class="line"> // vector initialized using C++11 list initialization </span><br><span class="line"> std::vector&lt;int&gt; initVector&#123; 202, 2017, -1 &#125;; </span><br><span class="line"></span><br><span class="line"> // Instantiate a vector with 10 elements (it can still grow) 初始化了10个元素（用括号代表有几个元素，用&#123;&#125;代表最初的值）</span><br><span class="line"> std::vector&lt;int&gt; tenElements (10); </span><br><span class="line"></span><br><span class="line"> // Instantiate a vector with 10 elements, each initialized to 90 初始化了十个初始值为90 的元素</span><br><span class="line"> std::vector&lt;int&gt; tenElemInit (10, 90); </span><br><span class="line"></span><br><span class="line"> // Initialize vector to the contents of another </span><br><span class="line"> std::vector&lt;int&gt; copyVector (tenElemInit); </span><br><span class="line"> //这种构造方式只能用于类型类似的对象，因此可使用一个包含整型对象的 vector 来实例化 vecArrayCopy—另一个整型 vector</span><br><span class="line"> //但如果其中一个 vector 包含的对象类型为float，代码将不能通过编译。</span><br><span class="line"></span><br><span class="line"> // Vector initialized to 5 elements from another using iterators 使用迭代器复制了vector对象的部分</span><br><span class="line"> std::vector&lt;int&gt; partialCopy (tenElements.cbegin(), </span><br><span class="line"> tenElements.cbegin() + 5); </span><br><span class="line"></span><br><span class="line"> return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="初始化列表"><a href="#初始化列表" class="headerlink" title="初始化列表"></a>初始化列表</h3><p>在实例化vector的同时可以初始化列表，在实例化的的时候就指定其中的元素<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector&lt;int&gt; integers = &#123;50, 1, 987, 1001&#125;; </span><br><span class="line">// alternatively: </span><br><span class="line">vector&lt;int&gt; vecMoreIntegers &#123;50, 1, 987, 1001&#125;;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="在末尾插入元素"><a href="#在末尾插入元素" class="headerlink" title="在末尾插入元素"></a>在末尾插入元素</h3><p>实例化vector后，需要在vector中插入元素，插入时元素将会插在数组末尾，此时可以使用成员函数push_back()进行<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vector &lt;int&gt; integers; // declare a vector of type int </span><br><span class="line">// Insert sample integers into the vector: </span><br><span class="line">integers.push_back (50); </span><br><span class="line">integers.push_back (1);</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="在指定位置插入元素"><a href="#在指定位置插入元素" class="headerlink" title="在指定位置插入元素"></a>在指定位置插入元素</h3><p>使用push_back()是在末尾插入元素，倘若要在中间插入，可以使用insert()在指定位置插入<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// insert an element at the beginning,指定插入位置</span><br><span class="line">integers.insert (integers.begin (), 25);</span><br><span class="line">// Insert 2 elements of value 45 at the end ，指定插入位置，插入的元素数以及元素的值</span><br><span class="line">integers.insert (integers.end (), 2, 45);</span><br><span class="line"></span><br><span class="line">插入另一个vector</span><br><span class="line">// Another vector containing 2 elements of value 30 先声明要插入的vector</span><br><span class="line">vector &lt;int&gt; another (2, 30);</span><br><span class="line">// Insert two elements from another 在指定位置插入，container in position [1] </span><br><span class="line">integers.insert (integers.begin () + 1, </span><br><span class="line"> another.begin (), another.end ());</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="访问vector的元素"><a href="#访问vector的元素" class="headerlink" title="访问vector的元素"></a>访问vector的元素</h3><h4 id="使用下标运算符"><a href="#使用下标运算符" class="headerlink" title="使用下标运算符"></a>使用下标运算符</h4><p>要访问vector内的元素，可以使用下标运算符（[]）以数组语法方式访问；使用成员函数at( )；使用迭代器。下面是一个示例代码：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include &lt;vector&gt; </span><br><span class="line"> </span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line"> using namespace std; </span><br><span class="line"> vector &lt;int&gt; integers&#123; 50, 1, 987, 1001 &#125;; </span><br><span class="line"> //使用下标运算符访问元素</span><br><span class="line"> for (size_t index = 0; index &lt; integers.size (); ++index) </span><br><span class="line"> &#123; </span><br><span class="line">    cout &lt;&lt; &quot;Element[&quot; &lt;&lt; index &lt;&lt; &quot;] = &quot; ; </span><br><span class="line">   cout &lt;&lt; integers[index] &lt;&lt; endl; </span><br><span class="line"> &#125; </span><br><span class="line"></span><br><span class="line"> integers[2] = 2011; // change value of 3rd element </span><br><span class="line"> cout &lt;&lt; &quot;After replacement: &quot; &lt;&lt; endl; </span><br><span class="line"> cout &lt;&lt; &quot;Element[2] = &quot; &lt;&lt; integers[2] &lt;&lt; endl; </span><br><span class="line"> return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="使用指针语句访问vector元素"><a href="#使用指针语句访问vector元素" class="headerlink" title="使用指针语句访问vector元素"></a>使用指针语句访问vector元素</h4><p>使用迭代器以类似于指针的语法访问 vector 中的元素，下面是例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include &lt;vector&gt; </span><br><span class="line"> </span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line"> using namespace std; </span><br><span class="line"> vector &lt;int&gt; integers&#123; 50, 1, 987, 1001 &#125;; </span><br><span class="line"> //声明迭代器，且声明为const</span><br><span class="line"> vector &lt;int&gt;::const_iterator element = integers.cbegin (); </span><br><span class="line"> // auto element = integers.cbegin (); // auto type deduction  </span><br><span class="line"> while (element != integers.end ()) </span><br><span class="line"> &#123; </span><br><span class="line">   size_t index = distance (integers.cbegin (), element); </span><br><span class="line"></span><br><span class="line">   cout &lt;&lt; &quot;Element at position &quot;; </span><br><span class="line">   cout &lt;&lt; index &lt;&lt; &quot; is: &quot; &lt;&lt; *element &lt;&lt; endl; //使用解引用运算符访问值</span><br><span class="line"></span><br><span class="line">   // move to the next element </span><br><span class="line">   ++ element; //++递增迭代器位置</span><br><span class="line"> &#125;  </span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="删除vector中的元素"><a href="#删除vector中的元素" class="headerlink" title="删除vector中的元素"></a>删除vector中的元素</h3><p>push_back()函数在末尾插入元素， pop_back() 函数将末尾的元素删除。使用 pop_back()将元素从 vector 中删除所需的时间是固定的，即不随 vector 存储的元素个数而异。<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// Insert sample integers into the vector: </span><br><span class="line">integers.push_back (50); </span><br><span class="line">integers.push_back (1); </span><br><span class="line">integers.push_back (987); </span><br><span class="line">integers.push_back (1001);</span><br><span class="line"></span><br><span class="line">// Erase one element at the end </span><br><span class="line">integers.pop_back ();</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="查询vector的大小和容量"><a href="#查询vector的大小和容量" class="headerlink" title="查询vector的大小和容量"></a>查询vector的大小和容量</h2><p>在 C++ 的 std::vector 中，大小（size）和容量（capacity）用于描述向量中元素的数量和内部存储的容量。要查询 vector 当前存储的元素数，可调用 size()： integers.size ();<br>要查询 vector 的容量，可调用 capacity( )：integers.capacity ()</p>
+<p>vector 的大小指的是实际存储的元素数，大小与元素的实际数量直接相关，即 std::vector 中存储的元素数量就是它的大小。而 vector 的容量指的是在重新分配内存以存储更多元素前 vector 能够存储的元素数，当向量的元素数量超过当前容量时，向量会重新分配更大的内存空间，以容纳更多元素。这个过程称为 “重新分配”（reallocation）。因此，vector 的大小小于或等于容量。</p>
+<p>下面是一个示例代码：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    std::vector&lt;int&gt; numbers;</span><br><span class="line"></span><br><span class="line">    // 向 vector 中添加元素</span><br><span class="line">    numbers.push_back(10);</span><br><span class="line">    numbers.push_back(20);</span><br><span class="line">    numbers.push_back(30);</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; &quot;Size: &quot; &lt;&lt; numbers.size() &lt;&lt; std::endl;        // 输出：Size: 3</span><br><span class="line">    std::cout &lt;&lt; &quot;Capacity: &quot; &lt;&lt; numbers.capacity() &lt;&lt; std::endl; // 输出：Capacity: 4</span><br><span class="line"></span><br><span class="line">    // 继续添加元素</span><br><span class="line">    numbers.push_back(40);</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; &quot;Size: &quot; &lt;&lt; numbers.size() &lt;&lt; std::endl;        // 输出：Size: 4</span><br><span class="line">    std::cout &lt;&lt; &quot;Capacity: &quot; &lt;&lt; numbers.capacity() &lt;&lt; std::endl; // 输出：Capacity: 4</span><br><span class="line"></span><br><span class="line">    // 再次添加元素，触发重新分配</span><br><span class="line">    numbers.push_back(50);</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; &quot;Size: &quot; &lt;&lt; numbers.size() &lt;&lt; std::endl;        // 输出：Size: 5</span><br><span class="line">    std::cout &lt;&lt; &quot;Capacity: &quot; &lt;&lt; numbers.capacity() &lt;&lt; std::endl; // 输出：Capacity: 8</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>在上面的示例代码中，程序创建了一个 std::vector 并添加了四个元素。在开始时，容量为 4，大小为 3（有三个元素）。然后，添加一个额外的元素，大小增加到 4，容量仍为 4（没有触发重新分配）。最后，再添加一个元素，导致容量增加到 8（触发了重新分配）。这样，容量会根据需要自动调整以适应更多的元素。</p>
+<h2 id="deque类"><a href="#deque类" class="headerlink" title="deque类"></a>deque类</h2><p>std::deque（双端队列）是 C++ 标准模板库（STL）中的另一种顺序容器，用于存储动态大小的元素序列。与 std::vector 类似，std::deque 也可以在尾部高效地添加或删除元素，并支持随机访问，但它还具有一些与 std::vector 不同的特性,如可以使用 push_front 和 pop_front 在开头插入和删除元素。要使用std::deque,需要包含头文件&lt; deque &gt;<br><img src="/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/deque%E7%BB%93%E6%9E%84.png" alt="deque"></p>
+<p>下面是一个示例：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;deque&gt; </span><br><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include &lt;algorithm&gt; </span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">    using namespace std; </span><br><span class="line"></span><br><span class="line">    // Define a deque of integers </span><br><span class="line">    deque&lt;int&gt; intDeque; </span><br><span class="line"></span><br><span class="line">    // Insert integers at the bottom of the array </span><br><span class="line">    intDeque.push_back(3); </span><br><span class="line">    intDeque.push_back(4); </span><br><span class="line">    intDeque.push_back(5); </span><br><span class="line"></span><br><span class="line">    // Insert integers at the top of the array </span><br><span class="line">    intDeque.push_front(2); </span><br><span class="line">    intDeque.push_front(1); </span><br><span class="line">    intDeque.push_front(0); </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The contents of the deque after inserting elements &quot;; </span><br><span class="line">    cout &lt;&lt; &quot;at the top and bottom are:&quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    // Display contents on the screen </span><br><span class="line">    for (size_t count = 0; count &lt; intDeque.size(); ++count) </span><br><span class="line">    &#123; </span><br><span class="line">        cout &lt;&lt; &quot;Element [&quot; &lt;&lt; count &lt;&lt; &quot;] = &quot;; </span><br><span class="line">        cout &lt;&lt; intDeque[count] &lt;&lt; endl; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    // Erase an element at the top </span><br><span class="line">    intDeque.pop_front(); </span><br><span class="line"></span><br><span class="line">    // Erase an element at the bottom </span><br><span class="line">    intDeque.pop_back(); </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The contents of the deque after erasing an element &quot;; </span><br><span class="line">    cout &lt;&lt; &quot;from the top and bottom are:&quot; &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    // Display contents again: this time using iterators </span><br><span class="line">    for (auto element = intDeque.begin(); element != intDeque.end(); ++element) </span><br><span class="line">    &#123; </span><br><span class="line">        size_t Offset = distance(intDeque.begin(), element); </span><br><span class="line">        cout &lt;&lt; &quot;Element [&quot; &lt;&lt; Offset &lt;&lt; &quot;] = &quot; &lt;&lt; *element &lt;&lt; endl; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>示例代码演示了deque的基本功能，如下</p>
+<ol>
+<li>创建了一个 std::deque&lt; int &gt; 类型的双端队列 intDeque。</li>
+<li>使用 push_back() 和 push_front() 分别在双端队列的尾部和头部插入整数元素。</li>
+<li>使用一个 for 循环和 size() 函数遍历输出双端队列中的所有元素。</li>
+<li>使用 pop_front() 和 pop_back() 分别在双端队列的头部和尾部删除元素。</li>
+<li>使用迭代器（begin() 和 end()）再次遍历输出双端队列中的所有元素，并使用 distance() 函数计算元素在队列中的位置。<br><img src="/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/%E6%B3%A8%E6%84%8F.png" alt="注意"></li>
+</ol>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++学习笔记：模板库（3）：vector类</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-25 21:40:52</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-25 12:50:03
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/25/模板库vector/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93list/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：模板库（4）：list类</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">C++学习笔记：模板库（3）：vector类</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%95%B0%E7%BB%84vector"><span class="nav-text">动态数组vector</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vector%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-text">vector的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96vector"><span class="nav-text">实例化vector</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%88%97%E8%A1%A8"><span class="nav-text">初始化列表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%9C%AB%E5%B0%BE%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="nav-text">在末尾插入元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%8C%87%E5%AE%9A%E4%BD%8D%E7%BD%AE%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="nav-text">在指定位置插入元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%BF%E9%97%AEvector%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-text">访问vector的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4vector%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-text">删除vector中的元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2vector%E7%9A%84%E5%A4%A7%E5%B0%8F%E5%92%8C%E5%AE%B9%E9%87%8F"><span class="nav-text">查询vector的大小和容量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#deque%E7%B1%BB"><span class="nav-text">deque类</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

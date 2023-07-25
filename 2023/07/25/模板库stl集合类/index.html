@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/25/模板库stl集合类/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="STL集合类，set和multisetstd::set 和 std::multiset 是 C++ 标准模板库（STL）中的有序关联容器，它们用于存储一组唯一的元素，并根据元素的值自动进行排序。使用时，要包含头文件&lt; set &gt; std::set 是一个集合容器，它包含一组唯一的元素，且元素按照升序进行排序。它的插入操作在 O(log n) 时间内完成，查找、删除操作也在 O(log">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习笔记：模板库（5）：集合类">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93stl%E9%9B%86%E5%90%88%E7%B1%BB/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="STL集合类，set和multisetstd::set 和 std::multiset 是 C++ 标准模板库（STL）中的有序关联容器，它们用于存储一组唯一的元素，并根据元素的值自动进行排序。使用时，要包含头文件&lt; set &gt; std::set 是一个集合容器，它包含一组唯一的元素，且元素按照升序进行排序。它的插入操作在 O(log n) 时间内完成，查找、删除操作也在 O(log">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93stl%E9%9B%86%E5%90%88%E7%B1%BB/%E5%8C%BA%E5%88%AB.png">
+<meta property="article:published_time" content="2023-07-25T13:40:52.414Z">
+<meta property="article:modified_time" content="2023-07-25T13:43:10.955Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93stl%E9%9B%86%E5%90%88%E7%B1%BB/%E5%8C%BA%E5%88%AB.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++学习笔记：模板库（5）：集合类 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">C++学习笔记：模板库（5）：集合类</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv2</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-25 21:40:52</span>
+        <span class="mobile">2023-07-25 21:40</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-25 21:43:10</span>
+            <span class="mobile">2023-07-25 21:43</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="STL集合类，set和multiset"><a href="#STL集合类，set和multiset" class="headerlink" title="STL集合类，set和multiset"></a>STL集合类，set和multiset</h2><p>std::set 和 std::multiset 是 C++ 标准模板库（STL）中的有序关联容器，它们用于存储一组唯一的元素，并根据元素的值自动进行排序。使用时，要包含头文件&lt; set &gt;</p>
+<p>std::set 是一个集合容器，它包含一组唯一的元素，且元素按照升序进行排序。它的插入操作在 O(log n) 时间内完成，查找、删除操作也在 O(log n) 时间内完成，其中 n 是容器中元素的数量。插入元素时，如果容器中已经存在相同的元素，则插入操作会失败，因为 set 不允许存储重复的元素。</p>
+<p>std::multiset 也是一个集合容器，它与 std::set 类似，但允许存储重复的元素。它的插入操作在 O(log n) 时间内完成，查找、删除操作也在 O(log n) 时间内完成，其中 n 是容器中元素的数量。<br>multiset 会保留相同值的元素，所以可以存储多个相同的元素。<br><img src="/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93stl%E9%9B%86%E5%90%88%E7%B1%BB/%E5%8C%BA%E5%88%AB.png" alt="区别"></p>
+<h2 id="STL-set-和-multiset-的基本操作"><a href="#STL-set-和-multiset-的基本操作" class="headerlink" title="STL set 和 multiset 的基本操作"></a>STL set 和 multiset 的基本操作</h2><h3 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h3><p>使用时，必须先实例化<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::set &lt;int&gt; setInts; </span><br><span class="line">std::multiset &lt;int&gt; msetInts;</span><br></pre></td></tr></table></figure></div><br>如果要声明迭代器，可以这样：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::set&lt;int&gt;::const_iterator element; </span><br><span class="line">std::multiset&lt;int&gt;::const_iterator element;</span><br></pre></td></tr></table></figure></div><br>在没有指定排序标准是，set和multiset会使用默认谓词std::less确保元素按升序排列，也可以自己创建二元排序谓词，即定义一个operator(),让他接受两个参数，并根据排序标准返回true，如下按降序排列元素的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// used as a template parameter in set / multiset instantiation </span><br><span class="line">template &lt;typename T&gt; </span><br><span class="line">struct SortDescending </span><br><span class="line">&#123; </span><br><span class="line">  bool operator()(const T&amp; lhs, const T&amp; rhs) const </span><br><span class="line">  &#123; </span><br><span class="line">    return (lhs &gt; rhs); </span><br><span class="line">  &#125; </span><br><span class="line">&#125;;</span><br><span class="line">//实例化set或multiset时使用谓词</span><br><span class="line">// a set and multiset of integers (using sort predicate) </span><br><span class="line">set &lt;int, SortDescending&lt;int&gt;&gt; setInts; </span><br><span class="line">multiset &lt;int, SortDescending&lt;int&gt;&gt; msetInts;</span><br></pre></td></tr></table></figure></div><br>下面是一个实例化set和multiset的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;set&gt; </span><br><span class="line">// used as a template parameter in set / multiset instantiation</span><br><span class="line">struct SortDescending </span><br><span class="line">&#123; </span><br><span class="line">  bool operator()(const T&amp; lhs, const T&amp; rhs) const </span><br><span class="line">  &#123; </span><br><span class="line">    return (lhs &gt; rhs); </span><br><span class="line">  &#125; </span><br><span class="line">&#125;; </span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line">  using namespace std; </span><br><span class="line">  // a simple set or multiset of integers (using default sort predicate) </span><br><span class="line">  set&lt;int&gt; setInts1; </span><br><span class="line">  multiset&lt;int&gt; msetInts1;  </span><br><span class="line">  // set and multiset instantiated given a user-defined sort predicate </span><br><span class="line">  set&lt;int, SortDescending&lt;int&gt;&gt; setInts2; </span><br><span class="line">  multiset&lt;int, SortDescending&lt;int&gt;&gt; msetInts2;  </span><br><span class="line">  // creating one set from another, or part of another container </span><br><span class="line">  set&lt;int&gt; setInts3(setInts1); </span><br><span class="line">  multiset&lt;int&gt; msetInts3(setInts1.cbegin(), setInts1.cend());   </span><br><span class="line">  return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h3><p>set 和 multiset 的大多数函数的用法类似，它们接受类似的参数，返回类型也类似。例如，要在这<br>两种容器中插入元素，都可使用成员函数 insert()，这个函数接受要插入的值或容器的指定范围：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setInts.insert (-1); </span><br><span class="line">msetInts.insert (setInts.begin (), setInts.end ());</span><br><span class="line">//可以通过mulitset::count( )确定 multiset 包含多少个这样的元素</span><br><span class="line"> msetInts.count(-1)</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h3><p>诸如 set、multiset、map 和 multimap 等关联容器都提供了成员函数 find( )，它能够根据给定的键来查找值，在multiset中，他会查找第一个与给定键匹配的元素：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">auto elementFound = setInts.find (-1); </span><br><span class="line">// Check if found... </span><br><span class="line">if (elementFound != setInts.end ()) </span><br><span class="line"> cout &lt;&lt; &quot;Element &quot; &lt;&lt; *elementFound &lt;&lt; &quot; found!&quot; &lt;&lt; endl; </span><br><span class="line">else </span><br><span class="line"> cout &lt;&lt; &quot;Element not found in set!&quot; &lt;&lt; endl;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><p>诸如 set、multiset、map 和 multimap 等关联容器都提供了成员函数 erase( )，它能够根据键删<br>除值：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">setObject.erase (key);</span><br><span class="line">erase()函数的另一个版本接受一个迭代器作为参数，并删除该迭代器指向的元素：</span><br><span class="line">setObject.erase (element); </span><br><span class="line">通过使用迭代器指定的边界，可将指定范围内的所有元素都从 set 或 multiset 中删除：</span><br><span class="line">setObject.erase (iLowerBound, iUpperBound);</span><br></pre></td></tr></table></figure></div><br>下面是一段使用set的实际应用程序：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;set&gt; </span><br><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include &lt;string&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt; </span><br><span class="line">void DisplayContents (const T&amp; container) </span><br><span class="line">&#123; </span><br><span class="line">    for (auto iElement = container.cbegin(); </span><br><span class="line">         iElement != container.cend(); </span><br><span class="line">         ++ iElement ) </span><br><span class="line">    cout &lt;&lt; *iElement &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; endl; </span><br><span class="line">&#125; </span><br><span class="line">//使用struct的原因：struct常用于只包含数据成员的简单数据结构，默认的访问权限是公有（public）</span><br><span class="line">//class常用于需要封装数据和行为的复杂对象，默认的访问权限是私有（private）</span><br><span class="line">struct ContactItem </span><br><span class="line">&#123; </span><br><span class="line">    string name; </span><br><span class="line">    string phoneNum; </span><br><span class="line">    string displayAs; </span><br><span class="line"></span><br><span class="line">    ContactItem (const string&amp; nameInit, const string &amp; phone) </span><br><span class="line">    &#123; </span><br><span class="line">        name = nameInit; </span><br><span class="line">        phoneNum = phone; </span><br><span class="line">        displayAs = (name + &quot;: &quot; + phoneNum); </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    // used by set::find() given contact list item </span><br><span class="line">    bool operator == (const ContactItem&amp; itemToCompare) const </span><br><span class="line">    &#123; </span><br><span class="line">        return (itemToCompare.name == this-&gt;name); </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    // used to sort 在这里定义了操作符</span><br><span class="line">    bool operator &lt; (const ContactItem&amp; itemToCompare) const </span><br><span class="line">    &#123; </span><br><span class="line">        return (this-&gt;name &lt; itemToCompare.name); </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    // Used in DisplayContents via cout </span><br><span class="line">    operator const char*() const </span><br><span class="line">    &#123;</span><br><span class="line">        return displayAs.c_str(); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line">    //set在插入时就进行了排序，与list的手动排序有区别</span><br><span class="line">    set&lt;ContactItem&gt; setContacts; </span><br><span class="line">    setContacts.insert(ContactItem(&quot;Jack Welsch&quot;, &quot;+1 7889 879 879&quot;)); </span><br><span class="line">    setContacts.insert(ContactItem(&quot;Bill Gates&quot;, &quot;+1 97 7897 8799 8&quot;)); </span><br><span class="line">    setContacts.insert(ContactItem(&quot;Angi Merkel&quot;, &quot;+49 23456 5466&quot;)); </span><br><span class="line">    setContacts.insert(ContactItem(&quot;Vlad Putin&quot;, &quot;+7 6645 4564 797&quot;)); </span><br><span class="line">    setContacts.insert(ContactItem(&quot;John Travolta&quot;, &quot;91 234 4564 789&quot;)); </span><br><span class="line">    setContacts.insert(ContactItem(&quot;Ben Affleck&quot;, &quot;+1 745 641 314&quot;)); </span><br><span class="line">    DisplayContents(setContacts); </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Enter a name you wish to delete: &quot;; </span><br><span class="line">    string inputName; </span><br><span class="line">    getline(cin, inputName); </span><br><span class="line"></span><br><span class="line">    auto contactFound = setContacts.find(ContactItem(inputName, &quot;&quot;)); </span><br><span class="line">    if(contactFound != setContacts.end()) </span><br><span class="line">    &#123; </span><br><span class="line">        setContacts.erase(contactFound); </span><br><span class="line">        cout &lt;&lt; &quot;Displaying contents after erasing &quot; &lt;&lt; inputName &lt;&lt; endl; </span><br><span class="line">        DisplayContents(setContacts); </span><br><span class="line">    &#125; </span><br><span class="line">    else </span><br><span class="line">        cout &lt;&lt; &quot;Contact not found&quot; &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br><span class="line">//输出：</span><br><span class="line">Angi Merkel: +49 23456 5466 </span><br><span class="line">Ben Affleck: +1 745 641 314 </span><br><span class="line">Bill Gates: +1 97 7897 8799 8 </span><br><span class="line">Jack Welsch: +1 7889 879 879 </span><br><span class="line">John Travolta: 91 234 4564 789 </span><br><span class="line">Vlad Putin: +7 6645 4564 797 </span><br><span class="line">Enter a name you wish to delete: John Travolta </span><br><span class="line">Displaying contents after erasing John Travolta </span><br><span class="line">Angi Merkel: +49 23456 5466 </span><br><span class="line">Ben Affleck: +1 745 641 314 </span><br><span class="line">Bill Gates: +1 97 7897 8799 8 </span><br><span class="line">Jack Welsch: +1 7889 879 879 </span><br><span class="line">Vlad Putin: +7 6645 4564 797</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="std-set和std-unorder-set"><a href="#std-set和std-unorder-set" class="headerlink" title="std::set和std::unorder_set"></a>std::set和std::unorder_set</h2><p>std::set 和 std::unordered_set 都是 C++ 标准库中的关联容器，它们用于存储一组唯一的元素，并支持高效的查找、插入和删除操作。它们之间的主要区别在于底层的数据结构和元素的排序方式。</p>
+<ol>
+<li><p>底层数据结构：</p>
+<p> std::set 使用红黑树（Red-Black Tree）作为底层数据结构。红黑树是一种自平衡二叉搜索树，它保持元素有序，并支持对数时间复杂度的查找、插入和删除操作。</p>
+<p> std::unordered_set 使用哈希表（Hash Table）作为底层数据结构。哈希表通过将元素映射到桶中，并使用哈希函数来实现快速查找、插入和删除操作，平均情况下具有常数时间复杂度。</p>
+</li>
+<li><p>元素的排序方式：</p>
+<p> std::set 中的元素总是按照元素值进行升序排序。这意味着在 std::set 中存储的元素是有序的，并且可以使用 begin() 和 end() 迭代器来访问有序序列。</p>
+<p> std::unordered_set 中的元素没有特定的排序顺序，它们是根据哈希函数的结果存储在桶中的。因此，std::unordered_set 中的元素没有明确的顺序，不能通过迭代器以特定的顺序访问。</p>
+</li>
+<li><p>性能：</p>
+<p> 在大多数情况下，std::unordered_set 的查找、插入和删除操作比 std::set 快，因为哈希表提供了常数时间的平均查找时间。<br> 然而，在特定的情况下，std::set 可能比 std::unordered_set 更高效，尤其是在元素数量较小或者有序访问的场景下。</p>
+</li>
+<li><p>空间复杂度：</p>
+<p> std::set 的空间复杂度受到红黑树的影响，通常比 std::unordered_set 更高，因为红黑树需要维护额外的指针和颜色信息。</p>
+<p> std::unordered_set 的空间复杂度取决于哈希表的桶的数量和元素数量，通常比 std::set 更低，尤其是当哈希表的负载因子较小时。</p>
+</li>
+</ol>
+<p>如果需要有序存储并支持快速查找、插入和删除操作，并且对于空间效率没有特别高的要求，则可以选择 std::set。如果对于查找、插入和删除操作的性能有更高的要求，并且对于元素的顺序没有特别的要求，则可以选择 std::unordered_set。<br>下面是关于std::unorder_set的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;unordered_set&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;//使用模板，定义了函数模板DisplayContents</span><br><span class="line">void DisplayContents(const T&amp; cont)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; &quot;Unordered set contains: &quot;;</span><br><span class="line">    for (auto element = cont.cbegin();</span><br><span class="line">        element != cont.cend();</span><br><span class="line">        ++element)</span><br><span class="line">        cout &lt;&lt; *element &lt;&lt; &#x27; &#x27;;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    //输出一些bucket的统计信息</span><br><span class="line">    cout &lt;&lt; &quot;Number of elements, size() = &quot; &lt;&lt; cont.size() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;Bucket count = &quot; &lt;&lt; cont.bucket_count() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;Max load factor = &quot; &lt;&lt; cont.max_load_factor() &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;Load factor: &quot; &lt;&lt; cont.load_factor() &lt;&lt; endl &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    unordered_set&lt;int&gt; usetInt&#123; 1, -3, 2017, 300, -1, 989, -300, 9 &#125;;</span><br><span class="line">    DisplayContents(usetInt);</span><br><span class="line">    usetInt.insert(999);</span><br><span class="line">    DisplayContents(usetInt);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Enter int you want to check for existence in set: &quot;;</span><br><span class="line">    int input = 0;</span><br><span class="line">    cin &gt;&gt; input;</span><br><span class="line">    auto elementFound = usetInt.find(input);</span><br><span class="line"></span><br><span class="line">    if (elementFound != usetInt.end())</span><br><span class="line">        cout &lt;&lt; *elementFound &lt;&lt; &quot; found in set&quot; &lt;&lt; endl;</span><br><span class="line">    else</span><br><span class="line">        cout &lt;&lt; input &lt;&lt; &quot; not available in set&quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//输出：</span><br><span class="line">Unordered set contains: 9 1 -3 989 -1 2017 300 -300 </span><br><span class="line">Number of elements, size() = 8 </span><br><span class="line">Bucket count = 8 </span><br><span class="line">Max load factor = 1 </span><br><span class="line">Load factor: 1 </span><br><span class="line">Unordered set contains: 9 1 -3 989 -1 2017 300 -300 999 </span><br><span class="line">Number of elements, size() = 9 </span><br><span class="line">Bucket count = 64 </span><br><span class="line">Max load factor = 1 </span><br><span class="line">Load factor: 0.140625 </span><br><span class="line">Enter int you want to check for existence in set: -300 </span><br><span class="line">-300 found in set</span><br><span class="line">//解释</span><br><span class="line">输出表明，最初的桶数为 8 个，而该容器包含 8 个元素，因此负载系数为 1，与最大负载系数相同。</span><br><span class="line">插入第 9 个元素时，unordered_set 重新组织：创建 64 个桶并重新创建散列表，而负载系数降低了。</span><br><span class="line">main( )中的其他代码表明，在 unordered_set 中查找元素的语法与 set 类似。</span><br><span class="line">find( )返回一个迭代器，在使用该迭代器之前，需要核实 find( )是否成功</span><br></pre></td></tr></table></figure></div></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++学习笔记：模板库（5）：集合类</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-25 21:40:52</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-25 21:43:10
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/25/模板库stl集合类/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93list/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：模板库（4）：list类</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/24/%E6%A8%A1%E6%9D%BF%E5%BA%93string/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：模板库（2）：string类</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">C++学习笔记：模板库（5）：集合类</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#STL%E9%9B%86%E5%90%88%E7%B1%BB%EF%BC%8Cset%E5%92%8Cmultiset"><span class="nav-text">STL集合类，set和multiset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STL-set-%E5%92%8C-multiset-%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-text">STL set 和 multiset 的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="nav-text">实例化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="nav-text">插入元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0"><span class="nav-text">查找元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="nav-text">删除元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-set%E5%92%8Cstd-unorder-set"><span class="nav-text">std::set和std::unorder_set</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
