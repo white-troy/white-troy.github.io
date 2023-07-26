@@ -13,20 +13,20 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="https://white-troy.github.io/2023/07/17/opencv的编译问题/"/>
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/26/函数对象/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
     
-        <meta name="description" content="opencv的编译问题（windows）在参考以下两篇博文(https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_43141925&#x2F;article&#x2F;details&#x2F;122084307)(https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_37781464&#x2F;article&#x2F;details&#x2F;110078370 ) 编译opencv cuda加速的时候，遇见的cmake问题大致都能解决（按照博文2中解决），但">
+        <meta name="description" content="函数对象在C++中，所有能当做函数使用的对象统称为函数对象，函数对象可以具有自己的状态（成员变量），并且可以在多个调用之间保持状态。这使得函数对象能够存储并共享信息，从而实现更复杂的行为。 但从实现上说，函数对象是实现了 operator()的类的对象。虽然函数和函数指针也可归为函数对象，但实现了 operator()的类的对象才能保存状态（即类的成员属性的值），才能用于标准模板库（STL）算法。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="opencv相关的问题">
-<meta property="og:url" content="https://white-troy.github.io/2023/07/17/opencv%E7%9A%84%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:title" content="C++学习笔记：函数对象">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/26/%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="opencv的编译问题（windows）在参考以下两篇博文(https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_43141925&#x2F;article&#x2F;details&#x2F;122084307)(https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_37781464&#x2F;article&#x2F;details&#x2F;110078370 ) 编译opencv cuda加速的时候，遇见的cmake问题大致都能解决（按照博文2中解决），但">
+<meta property="og:description" content="函数对象在C++中，所有能当做函数使用的对象统称为函数对象，函数对象可以具有自己的状态（成员变量），并且可以在多个调用之间保持状态。这使得函数对象能够存储并共享信息，从而实现更复杂的行为。 但从实现上说，函数对象是实现了 operator()的类的对象。虽然函数和函数指针也可归为函数对象，但实现了 operator()的类的对象才能保存状态（即类的成员属性的值），才能用于标准模板库（STL）算法。">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2023-07-17T03:01:26.202Z">
-<meta property="article:modified_time" content="2023-07-18T11:36:25.856Z">
+<meta property="article:published_time" content="2023-07-26T09:05:38.001Z">
+<meta property="article:modified_time" content="2023-07-26T07:36:59.374Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
     
@@ -40,7 +40,7 @@
     
     <title>
         
-            opencv相关的问题 -
+            C++学习笔记：函数对象 -
         
         硫酸钾的个人博客
     </title>
@@ -207,7 +207,7 @@
             
             
                 <div class="article-title">
-                    <h1 class="article-title-regular">opencv相关的问题</h1>
+                    <h1 class="article-title-regular">C++学习笔记：函数对象</h1>
                 </div>
             
                 
@@ -229,15 +229,15 @@
                             <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fa-regular fa-pen-fancy"></i>&nbsp;
-        <span class="desktop">2023-07-17 11:01:26</span>
-        <span class="mobile">2023-07-17 11:01</span>
+        <span class="desktop">2023-07-26 17:05:38</span>
+        <span class="mobile">2023-07-26 17:05</span>
         <span class="hover-info">Created</span>
     </span>
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-07-18 19:36:25</span>
-            <span class="mobile">2023-07-18 19:36</span>
+            <span class="desktop">2023-07-26 15:36:59</span>
+            <span class="mobile">2023-07-26 15:36</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -261,18 +261,21 @@
             
 
             <div class="article-content markdown-body">
-                <h1 id="opencv的编译问题（windows）"><a href="#opencv的编译问题（windows）" class="headerlink" title="opencv的编译问题（windows）"></a>opencv的编译问题（windows）</h1><p>在参考以下两篇博文(<a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/qq_43141925/article/details/122084307)(https://blog.csdn.net/qq_37781464/article/details/110078370">https://blog.csdn.net/qq_43141925/article/details/122084307)(https://blog.csdn.net/qq_37781464/article/details/110078370 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>) 编译opencv cuda加速的时候，遇见的cmake问题大致都能解决（按照博文2中解决），但是在进入项目中配置完相关的库路径和附加包含目录重新生成后，报错”无法打开源文件opencv/cv.h”，在编译完成的文件夹中也无法查找到cv.h这个文件</p>
-<p>查完网络信息，发现博文(<a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/winer_199773/article/details/99707750)中提示在opencv4的版本中取消了cv.h这个头文件，正好编译的cv版本是4.6.0，而项目中的版本为3.2.0，猜测可能是这个问题">https://blog.csdn.net/winer_199773/article/details/99707750)中提示在opencv4的版本中取消了cv.h这个头文件，正好编译的cv版本是4.6.0，而项目中的版本为3.2.0，猜测可能是这个问题 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
-<p>尝试TODO:</p>
-<p>1.编译对应的3.2.0版本，尝试是否是这个问题（吐槽：电脑太老了，编译opencv4都得5个小时，不想搞）（2不能用，这下不得不搞了）</p>
-<p>2.直接复制3.2.0的相关文件过去，看看能不能用（实测不能用）</p>
+                <h2 id="函数对象"><a href="#函数对象" class="headerlink" title="函数对象"></a>函数对象</h2><p>在C++中，所有能当做函数使用的对象统称为函数对象，函数对象可以具有自己的状态（成员变量），并且可以在多个调用之间保持状态。这使得函数对象能够存储并共享信息，从而实现更复杂的行为。</p>
+<p>但从实现上说，函数对象是实现了 operator()的类的对象。虽然函数和函数指针也可归为函数对象，但实现了 operator()的类的对象才能保存状态（即类的成<br>员属性的值），才能用于标准模板库（STL）算法。</p>
+<p>C++程序员常用于 STL 算法的函数对象可分为下列两种类型。</p>
 <ol>
-<li>3.2.0的版本要一堆依赖项，不想安装（懒），于是选择了3.4.20这个版本，在经历一个晚上的编译后成功报错，报错内容如下<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(241,50): error C2143: 语法错误: 缺少“,”(在“&lt;”的前面) (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\extension_set.cc)</span><br><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(242,2): message : 查看对正在编译的 类 模板 实例化“google::protobuf::hash&lt;Key&gt;”的引用 (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\extension_set.cc)</span><br><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(255,14): error C2039: &quot;hash_compare&quot;: 不是 &quot;std&quot; 的成员 (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\extension_set.cc)</span><br><span class="line">20&gt;D:\MicrosoftVS\2022\Community\VC\Tools\MSVC\14.34.31933\include\unordered_set(24,1): message : 参见“std”的声明 (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\extension_set.cc)</span><br><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(255,5): error C2504: “hash_compare”: 未定义基类 (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\extension_set.cc)</span><br><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(255,42): error C2143: 语法错误: 缺少“,”(在“&lt;”的前面) (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\extension_set.cc)</span><br><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(400,29): error C2064: 项不会计算为接受 1 个参数的函数 (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\extension_set.cc)</span><br><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(241,50): error C2143: 语法错误: 缺少“,”(在“&lt;”的前面) (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\generated_message_table_driven_lite.cc)</span><br><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(242,2): message : 查看对正在编译的 类 模板 实例化“google::protobuf::hash&lt;Key&gt;”的引用 (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\generated_message_table_driven_lite.cc)</span><br><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(255,14): error C2039: &quot;hash_compare&quot;: 不是 &quot;std&quot; 的成员 (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\generated_message_table_driven_lite.cc)</span><br><span class="line">20&gt;D:\MicrosoftVS\2022\Community\VC\Tools\MSVC\14.34.31933\include\unordered_set(24,1): message : 参见“std”的声明 (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\generated_message_table_driven_lite.cc)</span><br><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(255,5): error C2504: “hash_compare”: 未定义基类 (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\generated_message_table_driven_lite.cc)</span><br><span class="line">20&gt;F:/SLAM3/opencv-3.4.20/3rdparty/protobuf/src\google/protobuf/stubs/hash.h(255,42): error C2143: 语法错误: 缺少“,”(在“&lt;”的前面) (编译源文件 F:\SLAM3\opencv-3.4.20\3rdparty\protobuf\src\google\protobuf\generated_message_table_driven_lite.cc)</span><br></pre></td></tr></table></figure></div>
-</li>
+<li>一元函数：接受一个参数的函数，如 f(x)。如果一元函数返回一个布尔值，则该函数称为谓词。</li>
+<li>二元函数：接受两个参数的函数，如 f(x, y)。如果二元函数返回一个布尔值，则该函数称为二元谓词。</li>
 </ol>
-<p>在这一段我并没有看到什么错误，GPT说可能是编译器的问题，让我用2019试试（我是2022），以下是报错位置从240行到255行的代码：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename Key&gt;</span><br><span class="line">struct hash : public GOOGLE_PROTOBUF_HASH_COMPARE&lt;Key&gt; &#123;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// MSVC&#x27;s hash_compare&lt;const char*&gt; hashes based on the string contents but</span><br><span class="line">// compares based on the string pointer.  WTF?</span><br><span class="line">class CstringLess &#123;</span><br><span class="line"> public:</span><br><span class="line">  inline bool operator()(const char* a, const char* b) const &#123;</span><br><span class="line">    return strcmp(a, b) &lt; 0;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">template &lt;&gt;</span><br><span class="line">struct hash&lt;const char*&gt;</span><br><span class="line">    : public GOOGLE_PROTOBUF_HASH_COMPARE&lt;const char*, CstringLess&gt; &#123;&#125;;</span><br></pre></td></tr></table></figure></div><br>甚至还能看到作者的一句小吐槽hhh，但是并没看到什么逗号句号，于是查找protobuf相关的报错，看到帖子(<a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/quantum7/article/details/88775718">https://blog.csdn.net/quantum7/article/details/88775718 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>) 说把CXX11勾上，打开cmake后发现确实没有勾上，于是勾上后重新编译，测试完发现并没有什么用</p>
-<p>4.查找了issue（<a class="link" target="_blank" rel="noopener" href="https://github.com/opencv/opencv/issues/17389），现在设置为“WITH_PROTOBUFF=ON">https://github.com/opencv/opencv/issues/17389），现在设置为“WITH_PROTOBUFF=ON <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a> BUILD_PROTOBUF=OFF PROTOBUF_UPDATE_FILES=ON”，编译完成，没有报错</p>
-<p>5.思考：能否用exe安装，然后对contrib包单独编译一个lib？参考：<a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/LuohenYJ/article/details/107944236，https://www.cnblogs.com/banmei-brandy/p/16084072.html">https://blog.csdn.net/LuohenYJ/article/details/107944236，https://www.cnblogs.com/banmei-brandy/p/16084072.html <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<p>返回布尔类型的函数对象通常用于需要进行判断的算法，如前面介绍的 find()和 sort()。组合两个<br>函数对象的函数对象称为自适应函数对象</p>
+<h3 id="一元函数"><a href="#一元函数" class="headerlink" title="一元函数"></a>一元函数</h3><p>只对一个参数进行操作的函数称为一元函数。以下是一个在程序中输出元素的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// A unary function </span><br><span class="line">template &lt;typename elementType&gt; </span><br><span class="line">void FuncDisplayElement (const elementType&amp; element) </span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; element &lt;&lt; &#x27; &#x27;;</span><br><span class="line">&#125;</span><br><span class="line">函数 FuncDisplayElement 接受一个类型为模板化类型 elementType 的参数，并使用控制台输出</span><br><span class="line">语句 std::cout 将该参数显示出来。</span><br><span class="line">也可以通过实现包含在类或者结构的operator中实现这个功能</span><br><span class="line">// Struct that can behave as a unary function </span><br><span class="line">template &lt;typename elementType&gt; </span><br><span class="line">struct DisplayElement </span><br><span class="line">&#123; </span><br><span class="line">    void operator () (const elementType&amp;  element) const </span><br><span class="line">    &#123; </span><br><span class="line">      cout &lt;&lt; element &lt;&lt; &#x27; &#x27;; </span><br><span class="line">    &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div><br>下面是一个存储状态的函数对象的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;algorithm&gt; </span><br><span class="line">#include&lt;iostream&gt; </span><br><span class="line">#include&lt;vector&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"> </span><br><span class="line">template&lt;typename elementType&gt; </span><br><span class="line">struct DisplayElementKeepCount </span><br><span class="line">&#123; </span><br><span class="line">   int count; </span><br><span class="line">   //构造函数，初始化列表为count(0)，</span><br><span class="line">   //当实例化DisplayElementKeepCount类时会将成员count初始化为0</span><br><span class="line">   DisplayElementKeepCount() : count(0) &#123;&#125; // constructor </span><br><span class="line"></span><br><span class="line">   void operator()(const elementType&amp; element) </span><br><span class="line">   &#123; </span><br><span class="line">       ++ count; </span><br><span class="line">       cout &lt;&lt; element&lt;&lt; &#x27; &#x27;; </span><br><span class="line">   &#125; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">   vector&lt;int&gt; numsInVec&#123; 22, 2017, -1, 999, 43, 901 &#125;; </span><br><span class="line">   cout &lt;&lt; &quot;Displaying the vector of integers: &quot;&lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">   DisplayElementKeepCount&lt;int&gt; result; </span><br><span class="line">   //将 DisplayElementKeepCount 用作 for_each的返回值</span><br><span class="line">   result = for_each (numsInVec.begin(), </span><br><span class="line">                      numsInVec.end(), </span><br><span class="line">                      DisplayElementKeepCount&lt;int&gt;() ); </span><br><span class="line">   //算法 for_each( )对容器中的每个元素调用结构 DisplayElementKeepCount 实现的 operator( )时，operator( )显示该元素，并递增存储在成员属性 count 中的内部计数</span><br><span class="line">   cout &lt;&lt; endl &lt;&lt; &quot;Functor invoked &quot; &lt;&lt; result.count &lt;&lt; &quot; times&quot;; </span><br><span class="line">   // for_each()执行完毕后使用这个对象指出显示了多少个元素</span><br><span class="line">   return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="一元谓词"><a href="#一元谓词" class="headerlink" title="一元谓词"></a>一元谓词</h3><p>返回布尔值的一元函数是谓词。这种函数可供 STL 算法用于判断。下面是一个示例，用于判断一个数字是否为另一个数字的整数倍<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// A structure as a unary predicate </span><br><span class="line">template &lt;typename numberType&gt; </span><br><span class="line">struct IsMultiple </span><br><span class="line">&#123; </span><br><span class="line">    numberType Divisor; </span><br><span class="line"> </span><br><span class="line">   IsMultiple (const numberType&amp; divisor) </span><br><span class="line">   &#123;   //初始化除数的值</span><br><span class="line">       Divisor = divisor; </span><br><span class="line">   &#125; </span><br><span class="line">   // operator()返回布尔值，通过取余与0比较判断是否可以整除</span><br><span class="line">   bool operator () (const numberType&amp; element) const </span><br><span class="line">   &#123; </span><br><span class="line">       // Check if the divisor is a multiple of the divisor </span><br><span class="line">       return ((element % Divisor) == 0); </span><br><span class="line">   &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="二元函数"><a href="#二元函数" class="headerlink" title="二元函数"></a>二元函数</h3><p>与一元函数的定义类似，二元函数可用于对两个操作数执行运算，如加、减、乘、除等。下面是一个二元函数返回参数乘积的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename elementType&gt; </span><br><span class="line">class Multiply </span><br><span class="line">&#123; </span><br><span class="line">public: </span><br><span class="line">    elementType operator () (const elementType&amp; elem1, </span><br><span class="line">                            const elementType&amp; elem2) </span><br><span class="line">    &#123; </span><br><span class="line">        return (elem1 * elem2); </span><br><span class="line">    &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div><br>在上述实现中最重要的是 operator( )，它接受两个参数并返回它们的积。在 std::transform()等算法中，可使用该二元函数计算两个容器内容的乘积</p>
+<h3 id="二元谓词"><a href="#二元谓词" class="headerlink" title="二元谓词"></a>二元谓词</h3><p>与一元谓词的定义类似，接受两个参数并返回一个布尔值的函数是二元谓词。这种函数用于诸如 std::sort( )等 STL 函数中。</p>
+<p>下面是一个使用了一个二元谓词，它将两个字符串都转换为小写，再对其进行比较的例子。这个谓词可用于对字符串 vector 进行不区分大小写的排序。<br>```</p>
+<h1 id="include"><a href="#include" class="headerlink" title="include"></a>include<algorithm></algorithm></h1><h1 id="include-1"><a href="#include-1" class="headerlink" title="include"></a>include<string></string></h1><p>using namespace std;</p>
+<p>class CompareStringNoCase<br>{<br>public:<br>    bool operator()(const string&amp; str1,const string&amp; str2) const<br>    {<br>        string str1LowerCase;<br>        //分配空间<br>        str1LowerCase.resize(str1.size())<br>        //将str1的所有元素都转变为小写<br>        transform (str1.begin (), str1.end (), str1LowerCase.begin (),::tolower());<br>        //字符串2与1操作类似<br>        string str2LowerCase;<br>        str2LowerCase.resize (str2.size ());<br>        transform (str2.begin (), str2.end (), str2LowerCase.begin (),::tolower());<br>        //进行比较，用于排序<br>        return (str1LowerCase &lt; str2LowerCase);<br>    }<br>};</p>
 
             </div>
 
@@ -280,16 +283,16 @@
                 <div class="post-copyright-info">
                     <div class="article-copyright-info-container">
     <ul>
-        <li><strong>Title:</strong> opencv相关的问题</li>
+        <li><strong>Title:</strong> C++学习笔记：函数对象</li>
         <li><strong>Author:</strong> 硫酸钾</li>
-        <li><strong>Created at:</strong> 2023-07-17 11:01:26</li>
+        <li><strong>Created at:</strong> 2023-07-26 17:05:38</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-07-18 19:36:25
+                <strong>Updated at:</strong> 2023-07-26 15:36:59
             </li>
         
         <li>
-            <strong>Link:</strong> https://white-troy.github.io/2023/07/17/opencv的编译问题/
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/26/函数对象/
         </li>
         <li>
             <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
@@ -310,13 +313,13 @@
                         <div class="article-prev">
                             <a class="prev"
                             rel="prev"
-                            href="/2023/07/19/hexo%E5%9B%BE%E7%89%87%E6%B8%B2%E6%9F%93/"
+                            href="/2023/07/26/%E6%A8%A1%E6%9D%BF%E5%BA%93%E6%98%A0%E5%B0%84/"
                             >
                                 <span class="left arrow-icon flex-center">
                                     <i class="fa-solid fa-chevron-left"></i>
                                 </span>
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">hexo图片加载失败的解决方法</span>
+                                    <span class="post-nav-title-item">C++学习笔记：模板库（6）：映射</span>
                                     <span class="post-nav-item">Prev posts</span>
                                 </span>
                             </a>
@@ -326,10 +329,10 @@
                         <div class="article-next">
                             <a class="next"
                             rel="next"
-                            href="/2023/07/14/%E5%A4%9A%E6%80%81/"
+                            href="/2023/07/26/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/"
                             >
                                 <span class="title flex-center">
-                                    <span class="post-nav-title-item">C++学习笔记：多态</span>
+                                    <span class="post-nav-title-item">C++学习笔记：lambda表达式</span>
                                     <span class="post-nav-item">Next posts</span>
                                 </span>
                                 <span class="right arrow-icon flex-center">
@@ -350,8 +353,8 @@
                 <div class="post-toc-wrap">
     <div class="post-toc">
         <div class="toc-title">On this page</div>
-        <div class="page-title">opencv相关的问题</div>
-        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#opencv%E7%9A%84%E7%BC%96%E8%AF%91%E9%97%AE%E9%A2%98%EF%BC%88windows%EF%BC%89"><span class="nav-text">opencv的编译问题（windows）</span></a></li></ol>
+        <div class="page-title">C++学习笔记：函数对象</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1"><span class="nav-text">函数对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0"><span class="nav-text">一元函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%85%83%E8%B0%93%E8%AF%8D"><span class="nav-text">一元谓词</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%85%83%E5%87%BD%E6%95%B0"><span class="nav-text">二元函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BA%8C%E5%85%83%E8%B0%93%E8%AF%8D"><span class="nav-text">二元谓词</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include"><span class="nav-text">include</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-1"><span class="nav-text">include</span></a>
 
     </div>
 </div>

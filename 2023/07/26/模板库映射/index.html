@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/26/模板库映射/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="std::map和std::multimapmap 和 multimap 是键-值对容器，支持高效的查找、插入和删除操作。它们之间的主要区别在于键的唯一性和元素排序方式，multimap可以存储重复的键，map只能存储唯一的键。使用时要包含头文件&lt; map &gt;关联容器 std::map 和 std::multimap 内部使用红黑树这样的有序数据结构来存储元素。当我们向这些容器插入元素">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习笔记：模板库（6）：映射">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/26/%E6%A8%A1%E6%9D%BF%E5%BA%93%E6%98%A0%E5%B0%84/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="std::map和std::multimapmap 和 multimap 是键-值对容器，支持高效的查找、插入和删除操作。它们之间的主要区别在于键的唯一性和元素排序方式，multimap可以存储重复的键，map只能存储唯一的键。使用时要包含头文件&lt; map &gt;关联容器 std::map 和 std::multimap 内部使用红黑树这样的有序数据结构来存储元素。当我们向这些容器插入元素">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/26/%E6%A8%A1%E6%9D%BF%E5%BA%93%E6%98%A0%E5%B0%84/%E9%94%AE%E5%80%BC%E5%AF%B9.png">
+<meta property="article:published_time" content="2023-07-26T09:05:38.005Z">
+<meta property="article:modified_time" content="2023-07-26T03:48:56.861Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/07/26/%E6%A8%A1%E6%9D%BF%E5%BA%93%E6%98%A0%E5%B0%84/%E9%94%AE%E5%80%BC%E5%AF%B9.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++学习笔记：模板库（6）：映射 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">C++学习笔记：模板库（6）：映射</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-26 17:05:38</span>
+        <span class="mobile">2023-07-26 17:05</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-26 11:48:56</span>
+            <span class="mobile">2023-07-26 11:48</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="std-map和std-multimap"><a href="#std-map和std-multimap" class="headerlink" title="std::map和std::multimap"></a>std::map和std::multimap</h2><p>map 和 multimap 是键-值对容器，支持高效的查找、插入和删除操作。它们之间的主要区别在于键的唯一性和元素排序方式，multimap可以存储重复的键，map只能存储唯一的键。使用时要包含头文件&lt; map &gt;<br><img src="/2023/07/26/%E6%A8%A1%E6%9D%BF%E5%BA%93%E6%98%A0%E5%B0%84/%E9%94%AE%E5%80%BC%E5%AF%B9.png" alt="键值对"><br>关联容器 std::map 和 std::multimap 内部使用红黑树这样的有序数据结构来存储元素。当我们向这些容器插入元素时，容器会根据元素的键值来将元素放置在合适的位置，以保持容器中元素的有序性。这样在遍历容器时，元素的键值会按照升序排列。</p>
+<p>在向 std::map 或 std::multimap 插入元素时，键值是用于在红黑树中进行排序的关键。如果要替换容器中特定位置的元素，必须使用与现有元素相同的键值。如果插入一个新元素且其键值与容器中现有元素不同，容器会将该新元素放置在适当的位置，而不是直接替换原有元素。这是因为容器需要维护元素的有序性，新元素的键值可能导致位置上的排序发生变化。如果要实现替换元素的功能，可以先删除旧元素，然后插入新元素。</p>
+<h2 id="std-map和std-multimap的基本操作"><a href="#std-map和std-multimap的基本操作" class="headerlink" title="std::map和std::multimap的基本操作"></a>std::map和std::multimap的基本操作</h2><p>与其他模板库类似，必须先实例化</p>
+<h3 id="实例化"><a href="#实例化" class="headerlink" title="实例化"></a>实例化</h3><p>实例化模板类 map 时，需要指定键和值的类型以及可选的谓词（它帮助 map 类对插入的元素进行排序），语法如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;map&gt; </span><br><span class="line">using namespace std; </span><br><span class="line">... </span><br><span class="line">map &lt;keyType, valueType, Predicate=std::less &lt;keyType&gt;&gt; mapObj; </span><br><span class="line">multimap &lt;keyType, valueType, Predicate=std::less &lt;keyType&gt;&gt; mmapObj;</span><br></pre></td></tr></table></figure></div><br>其中，Predicate这个参数是可选的，可以自定义，若实例化时没有选择谓词，会使用默认的std::less。下面是一个实例化的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;map&gt; </span><br><span class="line">#include&lt;string&gt; </span><br><span class="line"></span><br><span class="line">//自定义的谓词，实现降序排列 </span><br><span class="line">template&lt;typename keyType&gt; </span><br><span class="line">struct ReverseSort </span><br><span class="line">&#123; </span><br><span class="line">  bool operator()(const keyType&amp; key1, const keyType&amp; key2) </span><br><span class="line">  &#123; </span><br><span class="line">    return (key1 &gt; key2); </span><br><span class="line">  &#125; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">int main ()</span><br><span class="line">&#123; </span><br><span class="line">  using namespace std; </span><br><span class="line"></span><br><span class="line">  //实例化了key为int,value为string的map and multimap</span><br><span class="line">  map&lt;int, string&gt; mapIntToStr1; </span><br><span class="line">  multimap&lt;int, string&gt; mmapIntToStr1; </span><br><span class="line"></span><br><span class="line">  //用另一个 map and multimap的值来实例化 </span><br><span class="line">  map&lt;int, string&gt; mapIntToStr2(mapIntToStr1); </span><br><span class="line">  multimap&lt;int, string&gt; mmapIntToStr2(mmapIntToStr1); </span><br><span class="line"></span><br><span class="line">  // 用另一个 map and multimap的一定范围内的值来实例化</span><br><span class="line">  map&lt;int, string&gt; mapIntToStr3(mapIntToStr1.cbegin(), </span><br><span class="line">  mapIntToStr1.cend()); </span><br><span class="line"></span><br><span class="line">  multimap&lt;int, string&gt; mmapIntToStr3(mmapIntToStr1.cbegin(), </span><br><span class="line">  mmapIntToStr1.cend()); </span><br><span class="line"></span><br><span class="line">  // map and multimap with a predicate that inverses sort order </span><br><span class="line">  //使用了自定义的谓词</span><br><span class="line">  map&lt;int, string, ReverseSort&lt;int&gt;&gt; mapIntToStr4 </span><br><span class="line">  (mapIntToStr1.cbegin(), mapIntToStr1.cend()); </span><br><span class="line"></span><br><span class="line">  multimap&lt;int, string, ReverseSort&lt;int&gt;&gt; mmapIntToStr4 </span><br><span class="line">  (mapIntToStr1.cbegin(), mapIntToStr1.cend()); </span><br><span class="line"></span><br><span class="line">  return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a>插入元素</h3><p>可以使用成员函数 insert()往容器中插入元素，语法如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">std::map&lt;int, std::string&gt; mapIntToStr1; </span><br><span class="line">// insert pair of key and value using make_pair function </span><br><span class="line">mapIntToStr.insert (make_pair (-1, &quot;Minus One&quot;));</span><br></pre></td></tr></table></figure></div><br>也可以使用std::pair 来指定要插入的键和值：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mapIntToStr.insert (pair &lt;int, string&gt;(1000, &quot;One Thousand&quot;));</span><br></pre></td></tr></table></figure></div><br>还可以使用map来实例化multimap：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::multimap&lt;int, std::string&gt; mapIntToStr(mapIntToStr.cbegin(), </span><br><span class="line"> mapIntToStr.cend());//使用mapIntToStr来充当multimap的值</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h3><p>可以使用find()来根据给定的键查找值，find()会返回一个迭代器：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">multimap&lt;int,string&gt;::const_iterator pairFound = mapIntToStr.find(key)</span><br></pre></td></tr></table></figure></div><br>使用时，要先检查是否find()成功，再使用返回的迭代器去访问找到的值，如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//若find()返回不为末尾的值，则表明已经找到</span><br><span class="line">if (pairFound != mapIntToStr.end()) </span><br><span class="line">&#123; </span><br><span class="line"> cout &lt;&lt; &quot;Key &quot; &lt;&lt; pairFound-&gt;first &lt;&lt; &quot; points to Value: &quot;; </span><br><span class="line"> cout &lt;&lt; pairFound-&gt;second &lt;&lt; endl; </span><br><span class="line">&#125; </span><br><span class="line">else </span><br><span class="line"> cout &lt;&lt; &quot;Sorry, pair with key &quot; &lt;&lt; key &lt;&lt; &quot; not in map&quot; &lt;&lt; endl;</span><br></pre></td></tr></table></figure></div><br>在multimap中，可能存在多个键相同的键值对，因此需要找到与指定键对应的所有值，此时可以使用multimap:count()来确定有多少个值与指定的键对应，再对迭代器递增，来访问这些值：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">//使用auto让编译器自动推断出迭代器的类型</span><br><span class="line">auto pairFound = mmapIntToStr.find(key); </span><br><span class="line"></span><br><span class="line">// Check if find() succeeded </span><br><span class="line">if(pairFound != mmapIntToStr.end()) </span><br><span class="line">&#123; </span><br><span class="line">  // Find the number of pairs that have the same supplied key </span><br><span class="line">  size_t numPairsInMap = mmapIntToStr.count(1000); </span><br><span class="line">  for(size_t counter = 0; </span><br><span class="line">  counter &lt; numPairsInMap; // stay within bounds </span><br><span class="line">  ++ counter ) </span><br><span class="line">  &#123; </span><br><span class="line">    cout &lt;&lt; &quot;Key: &quot; &lt;&lt; pairFound-&gt;first; // key </span><br><span class="line">    cout &lt;&lt; &quot;, Value [&quot; &lt;&lt; counter &lt;&lt; &quot;] = &quot;; </span><br><span class="line">    cout &lt;&lt; pairFound-&gt;second &lt;&lt; endl; // value </span><br><span class="line">    ++ pairFound; </span><br><span class="line">   &#125; </span><br><span class="line">&#125; </span><br><span class="line">else </span><br><span class="line"> cout &lt;&lt; &quot;Element not found in the multimap&quot;;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="删除元素"><a href="#删除元素" class="headerlink" title="删除元素"></a>删除元素</h3><p>可以通过erase()对容器中的元素进行删除，调用时使用key作为参数，这将删除包含指定key的所有键值对，如：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mapObject.erase(key)</span><br></pre></td></tr></table></figure></div><br>此外，也可以使用迭代器作为参数，并删除迭代器指向的元素<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mapObject.erase(const_iterator)</span><br><span class="line">//也可使用迭代器指定边界，从而将指定范围内的所有元素都从 map 或 multimap 中删除</span><br><span class="line">mapObject.erase(lowerBound,upperBound)</span><br></pre></td></tr></table></figure></div><br>下面是使用erase()的一个例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include &lt;map&gt; </span><br><span class="line">#include &lt;string&gt; </span><br><span class="line"></span><br><span class="line">template&lt;typename T&gt; </span><br><span class="line">void DisplayContents(const T&amp; cont) </span><br><span class="line">&#123; </span><br><span class="line">    for (auto element = cont.cbegin(); </span><br><span class="line">        element != cont.cend(); </span><br><span class="line">        ++element) </span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; element-&gt;first &lt;&lt; &quot; -&gt; &quot; &lt;&lt; element-&gt;second &lt;&lt; endl; </span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">    //实例化</span><br><span class="line">    multimap&lt;int, string&gt; mmapIntToStr; </span><br><span class="line"></span><br><span class="line">    // 往multimap插入键值对 </span><br><span class="line">    mmapIntToStr.insert(make_pair(3, &quot;Three&quot;)); </span><br><span class="line">    mmapIntToStr.insert(make_pair(45, &quot;Forty Five&quot;)); </span><br><span class="line">    mmapIntToStr.insert(make_pair(-1, &quot;Minus One&quot;)); </span><br><span class="line">    mmapIntToStr.insert(make_pair(1000, &quot;Thousand&quot;)); </span><br><span class="line"></span><br><span class="line">    //往multimap插入重复的键值对 </span><br><span class="line">    mmapIntToStr.insert(make_pair(-1, &quot;Minus One&quot;)); </span><br><span class="line">    mmapIntToStr.insert(make_pair(1000, &quot;Thousand&quot;)); </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The multimap contains &quot; &lt;&lt; mmapIntToStr.size(); </span><br><span class="line">    cout &lt;&lt; &quot; key-value pairs. &quot; &lt;&lt; &quot;They are: &quot; &lt;&lt; endl; </span><br><span class="line">    DisplayContents(mmapIntToStr); </span><br><span class="line"></span><br><span class="line">    // Erasing an element with key as -1 from the multimap </span><br><span class="line">    //获得key为-1的迭代器</span><br><span class="line">    auto numPairsErased = mmapIntToStr.erase(-1); </span><br><span class="line">    cout &lt;&lt; &quot;Erased &quot; &lt;&lt; numPairsErased &lt;&lt; &quot; pairs with -1 as key.&quot; &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    // Erase an element given an iterator from the multimap </span><br><span class="line">    //获得key为45的迭代器</span><br><span class="line">    auto pair = mmapIntToStr.find(45); </span><br><span class="line">    if (pair != mmapIntToStr.end()) </span><br><span class="line">    &#123; </span><br><span class="line">        mmapIntToStr.erase(pair); </span><br><span class="line">        cout &lt;&lt; &quot;Erased a pair with 45 as key using an iterator&quot; &lt;&lt; endl; </span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    // 使用 lower_bound( )和 upper_bound( )来指定范围，而将包含特定键的所有键-值对都删除</span><br><span class="line">    cout &lt;&lt; &quot;Erasing the range of pairs with 1000 as key.&quot; &lt;&lt; endl; </span><br><span class="line">    mmapIntToStr.erase(mmapIntToStr.lower_bound(1000), </span><br><span class="line">                    mmapIntToStr.upper_bound(1000)); </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The multimap now contains &quot; &lt;&lt; mmapIntToStr.size(); </span><br><span class="line">    cout &lt;&lt; &quot; key-value pair(s).&quot; &lt;&lt; &quot;They are: &quot; &lt;&lt; endl; </span><br><span class="line">    DisplayContents(mmapIntToStr);</span><br><span class="line"></span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br><span class="line">//输出</span><br><span class="line">The multimap contains 6 key-value pairs. They are: </span><br><span class="line">-1 -&gt; Minus One </span><br><span class="line">-1 -&gt; Minus One </span><br><span class="line">3 -&gt; Three </span><br><span class="line">45 -&gt; Forty Five </span><br><span class="line">1000 -&gt; Thousand </span><br><span class="line">1000 -&gt; Thousand </span><br><span class="line">Erased 2 pairs with -1 as key. </span><br><span class="line">Erased a pair with 45 as key using an iterator </span><br><span class="line">Erasing the range of pairs with 1000 as key. </span><br><span class="line">The multimap now contains 1 key-value pair(s).They are: </span><br><span class="line">3 -&gt; Three</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="提供自定义的排序谓词"><a href="#提供自定义的排序谓词" class="headerlink" title="提供自定义的排序谓词"></a>提供自定义的排序谓词</h3><p>实例化map和multimap的语法<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">map &lt;keyType, valueType, Predicate=std::less &lt;keyType&gt;&gt; mapObj; </span><br><span class="line">multimap &lt;keyType, valueType, Predicate=std::less &lt;keyType&gt;&gt; mmapObj;</span><br></pre></td></tr></table></figure></div><br>中都包含了第三个参数，该参数是确保 map 能够正常工作的排序谓词，在实例化没有提供自定义的谓词时，使用的是std::less &lt;&gt;提供的默认排序标准，也可以自己编写一个二元谓词，实现operator()的类或结构：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">template&lt;typename keyType&gt; </span><br><span class="line">struct Predicate </span><br><span class="line">&#123; </span><br><span class="line">  bool operator()(const keyType&amp; key1, const keyType&amp; key2) </span><br><span class="line">  &#123; </span><br><span class="line">  // your sort priority logic here </span><br><span class="line">  &#125; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div><br>如在之前的电话本的例子中，可以将输入的字符串不区分大小写，实现自己的排序，根据结果返回true或false：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bool operator()(const string&amp; str1, const string&amp; str2) const </span><br><span class="line">&#123; </span><br><span class="line">    string str1NoCase(str1), str2NoCase(str2); </span><br><span class="line">    //将str1和str2的所有字符都变为小写</span><br><span class="line">    transform(str1.begin(), str1.end(), str1NoCase.begin(), ::tolower); </span><br><span class="line">    transform(str2.begin(), str2.end(), str2NoCase.begin(), ::tolower); </span><br><span class="line">    //比较，按升序排列</span><br><span class="line">    return(str1NoCase&lt; str2NoCase); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="基于散列表的-STL-键-值对容器"><a href="#基于散列表的-STL-键-值对容器" class="headerlink" title="基于散列表的 STL 键-值对容器"></a>基于散列表的 STL 键-值对容器</h2><p>从 C++11 起，STL 支持散列映射—std::unordered_map 类。要使用这个模板类，需要包含头文件&lt; unordered_map &gt;</p>
+<p>unordered_map 的平均插入和删除时间是固定的，查找元素的时间也是固定的。</p>
+<h3 id="散列表的工作原理"><a href="#散列表的工作原理" class="headerlink" title="散列表的工作原理"></a>散列表的工作原理</h3><p>散列表（Hash Table）是一种用于存储和查找数据的数据结构，其工作原理是通过将数据的键（Key）映射到存储位置的索引（Hash Value）来实现高效的查找和插入操作。可将散列表视为一个键-值对集合，根据给定的键，可找到相应的值。散列表与简单映射的区别在于，散列表将键-值对存储在桶中，每个桶都有索引，指出了它在散列表中的相对位置（类似于数组）。<br>这种索引是使用散列函数根据键计算得到的：Index = HashFunction(key, TableSize);使用 find( )根据键查找元素时，将使用 HashFunction( )计算元素的位置，并返回该位置的值，就像数组返回其存储的元素那样，具体工作原理如下：</p>
+<ol>
+<li>哈希函数（Hash Function）：哈希函数是散列表的关键部分，它将数据的键映射到一个唯一的整数值，即哈希值。哈希函数的设计目标是使得不同的键产生不同的哈希值，尽可能避免不同键映射到同一个哈希值，这就是所谓的“哈希冲突”。</li>
+<li>存储位置：将哈希值作为索引，将键值对存储在数组（或称为桶）的相应位置。这个数组称为散列表。通过哈希函数，我们可以在常数时间内找到数据的存储位置，从而实现快速的插入和查找。</li>
+<li>哈希冲突处理：由于不同的键可能映射到相同的哈希值，可能会导致哈希冲突。为了处理哈希冲突，散列表使用了一些冲突解决方法，其中常见的有：</li>
+<li>链接法（Chaining）：使用链表或其他数据结构将具有相同哈希值的键值对链接在一起。<br>开放地址法（Open Addressing）：当发生冲突时，继续寻找下一个可用的存储位置，直到找到一个空位置。</li>
+</ol>
+<h3 id="使用-unordered-map-和-unordered-multimap"><a href="#使用-unordered-map-和-unordered-multimap" class="headerlink" title="使用 unordered_map 和 unordered_multimap"></a>使用 unordered_map 和 unordered_multimap</h3><p>这两种实现散列表的容器是C++11引入的，他们与std::map和std::multimap的区别补发，可以用类似的方式执行实例化，插入和查找：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">// 实例化 unordered_map key: int value： string: </span><br><span class="line">unordered_map&lt;int, string&gt; umapIntToStr; </span><br><span class="line">// 插入insert() </span><br><span class="line">umapIntToStr.insert(make_pair(1000, &quot;Thousand&quot;)); </span><br><span class="line">// 查找find(): </span><br><span class="line">auto pairFound = umapIntToStr.find(1000); </span><br><span class="line">cout &lt;&lt; pairFound-&gt;first &lt;&lt; &quot; - &quot; &lt;&lt; pairFound-&gt;second &lt;&lt; endl; </span><br><span class="line">// 使用列表的[]来查找值</span><br><span class="line">cout &lt;&lt; &quot;umapIntToStr[1000] = &quot; &lt;&lt; umapIntToStr[1000] &lt;&lt; endl; </span><br><span class="line">然而，一个重要的特点是，unordered_map 包含一个散列函数，用于计算排列顺序：</span><br><span class="line">unordered_map&lt;int, string&gt;::hasher hFn = </span><br><span class="line"> umapIntToStr.hash_function(); </span><br><span class="line">要获悉键对应的索引，可调用该散列函数，并将键传递给它：</span><br><span class="line">size_t hashingVal = hFn(1000); </span><br><span class="line">鉴于 unordered_map 将键-值对存储在桶中，在元素数达到或接近桶数时，它将自动执行负载均衡：</span><br><span class="line">cout &lt;&lt; &quot;Load factor: &quot; &lt;&lt; umapIntToStr.load_factor() &lt;&lt; endl; </span><br><span class="line">cout &lt;&lt; &quot;Max load factor = &quot; &lt;&lt; umapIntToStr.max_load_factor() &lt;&lt; endl; </span><br><span class="line">cout &lt;&lt; &quot;Max bucket count = &quot; &lt;&lt; umapIntToStr.max_bucket_count() &lt;&lt; endl;</span><br></pre></td></tr></table></figure></div><br>load_factor( ) 指出了 unordered_map 桶的填满程度。因插入元素导致 load_factor( ) 超 过<br>max_load_factor( )时，unordered_map 将重新组织以增加桶数，并重建散列表，下面是一个使用unordered_map的例子<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">#include &lt;unordered_map&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template &lt;typename T1, typename T2&gt;</span><br><span class="line">void DisplayUnorderedMap(unordered_map&lt;T1, T2&gt;&amp; cont)</span><br><span class="line">&#123;</span><br><span class="line">    cout &lt;&lt; &quot;Unordered Map contains: &quot; &lt;&lt; endl;</span><br><span class="line">    for (auto element = cont.cbegin(); element != cont.cend(); ++element)</span><br><span class="line">        cout &lt;&lt; element-&gt;first &lt;&lt; &quot; -&gt; &quot; &lt;&lt; element-&gt;second &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Number of pairs, size(): &quot; &lt;&lt; cont.size() &lt;&lt; endl;</span><br><span class="line">    //返回当前 unordered_map 内部存储的桶（buckets）的数量，桶是散列表中用于存储键值对的容器</span><br><span class="line">    cout &lt;&lt; &quot;Bucket count = &quot; &lt;&lt; cont.bucket_count() &lt;&lt; endl;</span><br><span class="line">    //返回当前散列表中的平均负载因子，负载因子是指散列表中存储的元素数量与桶数量的比值</span><br><span class="line">    cout &lt;&lt; &quot;Current load factor: &quot; &lt;&lt; cont.load_factor() &lt;&lt; endl;</span><br><span class="line">    //返回当前 unordered_map 设置的最大负载因子，当平均负载因子超过最大负载因子时，散列表会自动进行扩容，重新分配更大的桶，以保持较低的负载因子</span><br><span class="line">    cout &lt;&lt; &quot;Max load factor = &quot; &lt;&lt; cont.max_load_factor() &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    //初始化并插入值</span><br><span class="line">    unordered_map&lt;int, string&gt; umapIntToStr;</span><br><span class="line">    umapIntToStr.insert(make_pair(1, &quot;One&quot;));</span><br><span class="line">    umapIntToStr.insert(make_pair(45, &quot;Forty Five&quot;));</span><br><span class="line">    umapIntToStr.insert(make_pair(1001, &quot;Thousand One&quot;));</span><br><span class="line">    umapIntToStr.insert(make_pair(-2, &quot;Minus Two&quot;));</span><br><span class="line">    umapIntToStr.insert(make_pair(-1000, &quot;Minus One Thousand&quot;));</span><br><span class="line">    umapIntToStr.insert(make_pair(100, &quot;One Hundred&quot;));</span><br><span class="line">    umapIntToStr.insert(make_pair(12, &quot;Twelve&quot;));</span><br><span class="line">    umapIntToStr.insert(make_pair(-100, &quot;Minus One Hundred&quot;));</span><br><span class="line">    //展示最初的八个值</span><br><span class="line">    DisplayUnorderedMap&lt;int, string&gt;(umapIntToStr);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Inserting one more element&quot; &lt;&lt; endl;</span><br><span class="line">    //插入新值</span><br><span class="line">    umapIntToStr.insert(make_pair(300, &quot;Three Hundred&quot;));</span><br><span class="line">    //展示值，并输出扩容情况</span><br><span class="line">    DisplayUnorderedMap&lt;int, string&gt;(umapIntToStr);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Enter key to find for: &quot;;</span><br><span class="line">    int Key = 0;</span><br><span class="line">    cin &gt;&gt; Key;</span><br><span class="line"></span><br><span class="line">    auto element = umapIntToStr.find(Key);</span><br><span class="line">    if (element != umapIntToStr.end())</span><br><span class="line">        cout &lt;&lt; &quot;Found! Key pairs with value &quot; &lt;&lt; element-&gt;second &lt;&lt; endl;</span><br><span class="line">    else</span><br><span class="line">        cout &lt;&lt; &quot;Key has no corresponding pair value!&quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//输出结果</span><br><span class="line">Unordered Map contains: </span><br><span class="line">1 -&gt; One </span><br><span class="line">-2 -&gt; Minus Two </span><br><span class="line">45 -&gt; Forty Five </span><br><span class="line">1001 -&gt; Thousand One </span><br><span class="line">-1000 -&gt; Minus One Thousand </span><br><span class="line">12 -&gt; Twelve </span><br><span class="line">100 -&gt; One Hundred </span><br><span class="line">-100 -&gt; Minus One Hundred </span><br><span class="line">Number of pairs, size(): 8 </span><br><span class="line">Bucket count = 8 </span><br><span class="line">Current load factor: 1 </span><br><span class="line">Max load factor = 1 </span><br><span class="line">Inserting one more element </span><br><span class="line">Unordered Map contains: </span><br><span class="line">1 -&gt; One</span><br><span class="line">-2 -&gt; Minus Two </span><br><span class="line">45 -&gt; Forty Five </span><br><span class="line">1001 -&gt; Thousand One </span><br><span class="line">-1000 -&gt; Minus One Thousand </span><br><span class="line">12 -&gt; Twelve </span><br><span class="line">100 -&gt; One Hundred </span><br><span class="line">-100 -&gt; Minus One Hundred </span><br><span class="line">300 -&gt; Three Hundred </span><br><span class="line">Number of pairs, size(): 9 </span><br><span class="line">Bucket count = 64 </span><br><span class="line">Current load factor: 0.140625 </span><br><span class="line">Max load factor = 1 </span><br><span class="line">Enter key to find for: 300 </span><br><span class="line">Found! Key pairs with value Three Hundred</span><br></pre></td></tr></table></figure></div><br>注意，unordered_map 不会保持元素的插入顺序，因此在输出时，键值对的顺序可能会与插入顺序不同。unordered_map 的查找操作是基于哈希值的，因此查找的速度通常很快，但是不会按照特定顺序进行输出。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++学习笔记：模板库（6）：映射</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-26 17:05:38</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-26 11:48:56
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/26/模板库映射/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/26/%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：函数对象</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">C++学习笔记：模板库（6）：映射</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#std-map%E5%92%8Cstd-multimap"><span class="nav-text">std::map和std::multimap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#std-map%E5%92%8Cstd-multimap%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-text">std::map和std::multimap的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96"><span class="nav-text">实例化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="nav-text">插入元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0"><span class="nav-text">查找元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%A0%E9%99%A4%E5%85%83%E7%B4%A0"><span class="nav-text">删除元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8F%90%E4%BE%9B%E8%87%AA%E5%AE%9A%E4%B9%89%E7%9A%84%E6%8E%92%E5%BA%8F%E8%B0%93%E8%AF%8D"><span class="nav-text">提供自定义的排序谓词</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%95%A3%E5%88%97%E8%A1%A8%E7%9A%84-STL-%E9%94%AE-%E5%80%BC%E5%AF%B9%E5%AE%B9%E5%99%A8"><span class="nav-text">基于散列表的 STL 键-值对容器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%A3%E5%88%97%E8%A1%A8%E7%9A%84%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="nav-text">散列表的工作原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-unordered-map-%E5%92%8C-unordered-multimap"><span class="nav-text">使用 unordered_map 和 unordered_multimap</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/26/lambda表达式/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="什么是lambda表达式Lambda表达式是C++11引入的一种匿名函数的形式，它允许在代码中定义简短的函数，通常用于简化代码，使代码更加紧凑和易读。它的语法如下：123[捕获列表] (参数列表) -&gt; 返回类型 &amp;#123;    &#x2F;&#x2F; 函数体&amp;#125;  捕获列表（Capture List）：用于捕获外部作用域中的变量，使得Lambda表达式可以访问这些变量。对于捕获列表，可以是空捕获">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习笔记：lambda表达式">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/26/lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="什么是lambda表达式Lambda表达式是C++11引入的一种匿名函数的形式，它允许在代码中定义简短的函数，通常用于简化代码，使代码更加紧凑和易读。它的语法如下：123[捕获列表] (参数列表) -&gt; 返回类型 &amp;#123;    &#x2F;&#x2F; 函数体&amp;#125;  捕获列表（Capture List）：用于捕获外部作用域中的变量，使得Lambda表达式可以访问这些变量。对于捕获列表，可以是空捕获">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-26T09:05:37.996Z">
+<meta property="article:modified_time" content="2023-07-26T09:05:04.474Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++学习笔记：lambda表达式 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">C++学习笔记：lambda表达式</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-26 17:05:37</span>
+        <span class="mobile">2023-07-26 17:05</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-26 17:05:04</span>
+            <span class="mobile">2023-07-26 17:05</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="什么是lambda表达式"><a href="#什么是lambda表达式" class="headerlink" title="什么是lambda表达式"></a>什么是lambda表达式</h2><p>Lambda表达式是C++11引入的一种匿名函数的形式，它允许在代码中定义简短的函数，通常用于简化代码，使代码更加紧凑和易读。它的语法如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[捕获列表] (参数列表) -&gt; 返回类型 &#123;</span><br><span class="line">    // 函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<ol>
+<li>捕获列表（Capture List）：用于捕获外部作用域中的变量，使得Lambda表达式可以访问这些变量。对于捕获列表，可以是空捕获’[]’(表示Lambda函数体不使用外部作用域中的任何变量);<br>值捕获’[var]’以及引用捕获’[&amp;var]’。下面是使用值捕获和引用捕获的例子:</li>
+</ol>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    int a = 5;</span><br><span class="line">    int b = 10;</span><br><span class="line"></span><br><span class="line">    // 值捕获</span><br><span class="line">    //使用捕获列表 [var]，其中 var 是要捕获的外部变量名。</span><br><span class="line">    //Lambda函数体内部可以使用这个捕获的变量的值，但不能修改它。</span><br><span class="line">    //值捕获会在Lambda表达式创建时将外部变量复制一份</span><br><span class="line">    auto func1 = [a](int x) &#123;</span><br><span class="line">        std::cout &lt;&lt; &quot;Value Capture: &quot; &lt;&lt; a + x &lt;&lt; std::endl;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    // 引用捕获</span><br><span class="line">    //使用捕获列表 [&amp;var]，其中 var 是要捕获的外部变量名。</span><br><span class="line">    //Lambda函数体内部可以使用和修改这个捕获的变量，因为它使用的是外部变量的引用。</span><br><span class="line">    auto func2 = [&amp;b](int y) &#123;</span><br><span class="line">        b += y;</span><br><span class="line">        std::cout &lt;&lt; &quot;Reference Capture: &quot; &lt;&lt; b &lt;&lt; std::endl;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    func1(3); // 输出：Value Capture: 8</span><br><span class="line">    func2(5); // 输出：Reference Capture: 15</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; &quot;Original b: &quot; &lt;&lt; b &lt;&lt; std::endl; // 输出：Original b: 15</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<ol>
+<li>参数列表（Parameter List）：用于传递参数给Lambda表达式。</li>
+<li>返回类型（Return Type）：指定Lambda表达式的返回类型。可以省略，如果省略，编译器会根据表达式自动推断返回类型。<br>Lambda表达式允许捕获外部作用域中的变量，并在函数体中使用这些变量。捕获可以是值捕获（变量被复制）或引用捕获（变量被引用）。</li>
+</ol>
+<h2 id="一元函数对应的-lambda-表达式"><a href="#一元函数对应的-lambda-表达式" class="headerlink" title="一元函数对应的 lambda 表达式"></a>一元函数对应的 lambda 表达式</h2><p>与一元 operator(Type)对应的 lambda 表达式接受一个参数，其定义如下:<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[](Type paramName) &#123; // lambda expression code here; &#125;</span><br><span class="line">也可以按引用传值</span><br><span class="line">[](Type&amp; paramName) &#123; // lambda expression code here; &#125;</span><br></pre></td></tr></table></figure></div><br>在lambda表达式中，可以使用auto关键字让编译器自动推断类型，如可以将<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for_each (charsInList.cbegin (), // Start of range </span><br><span class="line"> charsInList.cend (), // End of range </span><br><span class="line">[](const char&amp; element) &#123;cout &lt;&lt; element &lt;&lt; &#x27; &#x27;; &#125; ); // lambda</span><br><span class="line">改为</span><br><span class="line">[](auto&amp; element) &#123;cout &lt;&lt; element &lt;&lt; &#x27; &#x27;; &#125; ); // lambda</span><br></pre></td></tr></table></figure></div><br>这样编译器就会根据返回的类型自动推断</p>
+<h2 id="一元谓词对应的-lambda-表达式"><a href="#一元谓词对应的-lambda-表达式" class="headerlink" title="一元谓词对应的 lambda 表达式"></a>一元谓词对应的 lambda 表达式</h2><p>一元谓词是返回 bool 类型（true 或 false）的一元表达式。lambda 表达式也可以返回值，如：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[](int&amp; num) &#123;</span><br><span class="line">    return ((num % 2) == 0); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>就在num是偶数的时候返回true，返回值的性质让编译器知道该 lambda 表达式的返回类型为 bool。在算法中，可将 lambda 表达式用作一元谓词，下面是一个在算法 std::find_if( )中，将 lambda 表达式用作一元谓词，以查找集合中的偶数的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;algorithm&gt;</span><br><span class="line">#include&lt;vector&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">int main()&#123;</span><br><span class="line">    vector&lt;int&gt; numsInVec&#123;25,101,2017,-50&#125;;</span><br><span class="line">    auto evenNum = find_if(numsInVec.cbegin(),numsInVec.cend(),</span><br><span class="line">    [](const int&amp; num)&#123;return ((num%2)==0);&#125;);</span><br><span class="line"></span><br><span class="line">    if(evenNum != numsInVec.cend())</span><br><span class="line">        cout &lt;&lt; &quot;Even number in collection is: &quot; &lt;&lt; *evenNum &lt;&lt; endl;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//输出</span><br><span class="line">Even number in collection is: -50</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="lambda表达式的通用语法"><a href="#lambda表达式的通用语法" class="headerlink" title="lambda表达式的通用语法"></a>lambda表达式的通用语法</h2><p>lambda 表达式总是以方括号打头，并可接受多个状态变量，为此可在捕获列表（[…]）中指定这些状态变量，并用逗号分隔：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[stateVar1, stateVar2](Type&amp; param) &#123; // lambda code here; &#125; </span><br></pre></td></tr></table></figure></div><br>如果要在 lambda 表达式中修改这些状态变量，可添加关键字 multable：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[stateVar1, stateVar2](Type&amp; param) mutable &#123; // lambda code here; &#125; </span><br></pre></td></tr></table></figure></div><br>这样，便可在 lambda 表达式中修改捕获列表（[]）中指定的变量，但离开 lambda 表达式后，这些修改将无效。要确保在 lambda 表达式内部对状态变量的修改在其外部也有效，应按引用传递它们：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&amp;stateVar1, &amp;stateVar2](Type&amp; param) &#123; // lambda code here; &#125; </span><br></pre></td></tr></table></figure></div><br>lambda 表达式还可接受多个输入参数，为此可用逗号分隔它们：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[stateVar1, stateVar2](Type1&amp; var1, Type2&amp; var2) &#123; // lambda code here; &#125; </span><br></pre></td></tr></table></figure></div><br>如果要向编译器明确地指定返回类型，可使用-&gt;，如下所示：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[stateVar1, stateVar2](Type1 var1, Type2 var2) -&gt; ReturnType </span><br><span class="line">&#123; return (value or expression ); &#125; </span><br></pre></td></tr></table></figure></div><br>最后，复合语句（{}）可包含多条用分号分隔的语句，如下所示：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[stateVar1, stateVar2](Type1 var1, Type2 var2) -&gt; ReturnType </span><br><span class="line">&#123; </span><br><span class="line">    Statement 1; </span><br><span class="line">    Statement 2; </span><br><span class="line">    return (value or expression); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="二元函数对应的-lambda-表达式"><a href="#二元函数对应的-lambda-表达式" class="headerlink" title="二元函数对应的 lambda 表达式"></a>二元函数对应的 lambda 表达式</h2><p>二元函数接受两个参数，还可返回一个值。与之等价的 lambda 表达式如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[...](Type1&amp; param1Name, Type2&amp; param2Name) &#123;</span><br><span class="line">     // lambda code here;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>下面是一段 lambda 表达式用作二元函数，以便将两个容器中的元素相乘，并将结果存储到第三个容器中的例子<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;vector&gt; </span><br><span class="line">#include &lt;iostream&gt; </span><br><span class="line">#include &lt;algorithm&gt; </span><br><span class="line"></span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line">    using namespace std; </span><br><span class="line"></span><br><span class="line">    vector&lt;int&gt; vecMultiplicand&#123; 0, 1, 2, 3, 4 &#125;; </span><br><span class="line">    vector&lt;int&gt; vecMultiplier&#123; 100, 101, 102, 103, 104 &#125;; </span><br><span class="line"></span><br><span class="line">    // Holds the result of multiplication </span><br><span class="line">    vector&lt;int&gt; vecResult; </span><br><span class="line"></span><br><span class="line">    // Make space for the result of the multiplication </span><br><span class="line">    vecResult.resize(vecMultiplier.size()); </span><br><span class="line">    //</span><br><span class="line">    transform(vecMultiplicand.begin(), // range of multiplicands </span><br><span class="line">              vecMultiplicand.end(),   // end of range </span><br><span class="line">              vecMultiplier.begin(),   // multiplier values </span><br><span class="line">              vecResult.begin(),       // range that holds the result </span><br><span class="line">              [](int a, int b) &#123; return a * b; &#125;); // lambda表达式作为transform的参数</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The contents of the first vector are: &quot; &lt;&lt; endl; </span><br><span class="line">    for (size_t index = 0; index &lt; vecMultiplicand.size(); ++index) </span><br><span class="line">        cout &lt;&lt; vecMultiplicand[index] &lt;&lt; &#x27; &#x27;; </span><br><span class="line">    cout &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The contents of the second vector are: &quot; &lt;&lt; endl; </span><br><span class="line">    for (size_t index = 0; index &lt; vecMultiplier.size(); ++index)</span><br><span class="line">        cout &lt;&lt; vecMultiplier[index] &lt;&lt; &#x27; &#x27;; </span><br><span class="line">    cout &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The result of the multiplication is: &quot; &lt;&lt; endl; </span><br><span class="line">    for (size_t index = 0; index &lt; vecResult.size(); ++index) </span><br><span class="line">        cout &lt;&lt; vecResult[index] &lt;&lt; &#x27; &#x27;; </span><br><span class="line"></span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br><span class="line">//输出</span><br><span class="line">The contents of the first vector are: </span><br><span class="line">0 1 2 3 4 </span><br><span class="line">The contents of the second vector are: </span><br><span class="line">100 101 102 103 104 </span><br><span class="line">The result of the multiplication is: </span><br><span class="line">0 101 204 309 416</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="二元谓词对应的-lambda-表达式"><a href="#二元谓词对应的-lambda-表达式" class="headerlink" title="二元谓词对应的 lambda 表达式"></a>二元谓词对应的 lambda 表达式</h2><p>返回 true 或 false、可帮助决策的二元函数被称为二元谓词。这种谓词可用于 std::sort( )等排序算法中，这些算法对容器中的两个值调用二元谓词，以确定将哪个放在前面。与二元谓词等价的 lambda 表达式的通用语法如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[...](Type1&amp; param1Name, Type2&amp; param2Name) &#123; // return bool expression; &#125;</span><br></pre></td></tr></table></figure></div><br>下面是一段在 std::sort( )中，将 lambda 表达式用作二元谓词，以便进行区分大小写的排序的例子<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;algorithm&gt; </span><br><span class="line">#include &lt;string&gt; </span><br><span class="line">#include &lt;vector&gt; </span><br><span class="line">#include &lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt; </span><br><span class="line">void DisplayContents (const T&amp; input) </span><br><span class="line">&#123; </span><br><span class="line">    for (auto element = input.cbegin(); element != input.cend (); ++ element ) </span><br><span class="line">        cout &lt;&lt; *element &lt;&lt; endl;</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line">    vector&lt;string&gt; namesInVec&#123; &quot;jim&quot;, &quot;Jack&quot;, &quot;Sam&quot;, &quot;Anna&quot; &#125;; </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The names in vector in order of insertion: &quot; &lt;&lt; endl; </span><br><span class="line">    DisplayContents(namesInVec); </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Order after case sensitive sort: &quot; &lt;&lt; endl; </span><br><span class="line">    sort(namesInVec.begin(), namesInVec.end()); </span><br><span class="line">    DisplayContents(namesInVec); </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Order after sort ignoring case:&quot; &lt;&lt; endl; </span><br><span class="line">    sort(namesInVec.begin(), namesInVec.end(), </span><br><span class="line">         [](const string&amp; str1, const string&amp; str2) -&gt; bool // lambda表达式可跨越多行，但必须显式地指定返回类型</span><br><span class="line">         &#123; </span><br><span class="line">             string str1LC; // LC = lowercase </span><br><span class="line"></span><br><span class="line">             // Assign space </span><br><span class="line">             str1LC.resize (str1.size ()); </span><br><span class="line"></span><br><span class="line">             // Convert every character to the lower case </span><br><span class="line">             transform(str1.begin(), str1.end(), str1LC.begin(),::tolower); </span><br><span class="line"></span><br><span class="line">             string str2LC; </span><br><span class="line">             str2LC.resize (str2.size ()); </span><br><span class="line">             transform(str2.begin(), str2.end(), str2LC.begin(),::tolower); </span><br><span class="line"></span><br><span class="line">             return (str1LC &lt; str2LC); </span><br><span class="line">         &#125; // end of lambda </span><br><span class="line">    ); // end of sort </span><br><span class="line"></span><br><span class="line">    DisplayContents(namesInVec); </span><br><span class="line"></span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++学习笔记：lambda表达式</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-26 17:05:37</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-26 17:05:04
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/26/lambda表达式/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/07/26/%E5%87%BD%E6%95%B0%E5%AF%B9%E8%B1%A1/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：函数对象</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/25/%E6%A8%A1%E6%9D%BF%E5%BA%93vector/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：模板库（3）：vector类</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">C++学习笔记：lambda表达式</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFlambda%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">什么是lambda表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%85%83%E5%87%BD%E6%95%B0%E5%AF%B9%E5%BA%94%E7%9A%84-lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">一元函数对应的 lambda 表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E5%85%83%E8%B0%93%E8%AF%8D%E5%AF%B9%E5%BA%94%E7%9A%84-lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">一元谓词对应的 lambda 表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E9%80%9A%E7%94%A8%E8%AF%AD%E6%B3%95"><span class="nav-text">lambda表达式的通用语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%85%83%E5%87%BD%E6%95%B0%E5%AF%B9%E5%BA%94%E7%9A%84-lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">二元函数对应的 lambda 表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E5%85%83%E8%B0%93%E8%AF%8D%E5%AF%B9%E5%BA%94%E7%9A%84-lambda-%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="nav-text">二元谓词对应的 lambda 表达式</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
