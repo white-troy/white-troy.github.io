@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/26/stl算法/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="STL算法STL（标准模板库）算法是C++标准库中提供的一组通用算法，用于对容器中的元素进行各种操作和处理。STL算法提供了一种简单而强大的方式来处理各种容器，如vector、list、set、map等，以及数组等。这些算法通过迭代器（Iterators）来遍历容器，并对其中的元素执行相应的操作，包括查找、排序、合并、插入、删除等。 STL算法的分类stl算法分为非变序算法和变序算法 非变序算法不">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习笔记：stl算法">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/26/stl%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="STL算法STL（标准模板库）算法是C++标准库中提供的一组通用算法，用于对容器中的元素进行各种操作和处理。STL算法提供了一种简单而强大的方式来处理各种容器，如vector、list、set、map等，以及数组等。这些算法通过迭代器（Iterators）来遍历容器，并对其中的元素执行相应的操作，包括查找、排序、合并、插入、删除等。 STL算法的分类stl算法分为非变序算法和变序算法 非变序算法不">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/26/stl%E7%AE%97%E6%B3%95/%E9%9D%9E%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%951.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/26/stl%E7%AE%97%E6%B3%95/%E9%9D%9E%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%952.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/26/stl%E7%AE%97%E6%B3%95/%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%951.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/26/stl%E7%AE%97%E6%B3%95/%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%952.png">
+<meta property="article:published_time" content="2023-07-26T13:16:11.206Z">
+<meta property="article:modified_time" content="2023-07-26T13:14:01.612Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/07/26/stl%E7%AE%97%E6%B3%95/%E9%9D%9E%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%951.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++学习笔记：stl算法 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">C++学习笔记：stl算法</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-26 21:16:11</span>
+        <span class="mobile">2023-07-26 21:16</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-26 21:14:01</span>
+            <span class="mobile">2023-07-26 21:14</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="STL算法"><a href="#STL算法" class="headerlink" title="STL算法"></a>STL算法</h2><p>STL（标准模板库）算法是C++标准库中提供的一组通用算法，用于对容器中的元素进行各种操作和处理。STL算法提供了一种简单而强大的方式来处理各种容器，如vector、list、set、map等，以及数组等。这些算法通过迭代器（Iterators）来遍历容器，并对其中的元素执行相应的操作，包括查找、排序、合并、插入、删除等。</p>
+<h2 id="STL算法的分类"><a href="#STL算法的分类" class="headerlink" title="STL算法的分类"></a>STL算法的分类</h2><p>stl算法分为非变序算法和变序算法</p>
+<h3 id="非变序算法"><a href="#非变序算法" class="headerlink" title="非变序算法"></a>非变序算法</h3><p>不改变容器中元素的顺序和内容的算法称为非变序算法<br><img src="/2023/07/26/stl%E7%AE%97%E6%B3%95/%E9%9D%9E%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%951.png" alt="非变序算法"><br><img src="/2023/07/26/stl%E7%AE%97%E6%B3%95/%E9%9D%9E%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%952.png" alt="非变序算法"></p>
+<h3 id="变序算法"><a href="#变序算法" class="headerlink" title="变序算法"></a>变序算法</h3><p>变序算法改变其操作的序列的元素顺序或内容<br><img src="/2023/07/26/stl%E7%AE%97%E6%B3%95/%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%951.png" alt="变序算法"><br><img src="/2023/07/26/stl%E7%AE%97%E6%B3%95/%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%952.png" alt="变序算法"></p>
+<h2 id="使用STL算法"><a href="#使用STL算法" class="headerlink" title="使用STL算法"></a>使用STL算法</h2><h3 id="根据值或者条件查找元素"><a href="#根据值或者条件查找元素" class="headerlink" title="根据值或者条件查找元素"></a>根据值或者条件查找元素</h3><p>STL 算法 find( )和 find_if( )用于在 vector 等容器中查找与值匹配或满足条件的元素。find( )的用法<br>如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">auto element = find (numsInVec.cbegin(), // Start of range </span><br><span class="line"> numsInVec.cend(), // End of range </span><br><span class="line"> numToFind); // Element to find </span><br><span class="line">// Check if find() succeeded </span><br><span class="line">//必须要比较，来验证find()是否操作成功</span><br><span class="line">if (element != numsInVec.cend ()) </span><br><span class="line">  cout &lt;&lt; &quot;Result: Value found!&quot; &lt;&lt; endl; </span><br></pre></td></tr></table></figure></div><br>find_if( )的用法与此类似，但需要通过第三个参数提供一个一元谓词（返回 true 或 false 的一元<br>函数）：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">auto evenNum = find_if (numsInVec.cbegin(), // Start of range </span><br><span class="line"> numsInVec.cend(), // End of range </span><br><span class="line"> [](int element) &#123; return (element % 2) == 0; &#125; ); </span><br><span class="line">//必须要比较，来验证find_if()是否操作成功</span><br><span class="line">if (evenNum != numsInVec.cend()) </span><br><span class="line">  cout &lt;&lt; &quot;Result: Value found!&quot; &lt;&lt; endl;</span><br></pre></td></tr></table></figure></div><br>finde和find_if都返回一个迭代器，要将返回的迭代器与end( )或 cend( )进行比较，从而判断是否查找到对应的值（注：end()返回的迭代器类型取决于容器的常量性，如果容器是非常量容器，则返回非常量迭代器；如果容器是常量容器，则返回常量迭代器。而cend()总是返回常量迭代器，无论容器是否是常量容器。在遍历容器元素时，如果不打算修改元素，最好使用cend()获取常量迭代器）</p>
+<h3 id="计算包含给定值或满足给定条件的元素数"><a href="#计算包含给定值或满足给定条件的元素数" class="headerlink" title="计算包含给定值或满足给定条件的元素数"></a>计算包含给定值或满足给定条件的元素数</h3><p>std::count( )和 count_if( )计算给定范围内的元素数。std:: count( )计算包含给定值（使用相等运算符==进行测试）的元素数：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">size_t numZeroes = count (numsInVec.cbegin (), numsInVec.cend (), 0); </span><br><span class="line">cout &lt;&lt; &quot;Number of instances of &#x27;0&#x27;: &quot; &lt;&lt; numZeroes &lt;&lt; endl; </span><br></pre></td></tr></table></figure></div><br>std::count_if( )计算这样的元素数，即满足通过参数传递的一元谓词（可以是函数对象，也可以是lambda 表达式）：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// Unary predicate: </span><br><span class="line">template &lt;typename elementType&gt; </span><br><span class="line">bool IsEven (const elementType&amp; number) </span><br><span class="line">&#123; </span><br><span class="line"> return ((number % 2) == 0); // true, if even </span><br><span class="line">&#125; </span><br><span class="line">... </span><br><span class="line">// Use the count_if algorithm with the unary predicate IsEven: </span><br><span class="line">size_t numEvenNums = count_if (numsInVec.cbegin (), </span><br><span class="line"> numsInVec.cend (), IsEven &lt;int&gt; ); </span><br><span class="line">cout &lt;&lt; &quot;Number of even elements: &quot; &lt;&lt; numEvenNums &lt;&lt; endl;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="在集合中搜索元素或序列"><a href="#在集合中搜索元素或序列" class="headerlink" title="在集合中搜索元素或序列"></a>在集合中搜索元素或序列</h3><p>在查找序列或模式时，可以使用search()或search_n()，search()用于在一个序列中查找另一个序列：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">auto range = search (numsInVec.cbegin(), // Start range to search in </span><br><span class="line">                     numsInVec.cend(), // End range to search in </span><br><span class="line">                     numsInList.cbegin(), // start range to search </span><br><span class="line">                     numsInList.cend() ); // End range to search for</span><br></pre></td></tr></table></figure></div><br>而search_n()用于在容器中查找n个相邻的值：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">auto partialRange = search_n (numsInVec.cbegin(), // Start range </span><br><span class="line">                              numsInVec.cend(), // End range</span><br><span class="line">                              3, // num items to be searched for </span><br><span class="line">                              9); // value to search for</span><br></pre></td></tr></table></figure></div><br>这两个函数都返回一个迭代器，它指向找到的第一个模式；使用该迭代器之前，务必将其与 end( )进行比较,下面是一段示例：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;list&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt;</span><br><span class="line">void DisplayContents(const T&amp; container)</span><br><span class="line">&#123;</span><br><span class="line">    for (auto element = container.cbegin(); element != container.cend(); ++element)</span><br><span class="line">        cout &lt;&lt; *element &lt;&lt; &#x27; &#x27;;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;   </span><br><span class="line">    //定义容器vector</span><br><span class="line">    vector&lt;int&gt; numsInVec&#123; 2017, 0, -1, 42, 10101, 25, 9, 9, 9 &#125;;</span><br><span class="line">    //定义容器list</span><br><span class="line">    list&lt;int&gt; numsInList&#123; -1, 42, 10101 &#125;;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The contents of the sample vector are: &quot; &lt;&lt; endl;</span><br><span class="line">    DisplayContents(numsInVec);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The contents of the sample list are: &quot; &lt;&lt; endl;</span><br><span class="line">    DisplayContents(numsInList);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;search() for the contents of list in vector:&quot; &lt;&lt; endl;</span><br><span class="line">    //在vector查找list的子序列</span><br><span class="line">    auto range = search(numsInVec.cbegin(), numsInVec.cend(), numsInList.cbegin(), numsInList.cend());</span><br><span class="line"></span><br><span class="line">    // Check if search found a match</span><br><span class="line">    if (range != numsInVec.end())</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Sequence in list found in vector at position: &quot;;</span><br><span class="line">        cout &lt;&lt; distance(numsInVec.cbegin(), range) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Searching &#123;9, 9, 9&#125; in vector using search_n(): &quot; &lt;&lt; endl;</span><br><span class="line">    //使用 search_n( )搜索序列&#123;9,9,9&#125;在 vector 中首次出现的位置</span><br><span class="line">    auto partialRange = search_n(numsInVec.cbegin(), numsInVec.cend(), 3, 9);</span><br><span class="line"></span><br><span class="line">    if (partialRange != numsInVec.end())</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; &quot;Sequence &#123;9, 9, 9&#125; found in vector at position: &quot;;</span><br><span class="line">        cout &lt;&lt; distance(numsInVec.cbegin(), partialRange) &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//输出</span><br><span class="line">The contents of the sample vector are: </span><br><span class="line">2017 0 -1 42 10101 25 9 9 9 </span><br><span class="line">The contents of the sample list are: </span><br><span class="line">-1 42 10101 </span><br><span class="line">search() for the contents of list in vector: </span><br><span class="line">Sequence in list found in vector at position: 2 </span><br><span class="line">Searching &#123;9, 9, 9&#125; in vector using search_n(): </span><br><span class="line">Sequence &#123;9, 9, 9&#125; found in vector at position: 6</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="将容器中的元素初始化为指定值"><a href="#将容器中的元素初始化为指定值" class="headerlink" title="将容器中的元素初始化为指定值"></a>将容器中的元素初始化为指定值</h3><p>STL 算法 fill( )和 fill_n( )用于将指定范围的内容设置为指定值。fill( )将指定范围内的元素设置为指定值：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vector &lt;int&gt; numsInVec (3); </span><br><span class="line">// fill all elements in the container with value 9 </span><br><span class="line">fill (numsInVec.begin (), numsInVec.end (), 9); </span><br></pre></td></tr></table></figure></div><br>顾名思义，fill_n( )将 n 个元素设置为指定的值，接受的参数包括起始位置、元素数以及要设置的值：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fill_n (numsInVec.begin () + 3, 3, -9);</span><br><span class="line">//从begin()+3的位置开始填充，3是要填充的数量，-9是要填充的值</span><br><span class="line">//fill_n(位置，数量，填充的值)</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="使用-std-generate-将元素设置为运行阶段生成的值"><a href="#使用-std-generate-将元素设置为运行阶段生成的值" class="headerlink" title="使用 std::generate( )将元素设置为运行阶段生成的值"></a>使用 std::generate( )将元素设置为运行阶段生成的值</h3><p>函数 fill( )和 fill_n( )将集合的元素设置为指定的值，而 generate( )和 generate_n( )等 STL 算法用于将集合的内容设置为一元函数返回的值。<br>可使用 generate( )将指定范围内的元素设置为生成器函数返回的值：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">generate (numsInVec.begin (), numsInVec.end (), // range </span><br><span class="line"> rand); // generator function </span><br></pre></td></tr></table></figure></div><br>generate_n( )与 generate( )类似，但您指定的是要设置的元素数，而不是闭区间：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">generate_n (numsInList.begin (), 5, rand); </span><br></pre></td></tr></table></figure></div><br>因此，可使用这两种算法将容器设置为文件的内容或随机值,下面是使用使用 generate( )和 generate_n( )将集合设置为随机值的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;list&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;ctime&gt;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    using namespace std;</span><br><span class="line">    //使用随机数生成，用当前的时间作为随机数种子</span><br><span class="line">    srand(time(NULL)); // seed random generator using time</span><br><span class="line"></span><br><span class="line">    vector&lt;int&gt; numsInVec(5);</span><br><span class="line">    //使用generate将vector的所有元素设置为随机值</span><br><span class="line">    generate(numsInVec.begin(), numsInVec.end(), rand); // range</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Elements in the vector are: &quot;;</span><br><span class="line">    for (size_t index = 0; index &lt; numsInVec.size(); ++index)</span><br><span class="line">        cout &lt;&lt; numsInVec[index] &lt;&lt; &quot; &quot;;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    //函数 generate( )接受一个范围作为输入，</span><br><span class="line">    并为该范围内的每个元素调用指定的函数对象rand()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    list&lt;int&gt; numsInList(5);</span><br><span class="line">    //将 list 的前 3个元素设置为生成器函数 rand()提供的随机值</span><br><span class="line">    generate_n(numsInList.begin(), 3, rand);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Elements in the list are: &quot;;</span><br><span class="line">    for (auto element = numsInList.begin(); element != numsInList.end(); ++element)</span><br><span class="line">        cout &lt;&lt; *element &lt;&lt; &#x27; &#x27;;</span><br><span class="line">    //generate_n( )接受起始位置，调用指定的函数对象rand() count 次，</span><br><span class="line">    //以设置容器中 count 个元素的值。容器中不在指定范围内的元素不受影响。</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//输出</span><br><span class="line">Elements in the vector are: 41 18467 6334 26500 19169</span><br><span class="line">Elements in the list are: 15724 11478 29358 0 0</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="使用-for-each-处理指定范围内的元素"><a href="#使用-for-each-处理指定范围内的元素" class="headerlink" title="使用 for_each( )处理指定范围内的元素"></a>使用 for_each( )处理指定范围内的元素</h3><p>算法 for_each( )对指定范围内的每个元素执行指定的一元函数对象，其用法如下：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fnObjType retValue = for_each (start_of_range, </span><br><span class="line"> end_of_range, </span><br><span class="line"> unaryFunctionObject); </span><br></pre></td></tr></table></figure></div><br>也可使用接受一个参数的 lambda 表达式代替一元函数对象。</p>
+<p>返回值表明，for_each( )返回用于对指定范围内的每个元素进行处理的函数对象（functor）。这意味着使用结构或类作为函数对象可存储状态信息，并在 for_each( )执行完毕后查询这些信息。下面是使用for_each( )显示集合的内容的一个例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">#include &lt;string&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">template &lt;typename elementType&gt;</span><br><span class="line">struct DisplayElementKeepcount</span><br><span class="line">&#123;</span><br><span class="line">    int count;</span><br><span class="line">    DisplayElementKeepcount() : count(0) &#123;&#125;</span><br><span class="line">    //函数对象</span><br><span class="line">    void operator()(const elementType&amp; element)</span><br><span class="line">    &#123;</span><br><span class="line">        ++count;</span><br><span class="line">        cout &lt;&lt; element &lt;&lt; &#x27; &#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    vector&lt;int&gt; numsInVec&#123;2017, 0, -1, 42, 10101, 25&#125;;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Elements in vector are: &quot; &lt;&lt; endl;</span><br><span class="line">    //使用函数对象DisplayElementKeepCount作为一元谓词</span><br><span class="line">    DisplayElementKeepcount&lt;int&gt; functor =</span><br><span class="line">        for_each(numsInVec.cbegin(), // Start of range</span><br><span class="line">                 numsInVec.cend(),   // End of range</span><br><span class="line">                 DisplayElementKeepcount&lt;int&gt;()); // functor</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    // Use the state stored in the return value of for_each!</span><br><span class="line">    //调用函数对象成员来显示调用的次数</span><br><span class="line">    cout &lt;&lt; &quot;&#x27;&quot; &lt;&lt; functor.count &lt;&lt; &quot;&#x27; elements displayed&quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    string str(&quot;for_each and strings!&quot;);</span><br><span class="line">    cout &lt;&lt; &quot;Sample string: &quot; &lt;&lt; str &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;Characters displayed using lambda:&quot; &lt;&lt; endl;</span><br><span class="line">    int numChars = 0;</span><br><span class="line">    //使用lambda表达式</span><br><span class="line">    for_each(str.cbegin(),</span><br><span class="line">             str.cend(),</span><br><span class="line">             [&amp;numChars](char c) &#123; cout &lt;&lt; c &lt;&lt; &#x27; &#x27;; ++numChars; &#125;);</span><br><span class="line">    </span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;&#x27;&quot; &lt;&lt; numChars &lt;&lt; &quot;&#x27; characters displayed&quot; &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//输出</span><br><span class="line">Elements in vector are: </span><br><span class="line">2017 0 -1 42 10101 25 </span><br><span class="line">&#x27;6&#x27; elements displayed </span><br><span class="line">Sample string: for_each and strings! </span><br><span class="line">Characters displayed using lambda: </span><br><span class="line">f o r _ e a c h a n d s t r i n g s ! </span><br><span class="line">&#x27;21&#x27; characters displayed</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="使用-std-transform-对范围进行变换"><a href="#使用-std-transform-对范围进行变换" class="headerlink" title="使用 std::transform( )对范围进行变换"></a>使用 std::transform( )对范围进行变换</h3><p>std::for_each( )和 std::transform( )很像，都对源范围内的每个元素调用指定的函数对象。然而,std::transform( )有两个版本.</p>
+<p>第一个版本一个接受一元函数，常用于将字符串转换为大写或小写（使用<br>的一元函数分别是 toupper( )和 tolower( )）：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">string str (&quot;THIS is a TEst string!&quot;); </span><br><span class="line">transform (str.cbegin(), // start source range </span><br><span class="line">           str.cend(), // end source range</span><br><span class="line">           strLowerCaseCopy.begin(), // start destination range </span><br><span class="line">           ::tolower); // unary function</span><br></pre></td></tr></table></figure></div><br>第二个版本接受一个二元函数，让 transform( )能够处理一对来自两个不同范围的元素：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// sum elements from two vectors and store result in a deque </span><br><span class="line">transform (numsInVec1.cbegin(), // start of source range 1 </span><br><span class="line">           numsInVec1.cend(), // end of source range 1 </span><br><span class="line">           numsInVec2.cbegin(), // start of source range 2 </span><br><span class="line">           sumInDeque.begin(), // store result in a deque </span><br><span class="line">           plus&lt;int&gt;()); // binary function plus </span><br></pre></td></tr></table></figure></div><br>不像 for_each( )那样只处理一个范围，这两个版本的 transform( )都将指定变换函数的结果赋给指定<br>的目标范围。下面是一个接受一个二元函数，让 transform( )能够处理一对来自两个不同范围的元素的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;algorithm&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line">#include &lt;vector&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">//接受两个整数参数，并将它们相加返回</span><br><span class="line">int addIntegers(int a, int b)</span><br><span class="line">&#123;</span><br><span class="line">    return a + b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">    vector&lt;int&gt; vecA&#123;1, 2, 3, 4, 5&#125;;</span><br><span class="line">    vector&lt;int&gt; vecB&#123;10, 20, 30, 40, 50&#125;;</span><br><span class="line">    //vecSum 通过vecA.size()获得与 vecA 向量相同数量的元素，从而确保vecSum有足够的空间保存结果</span><br><span class="line">    vector&lt;int&gt; vecSum(vecA.size());</span><br><span class="line">    //将 vecA 和 vecB 中的对应元素传递给 addIntegers 函数，并将结果存储在 vecSum</span><br><span class="line">    transform(vecA.begin(), vecA.end(), vecB.begin(), vecSum.begin(), addIntegers);</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;vecSum: &quot;;</span><br><span class="line">    for (int num : vecSum)</span><br><span class="line">    &#123;</span><br><span class="line">        cout &lt;&lt; num &lt;&lt; &quot; &quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    cout &lt;&lt; endl;</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="复制和删除操作"><a href="#复制和删除操作" class="headerlink" title="复制和删除操作"></a>复制和删除操作</h3><p>STL 提供了三个重要的复制函数：copy( )、copy_if( )和 copy_backward( )。copy 沿向前的方向将源<br>范围的内容赋给目标范围：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">auto lastElement = copy (numsInList.cbegin(), // start source range </span><br><span class="line">                         numsInList.cend(), // end source range </span><br><span class="line">                         numsInVec.begin()); // start dest range</span><br></pre></td></tr></table></figure></div><br>copy_if( )是 C++11 新增的，仅在指定的一元谓词返回 true 时才复制元素：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// copy odd numbers from list into vector </span><br><span class="line">copy_if (numsInList.cbegin(), numsInList.cend(), </span><br><span class="line">         lastElement, // copy position in dest range </span><br><span class="line">         [](int element)&#123;return ((element % 2) == 1);&#125;); </span><br></pre></td></tr></table></figure></div><br>copy_backward( )沿向后的方向将源范围的内容赋给目标范围：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">copy_backward (numsInList.cbegin (), </span><br><span class="line">               numsInList.cend (), </span><br><span class="line">               numsInVec.end ()); </span><br></pre></td></tr></table></figure></div><br>remove( )将容器中与指定值匹配的元素删除：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// Remove all instances of &#x27;0&#x27;, resize vector using erase() </span><br><span class="line">auto newEnd = remove (numsInVec.begin (),       numsInVec.end (), 0); </span><br><span class="line">numsInVec.erase (newEnd, numsInVec.end ()); </span><br></pre></td></tr></table></figure></div><br>remove_if( )使用一个一元谓词，并将容器中满足该谓词的元素删除：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// Remove all odd numbers from the vector using remove_if </span><br><span class="line">newEnd = remove_if (numsInVec.begin (), numsInVec.end (), </span><br><span class="line">         [](int num) &#123;return ((num % 2) == 1);&#125; ); //predicate </span><br><span class="line">numsInVec.erase (newEnd, numsInVec.end ()); // resizing</span><br></pre></td></tr></table></figure></div></p>
+<p>注意！！使用算法 remove( )、remove_if( )或 unique( )后，务必使用容器的成员方法 erase( )调整容器的大小。因为算法 remove(), remove_if(), 或 unique() 只是将满足条件的元素移动到容器的末尾，并不会真正删除这些元素。这是因为 STL 算法不知道容器的内部结构和如何删除元素。因此，它们不能直接改变容器的大小。</p>
+<p>为了真正从容器中删除这些元素，需要使用容器的成员方法 erase(), 它可以根据指定的迭代器范围删除元素，从而调整容器的大小</p>
+<h3 id="替换值以及替换满足给定条件的元素"><a href="#替换值以及替换满足给定条件的元素" class="headerlink" title="替换值以及替换满足给定条件的元素"></a>替换值以及替换满足给定条件的元素</h3><p>STL算法replace( )与replace_if( )分别用于替换集合中等于指定值和满足给定条件的元素。replace( )根据比较运算符==的返回值来替换元素：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; &quot;Using &#x27;std::replace&#x27; to replace value 5 by 8&quot; &lt;&lt; endl; </span><br><span class="line">replace (numsInVec.begin (), numsInVec.end (), 5, 8); </span><br></pre></td></tr></table></figure></div><br>replace_if( )需要一个用户指定的一元谓词，对于要替换的每个值，该谓词都返回 true：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cout &lt;&lt; &quot;Using &#x27;std::replace_if&#x27; to replace even values by -1&quot; &lt;&lt; endl; </span><br><span class="line">replace_if (numsInVec.begin (), numsInVec.end (), </span><br><span class="line">    [](int element) &#123;return ((element % 2) == 0); &#125;, -1);//使用lambda表达式来作为一元谓词</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="排序、在有序集合中搜索以及删除重复元素"><a href="#排序、在有序集合中搜索以及删除重复元素" class="headerlink" title="排序、在有序集合中搜索以及删除重复元素"></a>排序、在有序集合中搜索以及删除重复元素</h3><p>在实际的应用程序中，经常需要排序以及在有序范围内（出于性能考虑）进行搜索。经常需要对一组信息进行排序，为此可使用 STL 算法 sort( )：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sort (numsInVec.begin (), numsInVec.end ()); // ascending order </span><br></pre></td></tr></table></figure></div><br>这个版本的 sort( )将 std::less&lt;&gt;用作二元谓词，而该谓词使用 vector 存储的数据类型实现的运算符&lt;。<br>可使用另一个重载版本，以指定谓词，从而修改排列顺序：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sort (numsInVec.begin (), numsInVec.end (), </span><br><span class="line">    [](int lhs, int rhs) &#123;return (lhs &gt; rhs);&#125; ); // descending order </span><br></pre></td></tr></table></figure></div><br>同样，在显示集合的内容前，需要删除重复的元素。要删除相邻的重复值，可使用 unique( )：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auto newEnd = unique (numsInVec.begin (), numsInVec.end ()); </span><br><span class="line">numsInVec.erase (newEnd, numsInVec.end ()); // to resize </span><br></pre></td></tr></table></figure></div><br>要进行快速查找，可使用 STL 算法 binary_search( )，这种算法只能用于有序容器：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">bool elementFound = binary_search (numsInVec.begin (), numsInVec.end (), 2011); </span><br><span class="line">if (elementFound) </span><br><span class="line">    cout &lt;&lt; &quot;Element found in the vector!&quot; &lt;&lt; endl;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="将范围分区"><a href="#将范围分区" class="headerlink" title="将范围分区"></a>将范围分区</h3><p>std::partition( )将输入范围分为两部分：一部分满足一元谓词；另一部分不满足：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bool IsEven (const int&amp; num) // unary predicate </span><br><span class="line">&#123; </span><br><span class="line"> return ((num % 2) == 0); </span><br><span class="line">&#125; </span><br><span class="line">... </span><br><span class="line">partition (numsInVec.begin(), numsInVec.end(), IsEven); </span><br></pre></td></tr></table></figure></div><br>然而，std::partition( )不保证每个分区中元素的相对顺序不变。在相对顺序很重要，需要保持不变时，应使用 std::stable_partition( )：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">stable_partition (numsInVec.begin(), numsInVec.end(), IsEven);</span><br></pre></td></tr></table></figure></div><br>下面是一个使用使用 partition( )和 stable_partition( )将整型范围分为偶数值和奇数值的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;algorithm&gt; </span><br><span class="line">#include &lt;vector&gt; </span><br><span class="line">#include &lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">bool IsEven (const int&amp; num) // unary predicate </span><br><span class="line">&#123; </span><br><span class="line">    return ((num % 2) == 0); </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">template &lt;typename T&gt; </span><br><span class="line">void DisplayContents(const T&amp; container) </span><br><span class="line">&#123; </span><br><span class="line">    for (auto element = container.cbegin(); </span><br><span class="line">         element != container.cend(); </span><br><span class="line">         ++ element) </span><br><span class="line">    cout &lt;&lt; *element &lt;&lt; &#x27; &#x27;; </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;| Number of elements: &quot; &lt;&lt; container.size() &lt;&lt; endl; </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line">    vector &lt;int&gt; numsInVec&#123; 2017, 0, -1, 42, 10101, 25 &#125;; </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The initial contents: &quot; &lt;&lt; endl; </span><br><span class="line">    DisplayContents(numsInVec); </span><br><span class="line"></span><br><span class="line">    vector &lt;int&gt; vecCopy (numsInVec); </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The effect of using partition():&quot; &lt;&lt; endl; </span><br><span class="line">    //使用谓语iseven的标准进行分区，但无序</span><br><span class="line">    partition (numsInVec.begin (), numsInVec.end (), IsEven); </span><br><span class="line">    DisplayContents(numsInVec); </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The effect of using stable_partition():&quot; &lt;&lt; endl; </span><br><span class="line">    //使用谓语iseven的标准进行分区，但相对顺序不变</span><br><span class="line">    stable_partition (vecCopy.begin (), vecCopy.end (), IsEven); </span><br><span class="line">    DisplayContents(vecCopy); </span><br><span class="line"></span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br><span class="line">//输出</span><br><span class="line">The initial contents: </span><br><span class="line">2017 0 -1 42 10101 25 | Number of elements: 6 </span><br><span class="line">The effect of using partition(): </span><br><span class="line">42 0 -1 2017 10101 25 | Number of elements: 6 </span><br><span class="line">The effect of using stable_partition(): </span><br><span class="line">0 42 2017 -1 10101 25 | Number of elements: 6</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="在有序集合中插入元素"><a href="#在有序集合中插入元素" class="headerlink" title="在有序集合中插入元素"></a>在有序集合中插入元素</h3><p>将元素插入到有序集合中时，将其插入到正确位置很重要。为了满足这种需求，STL 提供了lower_bound( )和 upper_bound( )等函数：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">auto minInsertPos = lower_bound (names.begin(), names.end(), </span><br><span class="line">                    &quot;Brad Pitt&quot;); </span><br><span class="line">// alternatively: </span><br><span class="line">auto maxInsertPos = upper_bound (names.begin(), names.end(), </span><br><span class="line">                    &quot;Brad Pitt&quot;);</span><br></pre></td></tr></table></figure></div><br>lower_bound( )和 upper_bound( )都返回一个迭代器，分别指向在不破坏现有顺序的情况下，元素可<br>插入到有序范围内的最前位置和最后位置。</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++学习笔记：stl算法</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-26 21:16:11</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-26 21:14:01
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/26/stl算法/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/26/%E6%A8%A1%E6%9D%BF%E5%BA%93%E6%98%A0%E5%B0%84/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：模板库（6）：映射</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">C++学习笔记：stl算法</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#STL%E7%AE%97%E6%B3%95"><span class="nav-text">STL算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#STL%E7%AE%97%E6%B3%95%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-text">STL算法的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="nav-text">非变序算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%98%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="nav-text">变序算法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8STL%E7%AE%97%E6%B3%95"><span class="nav-text">使用STL算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E5%80%BC%E6%88%96%E8%80%85%E6%9D%A1%E4%BB%B6%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0"><span class="nav-text">根据值或者条件查找元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%8C%85%E5%90%AB%E7%BB%99%E5%AE%9A%E5%80%BC%E6%88%96%E6%BB%A1%E8%B6%B3%E7%BB%99%E5%AE%9A%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%85%83%E7%B4%A0%E6%95%B0"><span class="nav-text">计算包含给定值或满足给定条件的元素数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E9%9B%86%E5%90%88%E4%B8%AD%E6%90%9C%E7%B4%A2%E5%85%83%E7%B4%A0%E6%88%96%E5%BA%8F%E5%88%97"><span class="nav-text">在集合中搜索元素或序列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84%E5%85%83%E7%B4%A0%E5%88%9D%E5%A7%8B%E5%8C%96%E4%B8%BA%E6%8C%87%E5%AE%9A%E5%80%BC"><span class="nav-text">将容器中的元素初始化为指定值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-std-generate-%E5%B0%86%E5%85%83%E7%B4%A0%E8%AE%BE%E7%BD%AE%E4%B8%BA%E8%BF%90%E8%A1%8C%E9%98%B6%E6%AE%B5%E7%94%9F%E6%88%90%E7%9A%84%E5%80%BC"><span class="nav-text">使用 std::generate( )将元素设置为运行阶段生成的值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-for-each-%E5%A4%84%E7%90%86%E6%8C%87%E5%AE%9A%E8%8C%83%E5%9B%B4%E5%86%85%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-text">使用 for_each( )处理指定范围内的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-std-transform-%E5%AF%B9%E8%8C%83%E5%9B%B4%E8%BF%9B%E8%A1%8C%E5%8F%98%E6%8D%A2"><span class="nav-text">使用 std::transform( )对范围进行变换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E5%92%8C%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C"><span class="nav-text">复制和删除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%BF%E6%8D%A2%E5%80%BC%E4%BB%A5%E5%8F%8A%E6%9B%BF%E6%8D%A2%E6%BB%A1%E8%B6%B3%E7%BB%99%E5%AE%9A%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%85%83%E7%B4%A0"><span class="nav-text">替换值以及替换满足给定条件的元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E3%80%81%E5%9C%A8%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E4%B8%AD%E6%90%9C%E7%B4%A2%E4%BB%A5%E5%8F%8A%E5%88%A0%E9%99%A4%E9%87%8D%E5%A4%8D%E5%85%83%E7%B4%A0"><span class="nav-text">排序、在有序集合中搜索以及删除重复元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B0%86%E8%8C%83%E5%9B%B4%E5%88%86%E5%8C%BA"><span class="nav-text">将范围分区</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%E4%B8%AD%E6%8F%92%E5%85%A5%E5%85%83%E7%B4%A0"><span class="nav-text">在有序集合中插入元素</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
