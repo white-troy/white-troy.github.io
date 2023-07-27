@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/27/stl位标志/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="biset类std::bitset 是 C++ 标准库中的一个类模板，用于表示固定大小的二进制位序列，处理以‘位和位标志’表示的信息，即位集合（bitset）。std::bitset 不是 STL 容器类，因为它不能调整长度。它在 &lt; bitset &gt; 头文件中定义。 std::bitset 允许程序将多个二进制位组织在一起，并支持一系列的位操作，例如设置位、清除位、翻转位等。这个类在">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习笔记：STL位标志">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/27/STL%E4%BD%8D%E6%A0%87%E5%BF%97/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="biset类std::bitset 是 C++ 标准库中的一个类模板，用于表示固定大小的二进制位序列，处理以‘位和位标志’表示的信息，即位集合（bitset）。std::bitset 不是 STL 容器类，因为它不能调整长度。它在 &lt; bitset &gt; 头文件中定义。 std::bitset 允许程序将多个二进制位组织在一起，并支持一系列的位操作，例如设置位、清除位、翻转位等。这个类在">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/27/STL%E4%BD%8D%E6%A0%87%E5%BF%97/bit%E8%BF%90%E7%AE%97%E7%AC%A6.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/27/STL%E4%BD%8D%E6%A0%87%E5%BF%97/bit%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95.png">
+<meta property="article:published_time" content="2023-07-27T12:45:22.311Z">
+<meta property="article:modified_time" content="2023-07-27T07:52:37.671Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/07/27/STL%E4%BD%8D%E6%A0%87%E5%BF%97/bit%E8%BF%90%E7%AE%97%E7%AC%A6.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++学习笔记：STL位标志 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">C++学习笔记：STL位标志</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-27 20:45:22</span>
+        <span class="mobile">2023-07-27 20:45</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-27 15:52:37</span>
+            <span class="mobile">2023-07-27 15:52</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="biset类"><a href="#biset类" class="headerlink" title="biset类"></a>biset类</h2><p>std::bitset 是 C++ 标准库中的一个类模板，用于表示固定大小的二进制位序列，处理以‘位和位标志’表示的信息，即位集合（bitset）。std::bitset 不是 STL 容器类，因为<br>它不能调整长度。它在 &lt; bitset &gt; 头文件中定义。</p>
+<p>std::bitset 允许程序将多个二进制位组织在一起，并支持一系列的位操作，例如设置位、清除位、翻转位等。这个类在某些场景下非常有用，例如在位操作和位图算法中，或者用于表示开关状态等。</p>
+<p>std::bitset 的模板参数是一个非负整数（常量表达式），指定了位集合的大小。该大小在编译时就确定了，因此 std::bitset 是一个固定大小的容器，不能动态地调整长度。</p>
+<h3 id="实例化std-bitset"><a href="#实例化std-bitset" class="headerlink" title="实例化std::bitset"></a>实例化std::bitset</h3><p>实例化这个模板类时，必须通过一个模板参数指定实例需要管理的位数：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitset &lt;4&gt; fourBits; // 4 bits initialized to 0000 </span><br></pre></td></tr></table></figure></div><br>还可将 bitset 初始化为一个用字符串字面量（char*）表示的位序列：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitset &lt;5&gt; fiveBits(&quot;10101&quot;); // 5 bits 10101 </span><br></pre></td></tr></table></figure></div><br>使用一个 bitset 来实例化另一个 bitset 非常简单：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bitset &lt;8&gt; fiveBitsCopy(fiveBits);</span><br></pre></td></tr></table></figure></div><br>下面是一个使用的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;bitset&gt;</span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    //使用默认构造函数</span><br><span class="line">    std::bitset&lt;8&gt; bits(42); // 创建一个8位的位集合，初始值为42 (101010)</span><br><span class="line">    //使用c风格字符串指定位序列的字符串表示</span><br><span class="line">    std::bitset &lt;5&gt; fiveBits (&quot;10101&quot;); // 5 bits 10101</span><br><span class="line">    //通过 unsigned long 指定二进制序列对应的十进制值</span><br><span class="line">    std::bitset &lt;8&gt; eightBits (255); // 8 bits initialized to long int 255</span><br><span class="line">    //使用复制构造函数初始化,拷贝最初始的bits</span><br><span class="line">    std::bitset &lt;8&gt; bitsCopy(bits);</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; &quot;Original bits: &quot; &lt;&lt; bits &lt;&lt; std::endl;</span><br><span class="line">    </span><br><span class="line">    bits.set(2, true); // 将第2位设置为1</span><br><span class="line">    bits.flip(5); // 翻转第5位</span><br><span class="line">    bits.reset(0); // 将第0位设置为0</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; &quot;Modified bits: &quot; &lt;&lt; bits &lt;&lt; std::endl;</span><br><span class="line">    </span><br><span class="line">    std::cout &lt;&lt; &quot;Number of ones in the bitset: &quot; &lt;&lt; bits.count() &lt;&lt; std::endl; // 统计位集合中的1的个数</span><br><span class="line">    </span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//输出结果</span><br><span class="line">Original bits: 00101010</span><br><span class="line">Modified bits: 10101101</span><br><span class="line">Number of ones in the bitset: 5</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="使用-std-bitset-及其成员"><a href="#使用-std-bitset-及其成员" class="headerlink" title="使用 std::bitset 及其成员"></a>使用 std::bitset 及其成员</h3><p>bitset 类提供了很多成员函数，可用于在 bitset 中插入位、设置（重置）内容、读取内容（将内容写入到流中）。它还提供了一些运算符，用于显示位序列、执行按位逻辑运算等。</p>
+<h4 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h4><p>std::bitset 提供一些很有用的运算符，让bitset用起来更加简单<br><img src="/2023/07/27/STL%E4%BD%8D%E6%A0%87%E5%BF%97/bit%E8%BF%90%E7%AE%97%E7%AC%A6.png" alt="运算符"><br>除这些运算符外，std::bitset 还提供了|=、&amp;=、^=和～=等运算符，用于对 bitset 对象执行按位操作</p>
+<h4 id="成员方法"><a href="#成员方法" class="headerlink" title="成员方法"></a>成员方法</h4><p>位可以储存两种状态：0和1，可以使用下面的成员函数对biset中的一位或所有位进行操作<br><img src="/2023/07/27/STL%E4%BD%8D%E6%A0%87%E5%BF%97/bit%E6%88%90%E5%91%98%E6%96%B9%E6%B3%95.png" alt="成员方法"></p>
+<p>下面是一个使用bitset进行逻辑运算的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;bitset&gt;</span><br><span class="line">#include&lt;string&gt;</span><br><span class="line">#include&lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">int main()&#123;</span><br><span class="line">    using namespace std;</span><br><span class="line">    bitset &lt;8&gt; inputBits;</span><br><span class="line">    cout &lt;&lt; &quot;enter a 8-bits sequence:&quot;;</span><br><span class="line">    //输入8位的序列</span><br><span class="line">    cin &gt;&gt; inputBits;</span><br><span class="line">    cout &lt;&lt; &quot;Num 1s you supplied: &quot; &lt;&lt; inputBits.count () &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;Num 0s you supplied: &quot;; </span><br><span class="line">    cout &lt;&lt; inputBits.size () - inputBits.count () &lt;&lt; endl;</span><br><span class="line">    //使用inputBits的内容，进行拷贝，得到一份新的bitset</span><br><span class="line">    bitset &lt;8&gt; inputFlipped (inputBits); // copy</span><br><span class="line">    //取反</span><br><span class="line">    inputFlipped.flip (); // toggle the bits</span><br><span class="line">    cout &lt;&lt; &quot;Flipped version is: &quot; &lt;&lt; inputFlipped &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; &quot;Result of AND, OR and XOR between the two:&quot; &lt;&lt; endl;</span><br><span class="line">    cout &lt;&lt; inputBits &lt;&lt; &quot; &amp; &quot; &lt;&lt; inputFlipped &lt;&lt; &quot; = &quot;;</span><br><span class="line">    //进行与运算</span><br><span class="line">    cout &lt;&lt; (inputBits &amp; inputFlipped) &lt;&lt; endl; // bitwise AND</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; inputBits &lt;&lt; &quot; | &quot; &lt;&lt; inputFlipped &lt;&lt; &quot; = &quot;;</span><br><span class="line">    //进行或运算</span><br><span class="line">    cout &lt;&lt; (inputBits | inputFlipped) &lt;&lt; endl; // bitwise OR</span><br><span class="line">    </span><br><span class="line">    //进行异或运算，参加运算的两个对象，如果两个相应位为“异”（值不同），则该位结果为1，否则为0。</span><br><span class="line">    cout &lt;&lt; inputBits &lt;&lt; &quot; ^ &quot; &lt;&lt; inputFlipped &lt;&lt; &quot; = &quot;;</span><br><span class="line">    cout &lt;&lt; (inputBits ^ inputFlipped) &lt;&lt; endl; // bitwise XOR</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line">//输出结果</span><br><span class="line">Enter a 8-bit sequence: 10110101 </span><br><span class="line">Num 1s you supplied: 5 </span><br><span class="line">Num 0s you supplied: 3 </span><br><span class="line">Flipped version is: 01001010 </span><br><span class="line">Result of AND, OR and XOR between the two: </span><br><span class="line">10110101 &amp; 01001010 = 00000000 </span><br><span class="line">10110101 | 01001010 = 11111111 </span><br><span class="line">10110101 ^ 01001010 = 11111111</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="vector-lt-bool-gt"><a href="#vector-lt-bool-gt" class="headerlink" title="vector&lt; bool&gt;"></a>vector&lt; bool&gt;</h3><p>vector&lt; bool &gt;是对 std::vector 的部分具体化，用于存储布尔数据。这个类可动态地调整长度，不同于一般的 std::vector，std::vector&lt; bool &gt; 被特殊优化，以节省内存空间。这种优化方式通常被称为”bitset”优化。使用时要包含头文件&lt; vector &gt;</p>
+<h4 id="实例化vector-lt-bool-gt"><a href="#实例化vector-lt-bool-gt" class="headerlink" title="实例化vector&lt; bool&gt;"></a>实例化vector&lt; bool&gt;</h4><p>实例化 vector&lt; bool &gt;的方式与实例化 vector 类似，有一些方便的重载构造函数可供使用：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector &lt;bool&gt; boolFlags1; </span><br></pre></td></tr></table></figure></div><br>例如，可创建一个这样的 vector，即它最初包含 10 个布尔元素，且每个元素都被初始化为 1（即true）：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector &lt;bool&gt; boolFlags2 (10, true); </span><br></pre></td></tr></table></figure></div><br>还可使用一个 vector&lt; bool &gt;创建另一个 vector&lt; bool &gt;：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vector &lt;bool&gt; boolFlags2Copy (boolFlags2);</span><br></pre></td></tr></table></figure></div><br>下面是实例化的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;vector&gt;</span><br><span class="line">int main()&#123;</span><br><span class="line">    using namespace std;</span><br><span class="line">    //实例化vector&lt;bool&gt;</span><br><span class="line">    vector&lt;bool&gt; boolFlags1;</span><br><span class="line"></span><br><span class="line">    //实例化vector&lt;bool&gt;，并填充10个值为true的元素</span><br><span class="line">    vector&lt;bool&gt; boolFlags2(10,true)</span><br><span class="line"></span><br><span class="line">    //通过一个一个 vector&lt; bool &gt;创建另一个 vector&lt; bool &gt;</span><br><span class="line">    vector &lt;bool&gt; boolFlags2Copy (boolFlags2);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="vector-lt-bool-gt-的成员函数和运算符"><a href="#vector-lt-bool-gt-的成员函数和运算符" class="headerlink" title="vector&lt; bool &gt;的成员函数和运算符"></a>vector&lt; bool &gt;的成员函数和运算符</h4><p>vector&lt; bool &gt;提供了函数 flip( )，用于将序列中的布尔值取反，这与函数 bitset&lt;&gt;::flip( )很像。<br>除这个方法外，vector&lt; bool &gt;与 std::vector 极其相似，例如，可使用 push_back 将标志位插入到序列中，下面是例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;vector&gt; </span><br><span class="line">#include &lt;iostream&gt; </span><br><span class="line">using namespace std; </span><br><span class="line"></span><br><span class="line">int main () </span><br><span class="line">&#123; </span><br><span class="line">    vector&lt;bool&gt; boolFlags(3); // instantiated to hold 3 bool flags </span><br><span class="line">    //使用[]访问vector&lt;bool&gt;</span><br><span class="line">    boolFlags[0] = true; </span><br><span class="line">    boolFlags[1] = true; </span><br><span class="line">    boolFlags[2] = false; </span><br><span class="line"></span><br><span class="line">    //插入第四个元素</span><br><span class="line">    boolFlags.push_back(true); // insert a fourth bool at the end </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The contents of the vector are: &quot; &lt;&lt; endl; </span><br><span class="line">    for (size_t index = 0; index &lt; boolFlags.size(); ++index) </span><br><span class="line">        cout &lt;&lt; boolFlags[index] &lt;&lt; &#x27; &#x27;; </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; endl; </span><br><span class="line">    boolFlags.flip(); //使用flip取反</span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; &quot;The contents of the vector are: &quot; &lt;&lt; endl; </span><br><span class="line">    for (size_t index = 0; index &lt; boolFlags.size(); ++index) </span><br><span class="line">        cout &lt;&lt; boolFlags[index] &lt;&lt; &#x27; &#x27;; </span><br><span class="line"></span><br><span class="line">    cout &lt;&lt; endl; </span><br><span class="line"></span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br><span class="line">//输出</span><br><span class="line">The contents of the vector are: </span><br><span class="line">1 1 0 1 </span><br><span class="line">The contents of the vector are:</span><br><span class="line">0 0 1 0</span><br></pre></td></tr></table></figure></div></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++学习笔记：STL位标志</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-27 20:45:22</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-27 15:52:37
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/27/STL位标志/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/07/27/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：栈和队列</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/27/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：智能指针</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">C++学习笔记：STL位标志</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#biset%E7%B1%BB"><span class="nav-text">biset类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B%E5%8C%96std-bitset"><span class="nav-text">实例化std::bitset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-std-bitset-%E5%8F%8A%E5%85%B6%E6%88%90%E5%91%98"><span class="nav-text">使用 std::bitset 及其成员</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vector-lt-bool-gt"><span class="nav-text">vector&lt; bool&gt;</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>

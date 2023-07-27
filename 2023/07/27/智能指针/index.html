@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/07/27/智能指针/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="智能指针智能指针（Smart Pointers）是C++中的一种数据类型，用于管理动态分配的内存资源。它们是对原始指针的封装，是包含重载运算符的类，行为像常规指针，而且提供了自动内存管理和自动资源释放的功能，从而避免了内存泄漏和悬挂指针等问题。 不同类型的智能指针（如std::unique_ptr、std::shared_ptr和std::weak_ptr）有不同的实现方式，但它们的核心思想都是封">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++学习笔记：智能指针">
+<meta property="og:url" content="https://white-troy.github.io/2023/07/27/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="智能指针智能指针（Smart Pointers）是C++中的一种数据类型，用于管理动态分配的内存资源。它们是对原始指针的封装，是包含重载运算符的类，行为像常规指针，而且提供了自动内存管理和自动资源释放的功能，从而避免了内存泄漏和悬挂指针等问题。 不同类型的智能指针（如std::unique_ptr、std::shared_ptr和std::weak_ptr）有不同的实现方式，但它们的核心思想都是封">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2023/07/27/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/%E6%B3%A8%E6%84%8F.png">
+<meta property="article:published_time" content="2023-07-27T12:45:22.305Z">
+<meta property="article:modified_time" content="2023-07-27T11:46:29.694Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/07/27/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/%E6%B3%A8%E6%84%8F.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            C++学习笔记：智能指针 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">C++学习笔记：智能指针</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-07-27 20:45:22</span>
+        <span class="mobile">2023-07-27 20:45</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-07-27 19:46:29</span>
+            <span class="mobile">2023-07-27 19:46</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="智能指针"><a href="#智能指针" class="headerlink" title="智能指针"></a>智能指针</h2><p>智能指针（Smart Pointers）是C++中的一种数据类型，用于管理动态分配的内存资源。它们是对原始指针的封装，是包含重载运算符的类，行为像常规指针，而且提供了自动内存管理和自动资源释放的功能，从而避免了内存泄漏和悬挂指针等问题。</p>
+<p>不同类型的智能指针（如std::unique_ptr、std::shared_ptr和std::weak_ptr）有不同的实现方式，但它们的核心思想都是封装原始指针，并提供自动内存管理和资源释放功能。</p>
+<p>智能指针类重载了解除引用运算符（*）和成员选择运算符（-&gt;），几乎所有良好的智能指针类都是模板类，包含其功能的泛型实现。由于是模板，它们是通用的，可以根据要管理的对象类型进行具体化。</p>
+<p>下面是一个简单的智能指针类的实现：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename T&gt;</span><br><span class="line">class smart_pointer</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    T* rawPtr;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    smart_pointer(T* pData) : rawPtr(pData) &#123;&#125; // 构造函数</span><br><span class="line">    ~smart_pointer() &#123; delete rawPtr; &#125;; // 析构函数</span><br><span class="line"></span><br><span class="line">    // 拷贝构造函数</span><br><span class="line">    smart_pointer(const smart_pointer&amp; anotherSP);</span><br><span class="line"></span><br><span class="line">    // 拷贝赋值运算符重载</span><br><span class="line">    smart_pointer&amp; operator=(const smart_pointer&amp; anotherSP);</span><br><span class="line">    //实现两个运算符的重载</span><br><span class="line">    T&amp; operator*() const // 解引用运算符重载</span><br><span class="line">    &#123;</span><br><span class="line">        return *(rawPtr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    T* operator-&gt;() const // 成员选择运算符重载</span><br><span class="line">    &#123;</span><br><span class="line">        return rawPtr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div></p>
+<p>这段代码实现了一个简单的智能指针类 smart_pointer，用于管理动态分配的资源（T 类型的对象）。它的构造函数接受一个 T 类型的指针 pData，并将其赋值给私有成员 rawPtr。析构函数用于释放 rawPtr 指向的资源。</p>
+<p>拷贝构造函数和拷贝赋值运算符重载用于支持智能指针的拷贝。在拷贝时，会共享相同的资源，而不是简单地复制指针，避免重复释放资源的问题。</p>
+<p>注意！在智能指针的拷贝中，通常会共享相同的资源，而不是复制资源本身。即它的拷贝是浅拷贝，但是资源的释放是由智能指针来管理的，确保在不再需要资源时进行正确的释放。</p>
+<p>当使用智能指针的拷贝构造函数或者赋值运算符进行拷贝时，新的智能指针将会指向相同的原始资源（例如指向相同的动态分配内存或者其他资源）。这样，不同的智能指针实例会共享相同的资源引用计数（用于跟踪资源被引用的次数）。当最后一个智能指针不再引用该资源时，资源会被正确地释放，避免了资源泄漏。</p>
+<p>重载的解引用运算符 operator* 和成员选择运算符 operator-&gt;，使得 smart_pointer 对象在使用时可以像原始指针一样操作资源，提高了代码的灵活性和可读性。</p>
+<h2 id="智能指针类型"><a href="#智能指针类型" class="headerlink" title="智能指针类型"></a>智能指针类型</h2><p>内存资源管理（即实现的内存所有权模型）是智能指针类与众不同的地方。智能指针决定在复制和赋值时如何处理内存资源，智能指针的分类实际上是内存管理策略的分类，可分为如下几类：</p>
+<blockquote>
+<p>• 深复制；<br>• 写时复制（Copy on Write，COW）；<br>• 引用计数；<br>• 引用链接；<br>• 破坏性复制。</p>
+</blockquote>
+<h3 id="深复制"><a href="#深复制" class="headerlink" title="深复制"></a>深复制</h3><p>在实现深复制的智能指针中，每个智能指针实例都保存一个它管理的对象的完整副本。每当智能<br>指针被复制时，将复制它指向的对象（因此称为深复制）。每当智能指针离开作用域时，将（通过析构<br>函数）释放它指向的内存。<br>虽然基于深复制的智能指针看起来并不比按值传递对象优越，但在处理多态对象时，其优点将显<br>现出来。如下所示，使用智能指针可避免切除（slicing）问题：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// Example of Slicing When Passing Polymorphic Objects by Value </span><br><span class="line">// Fish is a base class for Tuna and Carp, Fish::Swim() is virtual </span><br><span class="line">void MakeFishSwim (Fish aFish) // note parameter type </span><br><span class="line">&#123;</span><br><span class="line">    aFish.Swim(); // virtual function </span><br><span class="line">&#125; </span><br><span class="line">// ... Some function </span><br><span class="line">Carp freshWaterFish; </span><br><span class="line">MakeFishSwim (freshWaterFish); // Carp will be &#x27;sliced&#x27; to Fish </span><br><span class="line">// Slicing: only the Fish part of Carp is sent to MakeFishSwim() </span><br><span class="line">Tuna marineFish; </span><br><span class="line">MakeFishSwim(marineFish); // Slicing again </span><br></pre></td></tr></table></figure></div><br>如果程序员选择使用深复制智能指针，便可解决切除问题，如:<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename T&gt;</span><br><span class="line">//deepcopy_smart_ptr 的智能指针类的模板类</span><br><span class="line">class deepcopy_smart_ptr</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">    T* object;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    // ... 其他函数</span><br><span class="line"></span><br><span class="line">    // 深拷贝指针的拷贝构造函数</span><br><span class="line">    deepcopy_smart_ptr(const deepcopy_smart_ptr&amp; source)</span><br><span class="line">    &#123;</span><br><span class="line">        // Clone() 是虚函数：确保深拷贝 Derived 类对象</span><br><span class="line">        object = source-&gt;Clone();</span><br><span class="line">        //使用 Clone() 方法创建一个 source 指针所指向对象的深拷贝，并将其赋值给 object 成员</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 重载拷贝赋值运算符</span><br><span class="line">    deepcopy_smart_ptr&amp; operator=(const deepcopy_smart_ptr&amp; source)</span><br><span class="line">    &#123;   </span><br><span class="line">        //检查 object 是否已经指向资源，如果指向，则先释放原有资源</span><br><span class="line">        if (object)</span><br><span class="line">            delete object;</span><br><span class="line">        //使用 Clone() 方法创建 source 指针所指向对象的深拷贝，并将其赋值给 object 成员</span><br><span class="line">        object = source-&gt;Clone();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">构造函数实现的深复制将发挥作用，确保传递的对象不会出现切除问题</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="写时复制机制"><a href="#写时复制机制" class="headerlink" title="写时复制机制"></a>写时复制机制</h3><p>写时复制机制（Copy on Write，COW）共享指针，直到首次写入对象。在写时复制中，当多个对象共享同一资源时，对资源进行修改操作时，不会立即复制资源，而是延迟复制。</p>
+<p>当其中一个对象试图修改共享资源时（调用非const函数），系统会创建该资源的副本，并将修改的操作应用于副本而不是原始资源。</p>
+<p>这样，其他对象仍然可以继续共享原始资源，直到有其他对象也试图修改资源时，再进行复制。写时复制减少了不必要的资源复制，提高了内存使用效率。</p>
+<p>实现 const 和非 const 版本的运算符*和-&gt;，是实现 COW 指针功能的关键。非 const 版本用于创建副本。</p>
+<h3 id="引用计数智能指针"><a href="#引用计数智能指针" class="headerlink" title="引用计数智能指针"></a>引用计数智能指针</h3><p>引用计数是一种记录对象的用户数量的机制。当计数降低到零后，便将对象释放。因此，引用计数提供了一种优良的机制，使得可共享对象而无法对其进行复制。</p>
+<p>在引用计数中，每个对象（通常是一个动态分配的资源）都有一个关联的计数器，用于记录当前有多少个智能指针或对象引用指向该资源。每当有一个新的智能指针指向资源时，计数器加一；当一个智能指针离开作用域或被销毁时，计数器减一。当计数器变为零时，表示当前没有任何智能指针或对象引用指向资源，此时可以安全地释放该资源，避免了资源泄漏。</p>
+<p>这种智能指针被复制时，需要将对象的引用计数加 1。至少有两种常用的方法来跟踪计数：</p>
+<blockquote>
+<p>• 在对象中维护引用计数；（维护指的是对引用计数进行管理和更新的过程）<br>• 引用计数由共享对象中的指针类维护。  </p>
+</blockquote>
+<p>前者称为入侵式引用计数，因为需要修改对象以维护和递增引用计数，并将其提供给管理对象的智能指针。COM 采取的就是这种方法。</p>
+<p>后者是智能指针类将计数保存在自由存储区（如动态分配的整<br>型），复制时复制构造函数将这个值加 1。当智能指针对象拷贝或赋值时，需要更新共享对象的引用计数，确保多个智能指针可以正确共享同一个资源。</p>
+<h3 id="引用链接智能指针"><a href="#引用链接智能指针" class="headerlink" title="引用链接智能指针"></a>引用链接智能指针</h3><p>引用链接智能指针不主动维护对象的引用计数，而只需知道计数什么时候变为零，以便能够释放对象。</p>
+<p>之所以称为引用链接，是因为其实现是基于双向链表的。通过复制智能指针来创建新智能指针时，新指针将被插入到链表中。当智能指针离开作用域进而被销毁时，析构函数将把它从链表中删除。</p>
+<p>在引用链接中，当多个对象需要共享同一资源时，它们实际上会共享同一个引用而不是实际的资源。当其中一个对象试图修改资源时，系统会先创建资源的副本，然后将资源引用切断，使得该对象拥有自己的资源副本，而其他对象仍然共享原始资源的引用。从而减少资源复制的次数，提高性能。</p>
+<h3 id="破坏性复制"><a href="#破坏性复制" class="headerlink" title="破坏性复制"></a>破坏性复制</h3><p>破坏性复制指的是在智能指针被复制时，将对象的所有权转交给目标指针并重置原来的指针。</p>
+<p>当多个线程试图对共享资源进行修改时，可能会导致竞态条件<br><a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/609260554">参考信息 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>和数据不一致性。破坏性复制通过复制资源来避免竞态条件。当一个线程试图对共享资源进行修改时，系统会先创建资源的副本，然后在副本上执行修改操作，而不会影响其他线程共享的原始资源。破坏性复制可以提高并发性能和数据的一致性。</p>
+<p>虽然破坏性复制机制使用起来并不直观，但它有一个优点，即可确保任何时刻只有一个活动指针指向对象。因此，它非常适合从函数返回指针以及需要利用其“破坏性”的情形。下面是一个破坏性复制智能指针的例子：<br><div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">template &lt;typename T&gt; </span><br><span class="line">//destructivecopy_ptr的模板类</span><br><span class="line">class destructivecopy_ptr </span><br><span class="line">&#123; </span><br><span class="line">private: </span><br><span class="line">    T* object; </span><br><span class="line">    </span><br><span class="line">public: </span><br><span class="line">    destructivecopy_ptr(T* input):object(input) &#123;&#125; </span><br><span class="line">    ~destructivecopy_ptr() &#123; delete object; &#125; </span><br><span class="line"></span><br><span class="line">    //复制构造函数 </span><br><span class="line">    destructivecopy_ptr(destructivecopy_ptr&amp; source) </span><br><span class="line">    &#123; </span><br><span class="line">        // Take ownership on copy </span><br><span class="line">        object = source.object; </span><br><span class="line"></span><br><span class="line">        // destroy source </span><br><span class="line">        source.object = 0; //使原来的对象为Null，确保只有新的对象负责管理资源</span><br><span class="line">    &#125; </span><br><span class="line"></span><br><span class="line">    //重载复制复制操作符 </span><br><span class="line">    destructivecopy_ptr&amp; operator= (destructivecopy_ptr&amp; source) </span><br><span class="line">    &#123; </span><br><span class="line">        if (object != source.object) </span><br><span class="line">        &#123; </span><br><span class="line">            delete object; </span><br><span class="line">            object = source.object; </span><br><span class="line">            source.object = 0; //使原来的指针为null，即确保资源的所有权转移到object中</span><br><span class="line">        &#125; </span><br><span class="line">        return *this;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;; </span><br><span class="line"></span><br><span class="line">int main() </span><br><span class="line">&#123; </span><br><span class="line">    //实例化对象num，</span><br><span class="line">    destructivecopy_ptr&lt;int&gt; num (new int); </span><br><span class="line">    //拷贝给一个新对象copy</span><br><span class="line">    destructivecopy_ptr&lt;int&gt; copy = num; </span><br><span class="line">    //拷贝完成后，原来的num失效，不再可用，而copy将接手管理原来num的内容</span><br><span class="line">    // num is now invalid </span><br><span class="line">    return 0; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><br>使用时要注意以下内容：<br><img src="/2023/07/27/%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88/%E6%B3%A8%E6%84%8F.png" alt="注意"></p>
+<h3 id="使用-std-unique-ptr"><a href="#使用-std-unique-ptr" class="headerlink" title="使用 std::unique_ptr"></a>使用 std::unique_ptr</h3><p>unique_ptr 是一种简单的智能指针，使用时必须包含头文件&lt; memory &gt;，但其复制构造函数和赋值运算符被声明为私有的，因此不能复制它，即不能将其按值传递给函数，也不能将其赋给其他指针。下面是一个示例：<br>```</p>
+<h1 id="include"><a href="#include" class="headerlink" title="include"></a>include<iostream></iostream></h1><h1 id="include-1"><a href="#include-1" class="headerlink" title="include"></a>include<memory></memory></h1><p>using namespace std;</p>
+<p>class Fish<br>{<br>    public:<br>        Fish() {cout &lt;&lt; “Fish: Constructed!” &lt;&lt; endl;}<br>        ~Fish() {cout &lt;&lt; “Fish: Destructed!” &lt;&lt; endl;}<br>        void Swim() const {cout &lt;&lt; “Fish swims in water” &lt;&lt; endl;}<br>}</p>
+<p>void MakeFishSwim(const unique_ptr<Fish>&amp; inFish)<br>{<br>    inFish -&gt; Swim();<br>}</Fish></p>
+<p>int main()<br>{<br>    //实例化<br>    unique_ptr<Fish> smartFish (new Fish);</Fish></p>
+<pre><code>smartFish-&gt;Swim();
+MakeFishSwim(smartFish);//这样可以，函数MakeFishSwim是通过引用来接收smartFish的
+
+unique_ptr&lt;Fish&gt; copySmartFish; 
+// copySmartFish = smartFish; // 无法通过编译，操作符=是私有的
+
+return 0;
+</code></pre><p>}<br>//输出<br>Fish: Constructed!<br>Fish swims in water<br>Fish swims in water<br>Fish: Destructed!</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> C++学习笔记：智能指针</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-07-27 20:45:22</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-07-27 19:46:29
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/07/27/智能指针/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2023/07/27/STL%E4%BD%8D%E6%A0%87%E5%BF%97/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：STL位标志</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/27/%E4%BD%BF%E7%94%A8%E6%B5%81%E8%BF%9B%E8%A1%8C%E8%BE%93%E5%85%A5%E8%BE%93%E5%87%BA/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：流的输入输出</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">C++学习笔记：智能指针</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-text">智能指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88%E7%B1%BB%E5%9E%8B"><span class="nav-text">智能指针类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%B1%E5%A4%8D%E5%88%B6"><span class="nav-text">深复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E6%97%B6%E5%A4%8D%E5%88%B6%E6%9C%BA%E5%88%B6"><span class="nav-text">写时复制机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-text">引用计数智能指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E9%93%BE%E6%8E%A5%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-text">引用链接智能指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E6%80%A7%E5%A4%8D%E5%88%B6"><span class="nav-text">破坏性复制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-std-unique-ptr"><span class="nav-text">使用 std::unique_ptr</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include"><span class="nav-text">include</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#include-1"><span class="nav-text">include</span></a>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
