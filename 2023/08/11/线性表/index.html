@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/08/11/线性表/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="线性表线性表是一种常见的数据结构，它是由一组有限元素组成的序列，这些元素被排列成线性顺序，其中每个元素都与它前面的元素和后面的元素相邻。线性表中的元素可以是相同类型或不同类型的，通常根据元素的类型来定义不同的线性表。 线性表的应用较为常见，如数组就是一种简单的线性表，它提供了快速的随机访问能力。链表用于动态数据结构，可以有效地支持插入和删除操作。栈和队列也是基于线性表的数据结构，它们限制了操作的方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构：线性表">
+<meta property="og:url" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="线性表线性表是一种常见的数据结构，它是由一组有限元素组成的序列，这些元素被排列成线性顺序，其中每个元素都与它前面的元素和后面的元素相邻。线性表中的元素可以是相同类型或不同类型的，通常根据元素的类型来定义不同的线性表。 线性表的应用较为常见，如数组就是一种简单的线性表，它提供了快速的随机访问能力。链表用于动态数据结构，可以有效地支持插入和删除操作。栈和队列也是基于线性表的数据结构，它们限制了操作的方">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E6%8F%92%E5%85%A5.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%88%A0%E9%99%A4.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8%E6%8F%92%E5%85%A5.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8%E4%BE%8B%E5%AD%90%E8%BE%93%E5%87%BA.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8%E5%86%92%E6%B3%A1.png">
+<meta property="article:published_time" content="2023-08-11T07:25:15.201Z">
+<meta property="article:modified_time" content="2023-08-11T07:24:42.680Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            数据结构：线性表 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">数据结构：线性表</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-08-11 15:25:15</span>
+        <span class="mobile">2023-08-11 15:25</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-08-11 15:24:42</span>
+            <span class="mobile">2023-08-11 15:24</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h2 id="线性表"><a href="#线性表" class="headerlink" title="线性表"></a>线性表</h2><p>线性表是一种常见的数据结构，它是由一组有限元素组成的序列，这些元素被排列成线性顺序，其中每个元素都与它前面的元素和后面的元素相邻。线性表中的元素可以是相同类型或不同类型的，通常根据元素的类型来定义不同的线性表。</p>
+<p>线性表的应用较为常见，如数组就是一种简单的线性表，它提供了快速的随机访问能力。链表用于动态数据结构，可以有效地支持插入和删除操作。栈和队列也是基于线性表的数据结构，它们限制了操作的方式，使其具有特定的性质</p>
+<h3 id="线性表的特点"><a href="#线性表的特点" class="headerlink" title="线性表的特点"></a>线性表的特点</h3><p>线性表具有以下特点：</p>
+<ol>
+<li>元素顺序性： 线性表中的元素按照一定的顺序排列，除了第一个和最后一个元素以外，每个元素都有一个前驱元素和一个后继元素</li>
+<li>元素有限性： 线性表中的元素数量是有限的，不会无限增长</li>
+</ol>
+<p>根据结构不同，线性表主要可以分为顺序表和链表</p>
+<h3 id="顺序表"><a href="#顺序表" class="headerlink" title="顺序表"></a>顺序表</h3><p>顺序表是一种使用数组来实现的线性表，元素在内存中连续存储。这意味着每个元素可以通过索引直接访问，因此查找元素的操作非常快速。但是，顺序表的插入和删除操作可能涉及数据的搬移，影响性能。</p>
+<p><img src="/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84.png" alt="顺序表"></p>
+<p>下面是一个用C语言写的顺序表中的元素存储结构<br><div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用ListNode来表示顺序表中单个节点的数据类型</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> </span></span><br><span class="line"><span class="class">&#123;</span>   </span><br><span class="line">    <span class="type">float</span> coef;<span class="comment">//系数</span></span><br><span class="line">    <span class="type">int</span> expn; <span class="comment">//指数：下标i</span></span><br><span class="line">&#125;ListNode;</span><br><span class="line"></span><br><span class="line"><span class="comment">//用PList表示整个顺序表的结构</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ListNode* elem;<span class="comment">//储存空间的基地址，指向多项式的节点</span></span><br><span class="line">    <span class="type">int</span> length;<span class="comment">//多项式中当前的个数，即节点个数</span></span><br><span class="line">&#125;PList;</span><br></pre></td></tr></table></figure></div></p>
+<p>在顺序表中，顺序存储是指用一组地址连续的存储单元依次存储线性表的数据元素的方式，具有顺序存储结构的特点（数据间的逻辑关系和物理关系是一致的）。其中查找的时间复杂度为O(1)，可以通过首地址和元素序号来进行查找。</p>
+<p>在顺序表中进行插入和删除操作时，往往需要移动大量的数据。此外，数组的长度时相对固定的，当表中数据元素较多且变化较大时可能会导致存储空间的浪费。</p>
+<p><img src="/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E6%8F%92%E5%85%A5.png" alt="顺序表的插入"><br><img src="/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E5%88%A0%E9%99%A4.png" alt="顺序表的删除"></p>
+<p>下面是一段用C语言实现的简单顺序表插入和删除元素的示例代码：<br><div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在顺序表中的指定位置插入元素</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">insertElement</span><span class="params">(SeqList *<span class="built_in">list</span>, <span class="type">int</span> position, <span class="type">int</span> value)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (position &lt; <span class="number">0</span> || position &gt; <span class="built_in">list</span>-&gt;length || <span class="built_in">list</span>-&gt;length &gt;= MAX_SIZE) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">// 插入位置不合法或者顺序表已满</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将插入位置后面的元素往后移动一位</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="built_in">list</span>-&gt;length; i &gt; position; i--) &#123;</span><br><span class="line">        <span class="built_in">list</span>-&gt;data[i] = <span class="built_in">list</span>-&gt;data[i - <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 插入新元素</span></span><br><span class="line">    <span class="built_in">list</span>-&gt;data[position] = value;</span><br><span class="line">    <span class="built_in">list</span>-&gt;length++;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 插入成功</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在顺序表中删除指定位置的元素</span></span><br><span class="line"><span class="type">int</span> <span class="title function_">deleteElement</span><span class="params">(SeqList *<span class="built_in">list</span>, <span class="type">int</span> position)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (position &lt; <span class="number">0</span> || position &gt;= <span class="built_in">list</span>-&gt;length) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>; <span class="comment">// 删除位置不合法</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将删除位置后面的元素往前移动一位</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = position; i &lt; <span class="built_in">list</span>-&gt;length - <span class="number">1</span>; i++) &#123;</span><br><span class="line">        <span class="built_in">list</span>-&gt;data[i] = <span class="built_in">list</span>-&gt;data[i + <span class="number">1</span>];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">list</span>-&gt;length--;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>; <span class="comment">// 删除成功</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div></p>
+<h3 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h3><p>链表是一种使用节点（结点）来实现的线性表，每个节点包含了数据元素和一个指向下一个节点的指针（引用）。链表中的节点在内存中不一定连续存储，因此插入和删除操作相对较快，不需要像顺序表那样搬移数据。链表根据节点之间的关系分为多种类型，如单链表、双向链表、循环链表等。</p>
+<p><img src="/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8%E7%BB%93%E6%9E%84.png" alt="链表结构"></p>
+<p>下面是用C语言写的表示链表中单个节点的结构<br><div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//单链表的结构</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> data;<span class="comment">//表示节点中的数据</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">next</span>;</span><span class="comment">//表示节点中的指针</span></span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line"><span class="comment">//双链表的结构</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> //双链表的结构为前后有指针</span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">pre</span>;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">next</span>;</span></span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化单循环链表</span></span><br><span class="line">Node* <span class="title function_">initList</span><span class="params">()</span><span class="comment">//返回类型为Node* </span></span><br><span class="line">&#123;</span><br><span class="line">    Node* <span class="built_in">list</span> = (Node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    <span class="built_in">list</span>-&gt;data=<span class="number">0</span>;<span class="comment">//头结点，用头结点的数据域来计算保存了多少数据</span></span><br><span class="line">    <span class="comment">//list-&gt;next=NULL;//单链表的头指针初始化时指向NULL，双链表也是</span></span><br><span class="line">    <span class="built_in">list</span>-&gt;next=<span class="built_in">list</span>;<span class="comment">//单循环链表没有数据时应该指向自己，而不是指向NULL</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>;<span class="comment">//返回指向链表头结点的指针</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//初始化双循环链表</span></span><br><span class="line">Node* <span class="title function_">initList</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    Node* <span class="built_in">list</span> = (Node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    <span class="built_in">list</span>-&gt;data = <span class="number">0</span>;</span><br><span class="line">    <span class="comment">/*错误写法：</span></span><br><span class="line"><span class="comment">    list-&gt;pre = list-&gt;next; //头指向尾</span></span><br><span class="line"><span class="comment">    list-&gt;next=list-&gt;pre; //尾指向头</span></span><br><span class="line"><span class="comment">    在双循环链表中，头结点的pre指针通常指向尾结点，尾结点的next指针通常指向头结点。</span></span><br><span class="line"><span class="comment">    这是为了实现循环的目的，使得链表首尾相连。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    在初始化链表时，由于还没有插入任何节点，头结点和尾结点是同一个节点，因此它们的pre和next指针都应该指向自身。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    如果使用list-&gt;pre = list-&gt;next;和list-&gt;next = list-&gt;pre;，</span></span><br><span class="line"><span class="comment">    则会将头结点的pre指针指向尾结点，尾结点的next指针指向头结点，这样就会导致链表断裂，无法形成循环。</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    因此，在初始化链表时，需要让头结点的pre和next指针都指向自身</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="built_in">list</span>-&gt;pre = <span class="built_in">list</span>; <span class="comment">//头指向自身</span></span><br><span class="line">    <span class="built_in">list</span>-&gt;next = <span class="built_in">list</span>; <span class="comment">//尾指向自身</span></span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h4 id="单链表的插入操作"><a href="#单链表的插入操作" class="headerlink" title="单链表的插入操作"></a>单链表的插入操作</h4><p>将值为 e 的新结点插人到表的第i个结点的位置上, 即插入到结点ai-1 与ai之间,具体插入过程如图 2.12 所示, 图中对应的 5 个步骤说明如下：</p>
+<ol>
+<li>查找节点ai-1并用指针p指向该节点</li>
+<li>生成新节点s</li>
+<li>将新节点s赋值为e</li>
+<li>将新节点s的next指针指向ai</li>
+<li>将ai-1的next指针指向s</li>
+</ol>
+<p><img src="/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8%E6%8F%92%E5%85%A5.png" alt="插入"></p>
+<h4 id="单链表的删除操作"><a href="#单链表的删除操作" class="headerlink" title="单链表的删除操作"></a>单链表的删除操作</h4><p>与插入类似，删除值为e的节点的过程如图所示，图中对应的步骤如下：</p>
+<ol>
+<li>查找节点ai-1并由指针p指向该点</li>
+<li>临时保存待删除节点ai的地址在q中，以备释放</li>
+<li>将节点p的next指针指向ai-&gt;next</li>
+<li>释放节点ai的空间</li>
+</ol>
+<p><img src="/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8%E5%88%A0%E9%99%A4.png" alt="删除"></p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>下面是用C语言写的分别使用顺序表和链表实现多项式相加的代码:</p>
+<h3 id="用线性表实现多项式相加"><a href="#用线性表实现多项式相加" class="headerlink" title="用线性表实现多项式相加"></a>用线性表实现多项式相加</h3><div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> SUCCESS 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> FAIL 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 10 <span class="comment">//多项式可能达到的最大长度</span></span></span><br><span class="line"><span class="comment">//定义状态</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> status;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> plus 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> subtract 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> multiply 2</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> divide 3</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> math;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> num1,num2;<span class="comment">//用于指定多项式里面总共有几项</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//用数组表示一个多项式</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span> </span></span><br><span class="line"><span class="class">&#123;</span>   </span><br><span class="line">    <span class="type">float</span> coef;<span class="comment">//系数</span></span><br><span class="line">    <span class="type">int</span> expn; <span class="comment">//指数：下标i</span></span><br><span class="line">&#125;ListNode;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    ListNode* elem;<span class="comment">//储存空间的基地址，指向多项式的节点</span></span><br><span class="line">    <span class="type">int</span> length;<span class="comment">//多项式中当前的个数，即节点个数</span></span><br><span class="line">&#125;PList;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建数组</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">InitList</span><span class="params">(PList* L)</span></span><br><span class="line">&#123;</span><br><span class="line">    L-&gt;elem = (ListNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ListNode)*MAXSIZE);</span><br><span class="line">    L-&gt;length = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;初始化线性表\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加项</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">InputPolyElem</span><span class="params">(PList* L, <span class="type">int</span> n)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">float</span> x;<span class="comment">//输入系数</span></span><br><span class="line">    <span class="type">int</span> y;<span class="comment">//输入指数</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;输入系数和指数，如3x²的输入为-&gt;3,2，输完按回车 : \n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%f,%d&quot;</span>,&amp;x,&amp;y);<span class="comment">//将输入的值传给x和y</span></span><br><span class="line">        L-&gt;elem[i].coef = x;</span><br><span class="line">        L-&gt;elem[i].expn = y;</span><br><span class="line">        L-&gt;length++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//根据输入的项数对其进行升幂排序</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">SortList</span><span class="params">(PList* L)</span></span><br><span class="line">&#123;</span><br><span class="line">    ListNode* temp=(ListNode*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(ListNode));</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;L-&gt;length<span class="number">-1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(L-&gt;elem[i].expn &gt; L-&gt;elem[i+<span class="number">1</span>].expn)</span><br><span class="line">        &#123;</span><br><span class="line">            temp-&gt;coef = L-&gt;elem[i].coef;</span><br><span class="line">            temp-&gt;expn = L-&gt;elem[i].expn;</span><br><span class="line">            L-&gt;elem[i].coef = L-&gt;elem[i+<span class="number">1</span>].coef;</span><br><span class="line">            L-&gt;elem[i].expn = L-&gt;elem[i+<span class="number">1</span>].expn;</span><br><span class="line">            L-&gt;elem[i+<span class="number">1</span>].coef = temp-&gt;coef;</span><br><span class="line">            L-&gt;elem[i+<span class="number">1</span>].expn = temp-&gt;expn;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">free</span>(temp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">math <span class="title function_">OperateList</span><span class="params">()</span></span><br><span class="line">&#123;   </span><br><span class="line">    <span class="type">char</span> a[<span class="number">2</span>]; <span class="comment">//字符还有结束符“\O”，所以得用2</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入要对多项式的操作（加+，减-，乘*，除/）：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%1s&quot;</span>,&amp;a);<span class="comment">//仅读取一个字符</span></span><br><span class="line">    <span class="keyword">switch</span>(a[<span class="number">0</span>])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>: </span><br><span class="line">            <span class="keyword">return</span> plus ;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> subtract;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> multiply;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> divide;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//项数相加</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">AddList</span><span class="params">(PList* LA, PList* LB, PList* LC, <span class="type">int</span> n)</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>,j=<span class="number">0</span>,k=<span class="number">0</span>;<span class="comment">//用三个int代表三个列表的下标</span></span><br><span class="line">    <span class="keyword">while</span>(i&lt;LA-&gt;length&amp;&amp;j&lt;LB-&gt;length)<span class="comment">//当LA与LB都不是空多项式时</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(LA-&gt;elem[i].expn == LB-&gt;elem[j].expn)<span class="comment">//当LA的项与LB的项的幂次相同时相加</span></span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="keyword">switch</span>(n)</span><br><span class="line">            &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                LC-&gt;elem[k].expn = LA-&gt;elem[i].expn;</span><br><span class="line">                LC-&gt;elem[k].coef = LA-&gt;elem[i].coef + LB-&gt;elem[j].coef;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                LC-&gt;elem[k].expn = LA-&gt;elem[i].expn;</span><br><span class="line">                LC-&gt;elem[k].coef = LA-&gt;elem[i].coef - LB-&gt;elem[j].coef;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                LC-&gt;elem[k].expn = LA-&gt;elem[i].expn;</span><br><span class="line">                LC-&gt;elem[k].coef = LA-&gt;elem[i].coef * LB-&gt;elem[j].coef;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                LC-&gt;elem[k].expn = LA-&gt;elem[i].expn;</span><br><span class="line">                LC-&gt;elem[k].coef = LA-&gt;elem[i].coef / LB-&gt;elem[j].coef;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            i++;  <span class="comment">// 增加 LA 的索引</span></span><br><span class="line">            j++;  <span class="comment">// 增加 LB 的索引</span></span><br><span class="line">            k++;  <span class="comment">// 增加 LC 的索引</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(LA-&gt;elem[i].expn &lt; LB-&gt;elem[j].expn)<span class="comment">//当LA幂次小于LB时</span></span><br><span class="line">        &#123;</span><br><span class="line">            LC-&gt;elem[k].expn = LA-&gt;elem[i].expn;</span><br><span class="line">            LC-&gt;elem[k].coef = LA-&gt;elem[i].coef;</span><br><span class="line">            i++;  <span class="comment">// 增加 LA 的索引</span></span><br><span class="line">            k++;  <span class="comment">// 增加 LC 的索引</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span><span class="comment">//当LA幂次大于LB时</span></span><br><span class="line">        &#123;</span><br><span class="line">            LC-&gt;elem[k].expn = LB-&gt;elem[j].expn;</span><br><span class="line">            LC-&gt;elem[k].coef = LB-&gt;elem[j].coef;</span><br><span class="line">            j++;  <span class="comment">// 增加 LB 的索引</span></span><br><span class="line">            k++;  <span class="comment">// 增加 LC 的索引</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//经历上面后，可能某一个列表还有剩余，将剩下的加到LC内</span></span><br><span class="line">    <span class="comment">//如果A还有剩余</span></span><br><span class="line">    <span class="keyword">while</span>(i&lt;LA-&gt;length)</span><br><span class="line">    &#123;</span><br><span class="line">        LC-&gt;elem[k].expn = LA-&gt;elem[i].expn;</span><br><span class="line">        LC-&gt;elem[k].coef = LA-&gt;elem[i].coef;</span><br><span class="line">        i++;  <span class="comment">// 增加 LA 的索引</span></span><br><span class="line">        k++;  <span class="comment">// 增加 LC 的索引</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//如果B还有剩余</span></span><br><span class="line">    <span class="keyword">while</span> (j&lt;LB-&gt;length)</span><br><span class="line">    &#123;</span><br><span class="line">        LC-&gt;elem[k].expn = LB-&gt;elem[j].expn;</span><br><span class="line">        LC-&gt;elem[k].coef = LB-&gt;elem[j].coef;</span><br><span class="line">        j++;  <span class="comment">// 增加 LB 的索引</span></span><br><span class="line">        k++;  <span class="comment">// 增加 LC 的索引</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    LC-&gt;length=k;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//展示列表</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">showPoly</span><span class="params">(PList* L)</span></span><br><span class="line">&#123;   </span><br><span class="line">    <span class="keyword">if</span> (L-&gt;length == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;该多项式长度为0\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    SortList(L);</span><br><span class="line">    <span class="comment">//数组下标从0开始，长度应该为length-1</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;L-&gt;length<span class="number">-1</span>;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%.2fx^%d + &quot;</span>,L-&gt;elem[i].coef,L-&gt;elem[i].expn);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%.2fx^%d\n&quot;</span>,L-&gt;elem[L-&gt;length<span class="number">-1</span>].coef,L-&gt;elem[L-&gt;length<span class="number">-1</span>].expn);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    PList LA;</span><br><span class="line">    PList LB;<span class="comment">//建立两个多项式</span></span><br><span class="line">    PList LC;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;输入第一个多项式的项数：\n&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;num1);</span><br><span class="line">    InitList(&amp;LA);<span class="comment">//&amp;LA来获取 PList类型的LA的地址，赋值给指针PList* L</span></span><br><span class="line">    InputPolyElem(&amp;LA,num1);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;输入第二个多项式的项数：\n&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;num2);</span><br><span class="line">    InitList(&amp;LB);</span><br><span class="line">    InputPolyElem(&amp;LB,num2);</span><br><span class="line"></span><br><span class="line">    showPoly(&amp;LA);</span><br><span class="line">    showPoly(&amp;LB);</span><br><span class="line">    </span><br><span class="line">    <span class="type">int</span> o = OperateList();</span><br><span class="line"></span><br><span class="line">    InitList(&amp;LC);</span><br><span class="line"></span><br><span class="line">    AddList(&amp;LA,&amp;LB,&amp;LC,o);</span><br><span class="line">    showPoly(&amp;LC);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">free</span>(LA.elem);</span><br><span class="line">    <span class="built_in">free</span>(LB.elem);</span><br><span class="line">    <span class="built_in">free</span>(LC.elem);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>程序运行结果：排序使用冒泡排序</p>
+<p><img src="/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%BB%93%E6%9E%9C.png" alt="线性表结果"></p>
+<h3 id="用单链表实现多项式相加"><a href="#用单链表实现多项式相加" class="headerlink" title="用单链表实现多项式相加"></a>用单链表实现多项式相加</h3><div class="highlight-container" data-rel="C"><figure class="iseeu highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> plus 0</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> subtract 1</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> multiply 2</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> divide 3</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">int</span> math;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> num1,num2;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">int</span> <span class="built_in">exp</span>;<span class="comment">//复用，在头结点处代表长度，其他节点代表幂次</span></span><br><span class="line">    <span class="type">float</span> coef;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Node</span>* <span class="title">next</span>;</span></span><br><span class="line">&#125;Node;</span><br><span class="line"></span><br><span class="line">Node* <span class="title function_">InitList</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    Node* <span class="built_in">list</span> = (Node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    <span class="built_in">list</span>-&gt;<span class="built_in">exp</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">list</span>-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用头插法，然后下面再用冒泡法按升幂排序</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">HeadInsert</span><span class="params">(Node* <span class="built_in">list</span>, <span class="type">int</span> <span class="built_in">exp</span>, <span class="type">float</span> coef)</span></span><br><span class="line">&#123;</span><br><span class="line">    Node* node = (Node*)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    node-&gt;<span class="built_in">exp</span> = <span class="built_in">exp</span>;</span><br><span class="line">    node-&gt;coef = coef;</span><br><span class="line">    node-&gt;next = <span class="built_in">list</span>-&gt;next;</span><br><span class="line">    <span class="built_in">list</span>-&gt;next = node;</span><br><span class="line">    <span class="built_in">list</span>-&gt;<span class="built_in">exp</span>++;<span class="comment">//增加一项时，头结点的exp+1</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//排序</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">SortList</span><span class="params">(Node* <span class="built_in">list</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> change = <span class="number">0</span>;<span class="comment">//设置交换的标志</span></span><br><span class="line">    Node* ptr;<span class="comment">//用于遍历整个链表</span></span><br><span class="line">    Node* inptr=<span class="literal">NULL</span>;<span class="comment">//用于控制内层循环的范围</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">list</span>-&gt;next == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span>&#123; </span><br><span class="line">        change = <span class="number">0</span>;</span><br><span class="line">        ptr = <span class="built_in">list</span>-&gt;next;<span class="comment">//初始化为第一个值</span></span><br><span class="line">        <span class="keyword">while</span> (ptr-&gt;next != inptr)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(ptr-&gt;<span class="built_in">exp</span> &gt; ptr-&gt;next-&gt;<span class="built_in">exp</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 交换节点的系数和指数</span></span><br><span class="line">                <span class="type">float</span> temp_c = ptr-&gt;coef;</span><br><span class="line">                <span class="type">int</span> temp_e = ptr-&gt;<span class="built_in">exp</span>;</span><br><span class="line">                ptr-&gt;coef = ptr-&gt;next-&gt;coef;</span><br><span class="line">                ptr-&gt;<span class="built_in">exp</span> = ptr-&gt;next-&gt;<span class="built_in">exp</span>;</span><br><span class="line">                ptr-&gt;next-&gt;coef = temp_c;</span><br><span class="line">                ptr-&gt;next-&gt;<span class="built_in">exp</span> = temp_e;</span><br><span class="line">                change = <span class="number">1</span>;<span class="comment">//设置交换标志为1</span></span><br><span class="line">            &#125;</span><br><span class="line">            ptr = ptr-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        inptr = ptr;<span class="comment">//将内层指针移动到当前排序完成的位置</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(change);<span class="comment">//当change=1时，说明还没排序完，当change=0时说明已经完成排序</span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">//插入项数</span></span><br><span class="line">Node* <span class="title function_">InputNum</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> n = <span class="number">0</span>;<span class="comment">//初始化多项式项数为0</span></span><br><span class="line">    <span class="type">int</span> e;</span><br><span class="line">    <span class="type">float</span> c;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入多项式的项数：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    Node* <span class="built_in">list</span> = InitList();</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;请输入第 %d 项的系数和指数，如3x²的输入为-&gt;3,2 :&quot;</span>,(i+<span class="number">1</span>));</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%f,%d&quot;</span>,&amp;c,&amp;e);</span><br><span class="line">        HeadInsert(<span class="built_in">list</span>,e,c);</span><br><span class="line">    &#125;</span><br><span class="line">    SortList(<span class="built_in">list</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">list</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回操作符</span></span><br><span class="line">math <span class="title function_">OperateList</span><span class="params">()</span></span><br><span class="line">&#123;   </span><br><span class="line">    <span class="type">char</span> a[<span class="number">2</span>]; <span class="comment">//字符还有结束符“\O”，所以得用2</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入要对多项式的操作（加+，减-，乘*，除/）：&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%1s&quot;</span>,&amp;a);<span class="comment">//仅读取一个字符</span></span><br><span class="line">    <span class="keyword">switch</span>(a[<span class="number">0</span>])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;+&#x27;</span>: </span><br><span class="line">            <span class="keyword">return</span> plus ;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;-&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> subtract;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;*&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> multiply;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;/&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> divide;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//项数相加</span></span><br><span class="line">Node* <span class="title function_">AddList</span><span class="params">(Node*A, Node*B, <span class="type">int</span> n)</span> <span class="comment">//通过n判断要实现怎样的操作</span></span><br><span class="line">&#123;</span><br><span class="line">    Node*C = InitList();<span class="comment">//初始化一个单链表来存放相加后的结果</span></span><br><span class="line">    Node*a = A-&gt;next;<span class="comment">//将a初始化为A的第一个节点</span></span><br><span class="line">    Node*b = B-&gt;next;<span class="comment">//将b初始化为B的第一个节点</span></span><br><span class="line">    <span class="comment">//当a和b不为尾节点时</span></span><br><span class="line">    <span class="type">int</span> ce;</span><br><span class="line">    <span class="type">float</span> cc;</span><br><span class="line">    <span class="keyword">while</span>(a&amp;&amp;b)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(a-&gt;<span class="built_in">exp</span> == b-&gt;<span class="built_in">exp</span>)</span><br><span class="line">        &#123;   </span><br><span class="line">            <span class="keyword">switch</span> (n)</span><br><span class="line">            &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                ce = a-&gt;<span class="built_in">exp</span>;</span><br><span class="line">                cc = a-&gt;coef + b-&gt;coef;</span><br><span class="line">                HeadInsert(C,ce,cc);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                ce = a-&gt;<span class="built_in">exp</span>;</span><br><span class="line">                cc = a-&gt;coef - b-&gt;coef;</span><br><span class="line">                HeadInsert(C,ce,cc);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                ce = a-&gt;<span class="built_in">exp</span>;</span><br><span class="line">                cc = a-&gt;coef * b-&gt;coef;</span><br><span class="line">                HeadInsert(C,ce,cc);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">3</span>:</span><br><span class="line">                ce = a-&gt;<span class="built_in">exp</span>;</span><br><span class="line">                cc = a-&gt;coef / b-&gt;coef;</span><br><span class="line">                HeadInsert(C,ce,cc);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">//移动指针</span></span><br><span class="line">            a = a-&gt;next;</span><br><span class="line">            b = b-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(a-&gt;<span class="built_in">exp</span>&lt;b-&gt;<span class="built_in">exp</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            ce = a-&gt;<span class="built_in">exp</span>;</span><br><span class="line">            cc = a-&gt;coef;</span><br><span class="line">            HeadInsert(C,ce,cc);</span><br><span class="line">            <span class="comment">//移动指针</span></span><br><span class="line">            a = a-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ce = b-&gt;<span class="built_in">exp</span>;</span><br><span class="line">            cc = b-&gt;coef;</span><br><span class="line">            HeadInsert(C,ce,cc);</span><br><span class="line">            <span class="comment">//移动指针</span></span><br><span class="line">            b = b-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//当某一个链表移动到尾部但另一个还没有时</span></span><br><span class="line">    <span class="keyword">while</span> (a)</span><br><span class="line">    &#123;</span><br><span class="line">        ce = a-&gt;<span class="built_in">exp</span>;</span><br><span class="line">        cc = a-&gt;coef;</span><br><span class="line">        HeadInsert(C,ce,cc);</span><br><span class="line">        a= a-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (b)</span><br><span class="line">    &#123;</span><br><span class="line">        ce = b-&gt;<span class="built_in">exp</span>;</span><br><span class="line">        cc = b-&gt;coef;</span><br><span class="line">        HeadInsert(C,ce,cc);</span><br><span class="line">        <span class="comment">//移动指针</span></span><br><span class="line">        b = b-&gt;next;</span><br><span class="line">    &#125;</span><br><span class="line">    SortList(C);</span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">printfList</span><span class="params">(Node* <span class="built_in">list</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">list</span> = <span class="built_in">list</span> -&gt;next;<span class="comment">//将指针指向列表的第一个值</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">list</span>)&#123;</span><br><span class="line">        <span class="comment">//当list指向不为NULL时</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">list</span>-&gt;next != <span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%.2fx^%d + &quot;</span>,<span class="built_in">list</span>-&gt;coef,<span class="built_in">list</span>-&gt;<span class="built_in">exp</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%.2fx^%d\n&quot;</span>,<span class="built_in">list</span>-&gt;coef,<span class="built_in">list</span>-&gt;<span class="built_in">exp</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">list</span> = <span class="built_in">list</span> -&gt;next;<span class="comment">//指针后移</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    Node* listA = InputNum();</span><br><span class="line">    printfList(listA);</span><br><span class="line">    Node* listB = InputNum();</span><br><span class="line">    printfList(listB);</span><br><span class="line">    <span class="type">int</span> o = OperateList();</span><br><span class="line"></span><br><span class="line">    Node* listC = AddList(listA, listB, o);</span><br><span class="line"></span><br><span class="line">    printfList(listC);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>程序输出结果：排序用冒泡排序</p>
+<p><img src="/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8%E4%BE%8B%E5%AD%90%E8%BE%93%E5%87%BA.png" alt="链表结果"></p>
+<p>链表中的排序流程如下：<br><img src="/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/%E9%93%BE%E8%A1%A8/%E9%93%BE%E8%A1%A8%E5%86%92%E6%B3%A1.png" alt="排序"></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> 数据结构：线性表</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-08-11 15:25:15</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-08-11 15:24:42
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/08/11/线性表/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/07/27/%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">C++学习笔记：栈和队列</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">数据结构：线性表</div>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8"><span class="nav-text">线性表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E6%80%A7%E8%A1%A8%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-text">线性表的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E8%A1%A8"><span class="nav-text">顺序表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E8%A1%A8"><span class="nav-text">链表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-text">例子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E7%BA%BF%E6%80%A7%E8%A1%A8%E5%AE%9E%E7%8E%B0%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%9B%B8%E5%8A%A0"><span class="nav-text">用线性表实现多项式相加</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8%E5%8D%95%E9%93%BE%E8%A1%A8%E5%AE%9E%E7%8E%B0%E5%A4%9A%E9%A1%B9%E5%BC%8F%E7%9B%B8%E5%8A%A0"><span class="nav-text">用单链表实现多项式相加</span></a></li></ol></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
