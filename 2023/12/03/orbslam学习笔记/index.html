@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2023/12/03/orbslam学习笔记/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="前言：1.学习orbslam3时发现了这与slam2大体上相似，在建图上的区别（3创建了一个子地图池（ATLAS），建图时可能会因为关键点不够而丢图，当前建下来的图就保存在子地图池，后续的回环检测中如果发现能匹配的上，就拉出来合并到回环中），于是便从orbslam2入手学习。2.这是一份学习时的笔记记录，没有涉及到源码中的一些细节，希望未来回来学习的自己能够根据这份笔记结合源码去温习3.orbsl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="orbslam学习笔记（基于orbslam2）">
+<meta property="og:url" content="https://white-troy.github.io/2023/12/03/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言：1.学习orbslam3时发现了这与slam2大体上相似，在建图上的区别（3创建了一个子地图池（ATLAS），建图时可能会因为关键点不够而丢图，当前建下来的图就保存在子地图池，后续的回环检测中如果发现能匹配的上，就拉出来合并到回环中），于是便从orbslam2入手学习。2.这是一份学习时的笔记记录，没有涉及到源码中的一些细节，希望未来回来学习的自己能够根据这份笔记结合源码去温习3.orbsl">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2023/12/03/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Git/upload4git/source/_posts/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/orbslam2-system-all.png">
+<meta property="article:published_time" content="2023-12-03T07:21:47.385Z">
+<meta property="article:modified_time" content="2023-12-03T13:00:22.471Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/12/03/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Git/upload4git/source/_posts/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/orbslam2-system-all.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            orbslam学习笔记（基于orbslam2） -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">orbslam学习笔记（基于orbslam2）</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2023-12-03 15:21:47</span>
+        <span class="mobile">2023-12-03 15:21</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2023-12-03 21:22</span>
+            <span class="mobile">2023-12-03 21</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <p>前言：<br>1.学习orbslam3时发现了这与slam2大体上相似，在建图上的区别（3创建了一个子地图池（ATLAS），建图时可能会因为关键点不够而丢图，当前建下来的图就保存在子地图池，后续的回环检测中如果发现能匹配的上，就拉出来合并到回环中），于是便从orbslam2入手学习。<br>2.这是一份学习时的笔记记录，没有涉及到源码中的一些细节，希望未来回来学习的自己能够根据这份笔记结合源码去温习<br>3.orbslam3中system.cc写出了算法的整体</p>
+<h3 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h3><p><img src="/2023/12/03/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Git\upload4git\source\_posts\orbslam学习笔记\orbslam2-system-all.png" alt="orbslam2整体系统"></p>
+<p>上图是一个orbslam2的完整系统框架，清楚列出了系统所需要的三个线程：<br>1.跟踪线程tracking：用于处理传入的图片，包括使用orb算法提取图片中的关键点、求取当前图片的位姿、根据当前帧以及上一帧进行跟踪定位、对当前帧的过滤（筛选是否能成为建图中的关键帧）<br>2.局部建图localmapping：根据传入的关键帧进行一个建图的操作，根据新帧和之前帧之间关键点的筛选、匹配，更新地图点（添加、修正、删除等），以及一个局部BA的优化等<br>3.回环检测loopclosing：包括回环检测和回环矫正，在回环检测中，主要筛选（DBOW计算相似度）出具有闭环特征（连续三个关键帧，且帧间相似度高）的关键帧，获得闭环帧后建立与共视图的联系，进行路标点的匹配融合，然后对本质图进行位姿的优化，再经过全局BA优化后更新地图</p>
+<p>在整个orbslam2系统中，tracking线程工作在前端（GrabImage()需要处理视频中的每一张图片），而loacl mapping和loop closing线程工作在后端，while使其保持待命，随时接收前端传入的图片。局部建图线程需要跟踪定位线程激活，回环全局优化线程又需要局部建图线程来激活。</p>
+<h3 id="跟踪线程"><a href="#跟踪线程" class="headerlink" title="跟踪线程"></a>跟踪线程</h3><p>在跟踪线程中，有一个mState值，用于表示当前读入图片的状态，主要可以表示为下面这样：<br>传入图片→判断mState值的状态是什么（未初始化，工作，丢失）<br>mState=NOT_INITIALIZED(未初始化），传入的图片就用于初始化求取位姿和地图点；<br>mState=WORKING(工作)，即代表初始化完成或者跟踪正常，会用于“基于前一帧的工作定位”or“运动模型定位”；<br>mState=LOST(丢失)，代表当前没有成功匹配上地图点（可能是图片模糊亦或者得到的特征点少于阈值），此时图片会用于重定位；</p>
+<p>GrabImage函数接受传入的图片，对图片进行Orb特征提取，根据帧中获得的信息（特征匹配点数量，位姿，三维空间点等）来设置mState的值，根据不同的mState值，图片也会被进行不同的处理操作；这些操作的共同点是都会对图片进行orb特征提取，不同点就是在working状态下，如果跟踪成功，则会进入判断是否能成为关键帧的流程，进而进入局部建图和回环检测；如果跟踪失败，那就进入lost状态，此时会对帧进行重定位。</p>
+<h4 id="关键帧"><a href="#关键帧" class="headerlink" title="关键帧"></a>关键帧</h4><p>在跟踪线程中，程序会对标记为working的图片进行一个判断筛选，首先判断当前工作模式是否为“定位模式”，或者局部地图处于“全局闭环”，或者这个帧是否距离上一次进行重定位的位置“较近”；若都不是，则用于进一步检测是否将关键帧插入局部地图中，筛选条件如下：<br>1.内点数超过设定的最小阈值，且重叠度不大（保证跟踪质量同时避免引入过多的信息）<br>2.距离上次插入关键帧至少过去MIN帧（MIN是ORBSLAM2预设的最小值），且局部建图线程处于空闲状态（防止图像重叠度太高，并且局部建图线程有空闲处理新的关键帧。）<br>3.局部建图线程中关键帧队列的关键帧数量不超过3个</p>
+<h3 id="局部建图"><a href="#局部建图" class="headerlink" title="局部建图"></a>局部建图</h3><p>局部建图线程通过while不断的监听关键帧队列中是否有新加入的关键帧，如果有则将正在进行中的局部建图线程或优化线程中断，然后对关键帧进行前后帧的关键点匹配，筛选，以及一些几何操作，获得地图点，最后将这些地图点插入到地图中</p>
+<h3 id="回环检测"><a href="#回环检测" class="headerlink" title="回环检测"></a>回环检测</h3><p>在局部建图中，当前关键帧会放入回环检测线程；当前关键帧会与上一个闭环候选关键帧进行相似度计算（通过DBOW）以及对应的Sim3，从而获得一张可信度高的新的闭环关键帧。<br>根据匹配特征点对的数量和质量，以及几何变换的一致性，判断是否存在闭环。如果检测到闭环，则会触发回环优化。对于检测到的闭环，通过优化算法对闭环进行优化，调整与闭环相关的关键帧和地图点的位姿和位置，以最小化重投影误差。闭环矫正的过程如下：<br>1.根据共视关系更新当前帧与其他关键帧之间的连接关系<br>2.通过当前帧与世界坐标系之间相对位置确定sim变换<br>3.对当前帧的地图点与经过闭环匹配后的地图点进行检查，如果不一致则用当前帧的地图点代替闭环匹配的地图点<br>4.对当前帧和闭环帧以及他们对应的的共视帧的地图点进行匹配融合<br>5.更新当前帧的连接关系，优化共视图<br>6.进行全局BA优化</p>
+<p>以上就是学习时的一些笔记，最关键的是关键帧的选取与处理，这决定了后续的建图，回环，优化是否准确<br>附上学习的参考链接<br>1.<a class="link" target="_blank" rel="noopener" href="https://www.yuque.com/chenhai-7zi1m/se4n14/udvggt">https://www.yuque.com/chenhai-7zi1m/se4n14/udvggt <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>2.<a class="link" target="_blank" rel="noopener" href="https://gaoyichao.com/Xiaotu/?book=ORB_SLAM">https://gaoyichao.com/Xiaotu/?book=ORB_SLAM <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>3.<a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/295421231">https://zhuanlan.zhihu.com/p/295421231 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>4.<a class="link" target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/608585842">https://zhuanlan.zhihu.com/p/608585842 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a><br>5.<a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43828675/article/details/114062625">https://blog.csdn.net/weixin_43828675/article/details/114062625 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> orbslam学习笔记（基于orbslam2）</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2023-12-03 15:21:47</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2023-12-03 21:00:22
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2023/12/03/orbslam学习笔记/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/08/11/%E7%BA%BF%E6%80%A7%E8%A1%A8/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">数据结构：线性表</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">orbslam学习笔记（基于orbslam2）</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E4%BD%93%E6%A1%86%E6%9E%B6"><span class="nav-text">整体框架</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B7%9F%E8%B8%AA%E7%BA%BF%E7%A8%8B"><span class="nav-text">跟踪线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E5%BB%BA%E5%9B%BE"><span class="nav-text">局部建图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9B%9E%E7%8E%AF%E6%A3%80%E6%B5%8B"><span class="nav-text">回环检测</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2023&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
