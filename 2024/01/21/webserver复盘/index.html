@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2024/01/21/webserver复盘/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="总览项目的学习是基于github上的一个开源项目JehanRio&#x2F;TinyWebServer 进行学习的，这是这位博主对应的csdn博客从零开始实现C++ TinyWebServer 全过程记录_tinywebserver windows-CSDN博客 。非常感谢他的学习记录以及代码，我能很快的上手整个项目。在整个tiny-webserver项目中，主要有两个方面构成，一个是前端页面显示的静态资源">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tiny-WebServer复盘">
+<meta property="og:url" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="总览项目的学习是基于github上的一个开源项目JehanRio&#x2F;TinyWebServer 进行学习的，这是这位博主对应的csdn博客从零开始实现C++ TinyWebServer 全过程记录_tinywebserver windows-CSDN博客 。非常感谢他的学习记录以及代码，我能很快的上手整个项目。在整个tiny-webserver项目中，主要有两个方面构成，一个是前端页面显示的静态资源">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/Git/upload4git/source/_posts/webserver%E5%A4%8D%E7%9B%98/buffer%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="d:\Git\upload4git\source\_posts\webserver%E5%A4%8D%E7%9B%98\http%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87.jpg">
+<meta property="og:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/Git/upload4git/source/_posts/webserver%E5%A4%8D%E7%9B%98/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.png">
+<meta property="og:image" content="d:\Git\upload4git\source\_posts\webserver%E5%A4%8D%E7%9B%98\http%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87.jpg">
+<meta property="article:published_time" content="2024-01-21T08:25:59.017Z">
+<meta property="article:modified_time" content="2024-01-31T15:32:41.721Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/Git/upload4git/source/_posts/webserver%E5%A4%8D%E7%9B%98/buffer%E7%BB%93%E6%9E%84.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Tiny-WebServer复盘 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">Tiny-WebServer复盘</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-01-21 16:25:59</span>
+        <span class="mobile">2024-01-21 16:25</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-01-31 23:32:41</span>
+            <span class="mobile">2024-01-31 23:32</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h3 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h3><p>项目的学习是基于github上的一个开源项目<a class="link" target="_blank" rel="noopener" href="https://github.com/JehanRio/TinyWebServer">JehanRio/TinyWebServer <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>进行学习的，这是这位博主对应的csdn博客<a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51322383/article/details/130464403">从零开始实现C++ TinyWebServer 全过程记录_tinywebserver windows-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。非常感谢他的学习记录以及代码，我能很快的上手整个项目。在整个tiny-webserver项目中，主要有两个方面构成，一个是前端页面显示的静态资源，主要根据状态机解析到不同的状态码再显示到页面上，或根据客户端请求的信息返回对应资源；一个是后端的代码，也就是整个webserver的代码；整个后端代码主要由以下几个部分组成：buffer缓存，http请求与解析，log日志记录，pool线程池，server服务主要代码，timer计时器。</p>
+<p>下面主要复盘一下后端代码的构成。</p>
+<h3 id="buffer缓存"><a href="#buffer缓存" class="headerlink" title="buffer缓存"></a>buffer缓存</h3><p><img src="/2024/01/21/webserver%E5%A4%8D%E7%9B%98/Git\upload4git\source\_posts\webserver复盘\buffer结构.png" alt="buffer">buffer的结构是一个char类型的vector，大概的物理结构如上图所示；客户端信息的到达以及回复给客户端的信息都会放在缓冲区中进行。对buffer的读写操作基本上就是对读指针和写指针的操作。</p>
+<h4 id="读fd到buffer中"><a href="#读fd到buffer中" class="headerlink" title="读fd到buffer中"></a>读fd到buffer中</h4><p>在读到缓冲区时，会先获取当前buffer的剩余可写空间，再开辟一个64kb的额外空间用于防止写不完。读取是使用readv分散接受数据，当读取的数据超过了writable的内存时，就把剩余的读取到额外空间后，再把额外空间append到buffer后面，也就是MakeSpace_函数</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这是从fd读取到buffer中的函数</span></span><br><span class="line"><span class="comment">//将fd的内容读到缓冲区，即writable的位置</span></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">Buffer::ReadFd</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span>* Errno)</span></span>&#123;</span><br><span class="line">    <span class="comment">//额外空间，用于在buffer_不够用时暂存数据，当buffer空间够用时再恢复</span></span><br><span class="line">    <span class="type">char</span> buff[<span class="number">65535</span>];<span class="comment">//栈上的内存，65536/1024=64kb</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//使用iovec分配两个连续的缓冲区</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">iovec</span> iov[<span class="number">2</span>];</span><br><span class="line">    <span class="type">size_t</span> writeable = <span class="built_in">WritableBytes</span>();<span class="comment">//记录下当前buffer剩余可写空间</span></span><br><span class="line">    <span class="comment">// 分散读， 保证数据全部读完</span></span><br><span class="line">    <span class="comment">//iov[0]是buffer可写空间</span></span><br><span class="line">    iov[<span class="number">0</span>].iov_base = <span class="built_in">BeginWrite</span>();</span><br><span class="line">    iov[<span class="number">0</span>].iov_len = writeable;</span><br><span class="line">    <span class="comment">//iov[1]是前面开辟的栈上的额外空间</span></span><br><span class="line">    iov[<span class="number">1</span>].iov_base = buff;</span><br><span class="line">    iov[<span class="number">1</span>].iov_len = <span class="built_in">sizeof</span>(buff);</span><br><span class="line"></span><br><span class="line">    <span class="type">ssize_t</span> len = <span class="built_in">readv</span>(fd,iov,<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span>(len&lt;<span class="number">0</span>)&#123;</span><br><span class="line">        *Errno = errno;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">static_cast</span>&lt;<span class="type">size_t</span>&gt;(len) &lt;= writeable)&#123;</span><br><span class="line">        <span class="comment">//若len小于writable,说明写区可以容纳len，不用用上额外空间</span></span><br><span class="line">        writePos_+=len;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        writePos_=buffer_.<span class="built_in">size</span>();<span class="comment">// buffer_写满了</span></span><br><span class="line">        <span class="comment">//对buffer_扩容，然后将额外空间上的内容追加回buffer_中</span></span><br><span class="line">        <span class="built_in">Append</span>(buff,<span class="built_in">static_cast</span>&lt;<span class="type">size_t</span>&gt;(len-writeable));<span class="comment">//剩余长度</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是将额外扩展的空间append到buffer后的函数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Buffer::MakeSpace_</span><span class="params">(<span class="type">size_t</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//当可写区域以及预留区域都小于len时，通过resize进行扩容</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">WritableBytes</span>() + <span class="built_in">PrependableBytes</span>() &lt; len) &#123;</span><br><span class="line">        buffer_.<span class="built_in">resize</span>(writePos_ + len + <span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//将后面的内容往前移动，即如下效果</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        prependablebytes(105)|reader(50)|writer(50)</span></span><br><span class="line"><span class="comment">        往前移动100个字节</span></span><br><span class="line"><span class="comment">        prependablebytes(5)|reader(50)|writer(150)</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="type">size_t</span> readable = <span class="built_in">ReadableBytes</span>();</span><br><span class="line">        <span class="comment">//将读位置到写位置之间的数据复制到缓冲区的起始位置beginptr，重置读写位置的指针位置</span></span><br><span class="line">        std::<span class="built_in">copy</span>(<span class="built_in">BeginPtr_</span>() + readPos_, <span class="built_in">BeginPtr_</span>() + writePos_, <span class="built_in">BeginPtr_</span>());</span><br><span class="line">        readPos_ = <span class="number">0</span>;<span class="comment">//将读位置重置为缓冲区起始位置</span></span><br><span class="line">        writePos_ = readable;<span class="comment">//写位置重置为已读取的字节数</span></span><br><span class="line">        <span class="built_in">assert</span>(readable == <span class="built_in">ReadableBytes</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="从buffer写数据到fd中"><a href="#从buffer写数据到fd中" class="headerlink" title="从buffer写数据到fd中"></a>从buffer写数据到fd中</h4><p>在写操作时，调用write将buffer可读取的数据写到fd中，peek返回缓冲区当前位置指针，readable返回可读取字节数，在写完后，将len指针移动到已完成写的buffer位置，防止之前写过的内容被重复写到fd中</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将buffer中可读的区域写入fd中</span></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">Buffer::WriteFd</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span>* Errno)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//ssize_t类型的len用于表示操作的字节数或返回值，用于I/O相关的系统调用</span></span><br><span class="line">    <span class="comment">//调用write将buffer可读取的数据写到fd中，peek返回缓冲区当前位置指针，readable返回可读取字节数</span></span><br><span class="line">    <span class="type">ssize_t</span> len = <span class="built_in">write</span>(fd, <span class="built_in">Peek</span>(), <span class="built_in">ReadableBytes</span>());</span><br><span class="line">    <span class="comment">//检查返回值是否小于0，如果是则代表写入错误</span></span><br><span class="line">    <span class="keyword">if</span>(len &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        *Errno = errno;<span class="comment">//通过Errno指针获取错误信息</span></span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">//移动读指针至len，即代表len长度的buffer内容已读到fd中，避免重复写</span></span><br><span class="line">    <span class="built_in">Retrieve</span>(len);</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h3 id="HTTP请求与解析"><a href="#HTTP请求与解析" class="headerlink" title="HTTP请求与解析"></a>HTTP请求与解析</h3><p>在一个http请求过程中，客户端发来一个请求报文，服务端会读取这个请求报文，并对其进行解析处理，然后根据解析得到的状态，生成对应的响应数据，编写响应报文返回给客户端。到此就完成了http的请求与解析。</p>
+<h4 id="http请求报文"><a href="#http请求报文" class="headerlink" title="http请求报文"></a>http请求报文</h4><p><img src="D:\Git\upload4git\source\_posts\webserver复盘\http请求报文.jpg" alt="请求报文"></p>
+<p>一个请求报文主要由请求方法，请求URL，HTTP协议，报文头以及报文体组成。</p>
+<p>在请求方法中，最常见的是get和post，其中get方法一般用于查询数据，获取数据等；由于只是获取资源，这种操作不会对服务器产生副作用，是安全的。而post方法的提交信息操作会修改服务器文件，同时也可以修改服务器的状态，所以相对不安全。</p>
+<p>请求方法后的URI与报文头的host属性组成完整的请求URL。报文头包含若干个属性，格式为“属性名：属性值”，服务端根据这个来获取客户端的信息</p>
+<ul>
+<li>Client-IP：提供了运行客户端的机器的IP地址</li>
+<li>From：提供了客户端用户的E-mail地址</li>
+<li>Host：给出了接收请求的服务器的主机名和端口号</li>
+<li>Referer：提供了包含当前请求URI的文档的URL</li>
+<li>UA-Color：提供了与客户端显示器的显示颜色有关的信息</li>
+<li>UA-CPU：给出了客户端CPU的类型或制造商</li>
+<li>UA-OS：给出了运行在客户端机器上的操作系统名称及版本</li>
+<li>User-Agent：将发起请求的应用程序名称告知服务器</li>
+<li>Accept：告诉服务器能够发送哪些媒体类型</li>
+<li>Accept-Charset：告诉服务器能够发送哪些字符集</li>
+<li>Accept-Encoding：告诉服务器能够发送哪些编码方式</li>
+<li>Accept-Language：告诉服务器能够发送哪些语言</li>
+<li>TE：告诉服务器可以使用那些扩展传输编码</li>
+<li>Expect：允许客户端列出某请求所要求的服务器行为</li>
+<li>Range：如果服务器支持范围请求，就请求资源的指定范围</li>
+<li>Cookie：客户端用它向服务器传送数据</li>
+<li>Cookie2：用来说明请求端支持的cookie版本</li>
+</ul>
+<p>在报文体中，它将一个页面表单中的组件值通过param1=value1&amp;param2=value2的键值对形式编码成一个格式化串，它承载多个请求参数的数据。这通常用于传递服务器返回的数据，如HTML页面、图片、视频等。例如，当用户访问一个网站时，服务器会生成相应的HTML页面，并将HTML代码放到HTTP响应的报文体中，发送给客户端。不但报文体可以传递请求参数，请求URL也可以通过类似于“/chapter15/user.html? param1=value1¶m2=value2”的方式传递请求参数。</p>
+<h4 id="有限状态机"><a href="#有限状态机" class="headerlink" title="有限状态机"></a>有限状态机</h4><p>在HTTP通信过程中，客户端和服务器之间会根据特定的规则进行状态的转换。这些状态包括等待请求、处理请求、发送响应等。通过使用有限状态机，可以清晰地描述每个状态以及状态之间的转换条件。在代码中，对于请求报文的解析主要通过 ParseRequestLine<em> ();//解析请求头ParseHeader</em> ();//解析请求头 ParseBody<em> ();//解析请求体 这三个函数进行解析。在解析的过程中，通过state</em> 这个变量来执行状态的转移</p>
+<p>通过正则表达式匹配请求行，若匹配到请求头的格式，则将状态设置为state<em> = HEADERS;然后再继续对请求头进行键值对的正则表达式匹配，若不是键值对的形式，说明已经完成对请求头的解析了，此时state</em> = BODY，对请求体进行解析，并调用ParsePost<em> 函数解析POST请求的表单数据。然后将state</em> = FINISH，由此就完成了一个状态机。整体流程如下图所示<img src="/2024/01/21/webserver%E5%A4%8D%E7%9B%98/Git\upload4git\source\_posts\webserver复盘\有限状态机.png" alt="有限状态机"></p>
+<h4 id="http响应报文"><a href="#http响应报文" class="headerlink" title="http响应报文"></a>http响应报文</h4><p>与请求报文类似，响应报文也由响应行，响应头，空行，响应体组成<img src="D:\Git\upload4git\source\_posts\webserver复盘\http响应报文.jpg" alt="响应报文"></p>
+<p>响应行由http协议版本号，状态码，状态消息三部分组成</p>
+<p>响应头与请求头一样，也是一个键值对结构，并由多个属性组成：</p>
+<ul>
+<li>Age：(从最初创建开始)响应持续时间</li>
+<li>Public：服务器为其资源支持的请求方法列表</li>
+<li>Retry-After：如果资源不可用的话，在此日期或时间重试</li>
+<li>Server：服务器应用程序软件的名称和版本</li>
+<li>Title：对HTML文档来说，就是HTML文档的源端给出的标题</li>
+<li>Warning：比原因短语更详细一些的警告报文</li>
+<li>Accept-Ranges：对此资源来说，服务器可接受的范围类型</li>
+<li>Vary：服务器会根据这些首部的内容挑选出最适合的资源版本发送给客户端</li>
+<li>Proxy-Authenticate：来自代理的对客户端的质询列表</li>
+<li>Set-Cookie：在客户端设置数据，以便服务器对客户端进行标识</li>
+<li>Set-Cookie2：与Set-Cookie类似</li>
+<li>WWW-Authenticate：来自服务器的对客户端的质询列表</li>
+</ul>
+<p>而报文体，则是服务器要返回给客户端的文本信息。这些信息主要通过<code>MakeResponse(Buffer&amp; buff)</code>这个函数实现的，分为三个步骤：1. 添加状态行；2. 添加头部；3. 添加响应报文</p>
+<p>在添加响应报文中，函数HttpResponse::AddContent<em> ()会打开指定路径的文件，并将文件内容映射到内存中(使用mmap将文件映射到内存中，提高访问速度，在执行成功后将返回的映射地址转换为<code>char*</code>类型，并保存在`mmFile</em>`中)，然后将文件内容长度添加到HTTP响应的头部信息中</p>
+<h3 id="pool线程池"><a href="#pool线程池" class="headerlink" title="pool线程池"></a>pool线程池</h3><p>线程池是一个用于管理和复用线程的机制。在多线程编程中，创建和销毁线程是一项开销较大的操作。而线程池通过预先创建一定数量的线程，并将任务分配给这些线程来执行，可以有效地减少线程的创建和销毁次数，提高程序的性能和资源利用率。</p>
+<p>在代码中explicit ThreadPool(int threadCount = 8):pool_(std::make_shared<Pool>())显示声明构造了一个8个线程的线程池，并且通过一个结构体封装了线程池的具体结构</Pool></p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">Pool</span>&#123;</span><br><span class="line">    std::mutex mtx_;</span><br><span class="line">    std::condition_variable cond_;</span><br><span class="line">    <span class="type">bool</span> isClosed;</span><br><span class="line">    std::queue&lt;std::function&lt;<span class="type">void</span>()&gt;&gt; tasks;<span class="comment">//任务队列</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div>
+<p>在任务获取中，使用queue这样一个数据结构，当队列非空时，线程池会不断的从队列中获取任务；执行任务的过程如下代码所示</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span>(<span class="literal">true</span>)&#123;</span><br><span class="line">                    <span class="comment">//判断线程池中的任务队列是否为空，非空则表示有任务</span></span><br><span class="line">                    <span class="keyword">if</span>(!pool_-&gt;tasks.<span class="built_in">empty</span>())&#123;</span><br><span class="line">                        <span class="comment">//取出任务队列中的第一个任务，并使用move变为右值</span></span><br><span class="line">                        <span class="comment">//目的是为了将当前任务转移给当前线程，防止多线程争夺同一个任务</span></span><br><span class="line">                        <span class="keyword">auto</span> task = std::<span class="built_in">move</span>(pool_-&gt;tasks.<span class="built_in">front</span>());</span><br><span class="line">                        pool_-&gt;tasks.<span class="built_in">pop</span>();<span class="comment">//弹出刚刚取出的任务</span></span><br><span class="line">                        locker.<span class="built_in">unlock</span>();<span class="comment">//已经取出任务，解锁，方便task的执行</span></span><br><span class="line">                        <span class="built_in">task</span>();<span class="comment">//执行刚刚队列中的任务</span></span><br><span class="line">                        locker.<span class="built_in">lock</span>();<span class="comment">//上锁，循环等待下一个任务</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">//判断线程池是否关闭</span></span><br><span class="line">                    <span class="keyword">else</span> <span class="keyword">if</span>(pool_-&gt;isClosed)&#123;</span><br><span class="line">                        <span class="keyword">break</span>;<span class="comment">//若关闭则跳出循环</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">else</span>&#123;</span><br><span class="line">                        <span class="comment">//调用条件变量的wait方法，将当前线程置于等待状态</span></span><br><span class="line">                        <span class="comment">//直到有新任务被添加到队列中或者线程池关闭</span></span><br><span class="line">                        <span class="comment">//在此期间互斥锁被释放，方便其他线程上锁添加新任务</span></span><br><span class="line">                        pool_-&gt;cond_.<span class="built_in">wait</span>(locker);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br></pre></td></tr></table></figure></div>
+<p>对于数据库，则使用了一个连接池来缓存连接对象。当应用程序需要与数据库通信时，它可以从连接池中获取一个可用的连接对象，而不需要每次都重新创建。使用完毕后，应用程序将连接对象返回给连接池，而不是关闭连接。连接池会负责管理连接的生命周期和状态，包括保持连接的打开状态、重用连接、检测并处理异常等。与线程池的任务队列类似，连接池也是使用queue来实现连接队列任务。</p>
+<h3 id="timer计时器"><a href="#timer计时器" class="headerlink" title="timer计时器"></a>timer计时器</h3><p>在这个webserver项目中，定时器是通过时间堆实现的，它的结构是一个小根堆。<br>时间堆是一种基于时间顺序排列的数据结构，它将数据按照它们发生的时间先后顺序进行组织和存储。每个数据项都与一个时间戳相关联，表示该数据项的发生时间。<br>小根堆是一个完全二叉树，其中每个父节点的值都小于等于其子节点的值，即对于任意节点 i，它的左子节点的值为 2i，右子节点的值为 2i+1，且父节点的值小于或等于这两个子节点的值。且根节点是堆中的最小值，定时器通过这个性质，可以很快的找到节点中接近超时时间的节点任务，然后执行对应的任务<br><div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">std::vector&lt;TimerNode&gt; heap_; <span class="comment">//heap_的底层结构</span></span><br><span class="line"><span class="built_in">HeapTimer</span>() &#123; heap_.<span class="built_in">reserve</span>(<span class="number">64</span>); &#125;<span class="comment">//初始化时在heap_中预留64个node的内存空间</span></span><br></pre></td></tr></table></figure></div><br>通过预先分配内存空间，防止频繁分配内存，提高性能</p>
+<p>定时器的管理，主要是对堆的节点调整结构来实现的<br><div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">adjust</span><span class="params">(<span class="type">int</span> id, <span class="type">int</span> newExpires)</span></span>; <span class="comment">//调整指定id节点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">add</span><span class="params">(<span class="type">int</span> id, <span class="type">int</span> timeOut, <span class="type">const</span> TimeoutCallBack&amp; cb)</span></span>; <span class="comment">//增加节点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">doWork</span><span class="params">(<span class="type">int</span> id)</span></span>; <span class="comment">//删除指定id，并出发回调函数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">clear</span><span class="params">()</span></span>; <span class="comment">//清空</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">tick</span><span class="params">()</span></span>; <span class="comment">//清除超时节点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">pop</span><span class="params">()</span></span>; <span class="comment">//弹出节点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">del_</span><span class="params">(<span class="type">size_t</span> i)</span></span>; <span class="comment">//删除节点</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">siftup_</span><span class="params">(<span class="type">size_t</span> i)</span></span>; <span class="comment">//将节点往上移动</span></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">siftdown_</span><span class="params">(<span class="type">size_t</span> i, <span class="type">size_t</span> n)</span></span>; <span class="comment">//将节点往下移动</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">SwapNode_</span><span class="params">(<span class="type">size_t</span> i, <span class="type">size_t</span> j)</span></span>; <span class="comment">//交换堆的节点</span></span><br></pre></td></tr></table></figure></div></p>
+<h3 id="epoller封装"><a href="#epoller封装" class="headerlink" title="epoller封装"></a>epoller封装</h3><p>在linux上对文件描述符进行I/O事件监听的机制主要为select,poll和epoll。主要使用的是I/O多路复用机制，I/O多路复用就是通过一种机制，一个进程可以监视多个描述符，一旦某个描述符就绪（一般是读就绪或者写就绪），能够通知程序进行相应的读写操作。I/O多路复用技术的最大优势是系统开销小，系统不必创建进程/线程，也不必维护这些进程/线程，从而大大减小了系统的开销。</p>
+<p>select，poll，epoll本质上都是同步I/O，因为他们都需要在读写事件就绪后自己负责进行读写，也就是说这个读写过程是阻塞的，而异步I/O则无需自己负责进行读写，异步I/O的实现会负责把数据从内核拷贝到用户空间</p>
+<h4 id="select"><a href="#select" class="headerlink" title="select"></a>select</h4><p>select会阻塞等待一组文件描述符上的I/O事件，如果有文件描述符上发生了感兴趣的事件（如可读、可写等），则select返回并告诉应用程序哪些文件描述符上有事件发生。select的主要缺点是效率比较低，因为每次调用时需要把所有的文件描述符集合从用户空间拷贝到内核空间，在被监控的文件描述符集合中，只要有一个数据可读，整个socket集合就会被遍历一次调用sk的poll函数收集可读事件，但数据到来往往是异步的，每次都得挨个遍历每个socket收集可读事件导致效率低下。</p>
+<h4 id="poll"><a href="#poll" class="headerlink" title="poll"></a>poll</h4><p>poll与select类似，但相对于select具有更好的扩展性和效率。poll的原理是通过一个pollfd结构体数组来维护一组文件描述符及其感兴趣的事件类型，当有事件发生时，内核会通知应用程序。相对于select，poll使用的pollfd解决了select中文件描述符集合的大小限制问题，但性能问题同样是包含大量文件描述符的数组被整体复制于用户态和内核的地址空间之间。</p>
+<h4 id="epoll"><a href="#epoll" class="headerlink" title="epoll"></a>epoll</h4><p>epoll通过一组特殊的系统调用（epoll_create、epoll_ctl、epoll_wait）来实现，可以高效地管理大量的文件描述符，避免了传统select和poll调用中的线性扫描。epoll使用红黑树管理fd，这就可以直接返回哪个fd发生了变化，而不用像select或者poll一样线性遍历fd。</p>
+<h4 id="Epoller封装"><a href="#Epoller封装" class="headerlink" title="Epoller封装"></a>Epoller封装</h4><p>在tiny-webserver中，主要是对epoll的增删查改进行了封装，下面是一些检测事件</p>
+<div class="highlight-container" data-rel="Plaintext"><figure class="iseeu highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">POLLIN ：表示对应的文件描述符可以读（包括对端 SOCKET 正常关闭）；</span><br><span class="line">EPOLLOUT：表示对应的文件描述符可以写；</span><br><span class="line">EPOLLPRI：表示对应的文件描述符有紧急的数据可读（这里应该表示有带外数据到来）；</span><br><span class="line">EPOLLERR：表示对应的文件描述符发生错误；</span><br><span class="line">EPOLLHUP：表示对应的文件描述符被挂断；</span><br><span class="line">EPOLLET：将EPOLL设为边缘触发(Edge Triggered)模式，这是相对于水平触发(Level Triggered)来说的。</span><br><span class="line">EPOLLONESHOT：只监听一次事件，当监听完这次事件之后，如果还需要继续监听这个socket的话，需要再次把这个socket加入到EPOLL队列里。</span><br><span class="line">1. 客户端直接调用close，会触犯EPOLLRDHUP事件</span><br><span class="line">2. 通过EPOLLRDHUP属性，来判断是否对端已经关闭，这样可以减少一次系统调用。</span><br></pre></td></tr></table></figure></div>
+<h3 id="WebServer封装"><a href="#WebServer封装" class="headerlink" title="WebServer封装"></a>WebServer封装</h3><p>webserver在初始化时主要是对线程池，socket，epoll，数据库，日志系统进行初始化。在epoll的初始化中，主要是将事件模式设置为边缘触发（ET）模式。</p>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">threadpool_</span>(<span class="keyword">new</span> <span class="built_in">ThreadPool</span>(threadNum))</span><br><span class="line"><span class="built_in">InitSocket_</span>();<span class="comment">//初始化Socket连接</span></span><br><span class="line"><span class="built_in">InitEventMode_</span>(trigMode);<span class="comment">//初始化事件模式</span></span><br><span class="line">SqlConnPool::<span class="built_in">Instance</span>()-&gt;<span class="built_in">Init</span>();<span class="comment">//初始化数据库连接池</span></span><br><span class="line">Log::<span class="built_in">Instance</span>()-&gt;<span class="built_in">init</span>(logLevel, <span class="string">&quot;./log&quot;</span>, <span class="string">&quot;.log&quot;</span>, logQueSize);   </span><br></pre></td></tr></table></figure></div>
+<h5 id="ET模式"><a href="#ET模式" class="headerlink" title="ET模式"></a>ET模式</h5><p>当 epoll 监听的文件描述符上有事件发生时，只有在该文件描述符状态发生变化时才会被触发一次。也就是说，只有当监听的文件描述符从无事件变为有事件时，epoll 才会通知程序进行相应操作。在 ET 模式下，需要使用非阻塞的方式处理事件，否则可能会导致死锁的情况。</p>
+<h5 id="LT模式"><a href="#LT模式" class="headerlink" title="LT模式"></a>LT模式</h5><p>当 epoll 监听的文件描述符上有事件发生时，只要这个文件描述符上还有事件未被处理，epoll 就会不断地通知程序进行相应操作。也就是说，只要监听的文件描述符上还有事件未被处理，就会不断地被触发。在 LT 模式下，可以使用阻塞的方式进行事件处理。</p>
+<p>初始化后，webserver便进入启动状态，此时会进入监听epoll事件的状态。当收到新的http请求时，通过DealListen<em> ()函数进行处理，将获取到的地址写到fd中，并建立连接；当http发送来I/O请求是，通过DealRead</em> (&amp;users<em> [fd])<code>和</code>DealWrite</em> (&amp;users_[fd])进行对应的读写处理，此时会调用线程池中的线程进行数据的拷贝以及处理。这个过程就是reactor模式</p>
+<h5 id="Reactor和Proactor"><a href="#Reactor和Proactor" class="headerlink" title="Reactor和Proactor"></a>Reactor和Proactor</h5><p>Reactor 模式和 Proactor 模式是两种常见的事件驱动设计模式，主要用于处理并发的 I/O 操作。它们的区别在于数据处理的方式和任务分配的方式。</p>
+<ol>
+<li>Reactor 模式：<ul>
+<li>数据处理方式：Reactor 模式采用同步方式处理数据，即当有事件发生时，Reactor 会通知应用程序进行数据处理。应用程序需要自己负责数据的读取和写入。</li>
+<li>任务分配方式：Reactor 模式将所有的 I/O 事件都交给一个 Reactor 单线程来处理，这个单线程负责监听事件、接收请求、分发任务，并调用相应的处理函数。</li>
+</ul>
+</li>
+<li>Proactor 模式：<ul>
+<li>数据处理方式：Proactor 模式采用异步方式处理数据，即当有事件发生时，Proactor 会负责数据的读取和写入，应用程序只需提供回调函数进行数据处理。</li>
+<li>任务分配方式：Proactor 模式将所有的 I/O 事件都交给一个 Proactor 单线程来处理，这个单线程负责监听事件、接收请求，并使用异步操作进行数据读取和写入，然后触发相应的回调函数进行数据处理。</li>
+</ul>
+</li>
+</ol>
+<p>Reactor 模式和 Proactor 模式在应用程序处理数据时的角色和方式上有一些区别。</p>
+<ul>
+<li>Reactor 模式：应用程序需要主动地从操作系统内核中读取数据，即应用程序自己负责拷贝数据。Reactor 模式会通知应用程序有事件发生，然后应用程序需要主动读取数据并进行处理。</li>
+<li>Proactor 模式：Proactor 模式会在数据拷贝完成后通知应用程序进行处理。应用程序只需提供回调函数，在数据拷贝完成后由系统自动调用相应的回调函数进行处理，而无需应用程序主动读取数据。</li>
+</ul>
+<p>webserver会一直这么运行，不断的监听epoll事件，当事件来临时，若是http连接请求，则尝试建立连接（尝试的原因是如果超过了最大连接数，则会返回连接失败，并通过日志系统记录这个情况，能连接的情况下，会通过http请求解析相关内容），若是i/o请求，则通过读写线程处理相关的数据。若检测到socket关闭，则会进入EPOLLRDHUP，并关闭连接。在执行完对应事件后，webserver会再次进入对epoll事件的监听中</p>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Tiny-WebServer复盘</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2024-01-21 16:25:59</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2024-01-31 23:32:41
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2024/01/21/webserver复盘/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2023/12/23/%E9%98%BF%E5%85%AD%E7%9A%84%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">2023年年终总结</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Tiny-WebServer复盘</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E8%A7%88"><span class="nav-text">总览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#buffer%E7%BC%93%E5%AD%98"><span class="nav-text">buffer缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP%E8%AF%B7%E6%B1%82%E4%B8%8E%E8%A7%A3%E6%9E%90"><span class="nav-text">HTTP请求与解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pool%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-text">pool线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timer%E8%AE%A1%E6%97%B6%E5%99%A8"><span class="nav-text">timer计时器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#epoller%E5%B0%81%E8%A3%85"><span class="nav-text">epoller封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WebServer%E5%B0%81%E8%A3%85"><span class="nav-text">WebServer封装</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
