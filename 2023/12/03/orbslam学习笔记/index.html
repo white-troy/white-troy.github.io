@@ -25,12 +25,12 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="前言：1.学习orbslam3时发现了这与slam2大体上相似，在建图上的区别（3创建了一个子地图池（ATLAS），建图时可能会因为关键点不够而丢图，当前建下来的图就保存在子地图池，后续的回环检测中如果发现能匹配的上，就拉出来合并到回环中），于是便从orbslam2入手学习。2.这是一份学习时的笔记记录，没有涉及到源码中的一些细节，希望未来回来学习的自己能够根据这份笔记结合源码去温习3.orbsl">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://white-troy.github.io/2023/12/03/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Git/upload4git/source/_posts/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/orbslam2-system-all.png">
+<meta property="og:image" content="https://white-troy.github.io/2023/12/03/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/orbslam2-system-all.png">
 <meta property="article:published_time" content="2023-12-03T07:21:47.385Z">
-<meta property="article:modified_time" content="2023-12-03T13:00:22.471Z">
+<meta property="article:modified_time" content="2024-03-01T05:00:27.708Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://white-troy.github.io/2023/12/03/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Git/upload4git/source/_posts/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/orbslam2-system-all.png">
+<meta name="twitter:image" content="https://white-troy.github.io/2023/12/03/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/orbslam2-system-all.png">
     
     
     <!--- Icon Part-->
@@ -238,8 +238,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2023-12-03 21:22</span>
-            <span class="mobile">2023-12-03 21</span>
+            <span class="desktop">2024-03-01 13:27</span>
+            <span class="mobile">2024-03-01 13</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -264,7 +264,7 @@
 
             <div class="article-content markdown-body">
                 <p>前言：<br>1.学习orbslam3时发现了这与slam2大体上相似，在建图上的区别（3创建了一个子地图池（ATLAS），建图时可能会因为关键点不够而丢图，当前建下来的图就保存在子地图池，后续的回环检测中如果发现能匹配的上，就拉出来合并到回环中），于是便从orbslam2入手学习。<br>2.这是一份学习时的笔记记录，没有涉及到源码中的一些细节，希望未来回来学习的自己能够根据这份笔记结合源码去温习<br>3.orbslam3中system.cc写出了算法的整体</p>
-<h3 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h3><p><img src="/2023/12/03/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/Git\upload4git\source\_posts\orbslam学习笔记\orbslam2-system-all.png" alt="orbslam2整体系统"></p>
+<h3 id="整体框架"><a href="#整体框架" class="headerlink" title="整体框架"></a>整体框架</h3><p><img src="/2023/12/03/orbslam%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/orbslam学习笔记\orbslam2-system-all.png" alt="orbslam2整体系统"></p>
 <p>上图是一个orbslam2的完整系统框架，清楚列出了系统所需要的三个线程：<br>1.跟踪线程tracking：用于处理传入的图片，包括使用orb算法提取图片中的关键点、求取当前图片的位姿、根据当前帧以及上一帧进行跟踪定位、对当前帧的过滤（筛选是否能成为建图中的关键帧）<br>2.局部建图localmapping：根据传入的关键帧进行一个建图的操作，根据新帧和之前帧之间关键点的筛选、匹配，更新地图点（添加、修正、删除等），以及一个局部BA的优化等<br>3.回环检测loopclosing：包括回环检测和回环矫正，在回环检测中，主要筛选（DBOW计算相似度）出具有闭环特征（连续三个关键帧，且帧间相似度高）的关键帧，获得闭环帧后建立与共视图的联系，进行路标点的匹配融合，然后对本质图进行位姿的优化，再经过全局BA优化后更新地图</p>
 <p>在整个orbslam2系统中，tracking线程工作在前端（GrabImage()需要处理视频中的每一张图片），而loacl mapping和loop closing线程工作在后端，while使其保持待命，随时接收前端传入的图片。局部建图线程需要跟踪定位线程激活，回环全局优化线程又需要局部建图线程来激活。</p>
 <h3 id="跟踪线程"><a href="#跟踪线程" class="headerlink" title="跟踪线程"></a>跟踪线程</h3><p>在跟踪线程中，有一个mState值，用于表示当前读入图片的状态，主要可以表示为下面这样：<br>传入图片→判断mState值的状态是什么（未初始化，工作，丢失）<br>mState=NOT_INITIALIZED(未初始化），传入的图片就用于初始化求取位姿和地图点；<br>mState=WORKING(工作)，即代表初始化完成或者跟踪正常，会用于“基于前一帧的工作定位”or“运动模型定位”；<br>mState=LOST(丢失)，代表当前没有成功匹配上地图点（可能是图片模糊亦或者得到的特征点少于阈值），此时图片会用于重定位；</p>
@@ -285,7 +285,7 @@
         <li><strong>Created at:</strong> 2023-12-03 15:21:47</li>
         
             <li>
-                <strong>Updated at:</strong> 2023-12-03 21:00:22
+                <strong>Updated at:</strong> 2024-03-01 13:00:27
             </li>
         
         <li>

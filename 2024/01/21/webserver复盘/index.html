@@ -25,15 +25,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="总览项目的学习是基于github上的一个开源项目JehanRio&#x2F;TinyWebServer 进行学习的，这是这位博主对应的csdn博客从零开始实现C++ TinyWebServer 全过程记录_tinywebserver windows-CSDN博客 。非常感谢他的学习记录以及代码，我能很快的上手整个项目。在整个tiny-webserver项目中，主要有两个方面构成，一个是前端页面显示的静态资源">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/Git/upload4git/source/_posts/webserver%E5%A4%8D%E7%9B%98/buffer%E7%BB%93%E6%9E%84.png">
-<meta property="og:image" content="d:\Git\upload4git\source\_posts\webserver%E5%A4%8D%E7%9B%98\http%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87.jpg">
-<meta property="og:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/Git/upload4git/source/_posts/webserver%E5%A4%8D%E7%9B%98/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.png">
-<meta property="og:image" content="d:\Git\upload4git\source\_posts\webserver%E5%A4%8D%E7%9B%98\http%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87.jpg">
+<meta property="og:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/source/_posts/webserver%E5%A4%8D%E7%9B%98/buffer%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/webserver%E5%A4%8D%E7%9B%98/http%E8%AF%B7%E6%B1%82%E6%8A%A5%E6%96%87.jpg">
+<meta property="og:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/webserver%E5%A4%8D%E7%9B%98/%E6%9C%89%E9%99%90%E7%8A%B6%E6%80%81%E6%9C%BA.png">
+<meta property="og:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/webserver%E5%A4%8D%E7%9B%98/http%E5%93%8D%E5%BA%94%E6%8A%A5%E6%96%87.jpg">
 <meta property="article:published_time" content="2024-01-21T08:25:59.017Z">
-<meta property="article:modified_time" content="2024-01-31T15:32:41.721Z">
+<meta property="article:modified_time" content="2024-03-01T05:00:39.676Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/Git/upload4git/source/_posts/webserver%E5%A4%8D%E7%9B%98/buffer%E7%BB%93%E6%9E%84.png">
+<meta name="twitter:image" content="https://white-troy.github.io/2024/01/21/webserver%E5%A4%8D%E7%9B%98/source/_posts/webserver%E5%A4%8D%E7%9B%98/buffer%E7%BB%93%E6%9E%84.png">
     
     
     <!--- Icon Part-->
@@ -241,8 +241,8 @@
     
         <span class="article-date article-meta-item">
             <i class="fa-regular fa-wrench"></i>&nbsp;
-            <span class="desktop">2024-01-31 23:32:41</span>
-            <span class="mobile">2024-01-31 23:32</span>
+            <span class="desktop">2024-03-01 13:39</span>
+            <span class="mobile">2024-03-01 13</span>
             <span class="hover-info">Updated</span>
         </span>
     
@@ -268,14 +268,14 @@
             <div class="article-content markdown-body">
                 <h3 id="总览"><a href="#总览" class="headerlink" title="总览"></a>总览</h3><p>项目的学习是基于github上的一个开源项目<a class="link" target="_blank" rel="noopener" href="https://github.com/JehanRio/TinyWebServer">JehanRio/TinyWebServer <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>进行学习的，这是这位博主对应的csdn博客<a class="link" target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_51322383/article/details/130464403">从零开始实现C++ TinyWebServer 全过程记录_tinywebserver windows-CSDN博客 <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>。非常感谢他的学习记录以及代码，我能很快的上手整个项目。在整个tiny-webserver项目中，主要有两个方面构成，一个是前端页面显示的静态资源，主要根据状态机解析到不同的状态码再显示到页面上，或根据客户端请求的信息返回对应资源；一个是后端的代码，也就是整个webserver的代码；整个后端代码主要由以下几个部分组成：buffer缓存，http请求与解析，log日志记录，pool线程池，server服务主要代码，timer计时器。</p>
 <p>下面主要复盘一下后端代码的构成。</p>
-<h3 id="buffer缓存"><a href="#buffer缓存" class="headerlink" title="buffer缓存"></a>buffer缓存</h3><p><img src="/2024/01/21/webserver%E5%A4%8D%E7%9B%98/Git\upload4git\source\_posts\webserver复盘\buffer结构.png" alt="buffer">buffer的结构是一个char类型的vector，大概的物理结构如上图所示；客户端信息的到达以及回复给客户端的信息都会放在缓冲区中进行。对buffer的读写操作基本上就是对读指针和写指针的操作。</p>
+<h3 id="buffer缓存"><a href="#buffer缓存" class="headerlink" title="buffer缓存"></a>buffer缓存</h3><p><img src="/2024/01/21/webserver%E5%A4%8D%E7%9B%98/source\_posts\webserver复盘\buffer结构.png" alt="buffer">buffer的结构是一个char类型的vector，大概的物理结构如上图所示；客户端信息的到达以及回复给客户端的信息都会放在缓冲区中进行。对buffer的读写操作基本上就是对读指针和写指针的操作。</p>
 <h4 id="读fd到buffer中"><a href="#读fd到buffer中" class="headerlink" title="读fd到buffer中"></a>读fd到buffer中</h4><p>在读到缓冲区时，会先获取当前buffer的剩余可写空间，再开辟一个64kb的额外空间用于防止写不完。读取是使用readv分散接受数据，当读取的数据超过了writable的内存时，就把剩余的读取到额外空间后，再把额外空间append到buffer后面，也就是MakeSpace_函数</p>
 <div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这是从fd读取到buffer中的函数</span></span><br><span class="line"><span class="comment">//将fd的内容读到缓冲区，即writable的位置</span></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">Buffer::ReadFd</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span>* Errno)</span></span>&#123;</span><br><span class="line">    <span class="comment">//额外空间，用于在buffer_不够用时暂存数据，当buffer空间够用时再恢复</span></span><br><span class="line">    <span class="type">char</span> buff[<span class="number">65535</span>];<span class="comment">//栈上的内存，65536/1024=64kb</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//使用iovec分配两个连续的缓冲区</span></span><br><span class="line">    <span class="keyword">struct</span> <span class="title class_">iovec</span> iov[<span class="number">2</span>];</span><br><span class="line">    <span class="type">size_t</span> writeable = <span class="built_in">WritableBytes</span>();<span class="comment">//记录下当前buffer剩余可写空间</span></span><br><span class="line">    <span class="comment">// 分散读， 保证数据全部读完</span></span><br><span class="line">    <span class="comment">//iov[0]是buffer可写空间</span></span><br><span class="line">    iov[<span class="number">0</span>].iov_base = <span class="built_in">BeginWrite</span>();</span><br><span class="line">    iov[<span class="number">0</span>].iov_len = writeable;</span><br><span class="line">    <span class="comment">//iov[1]是前面开辟的栈上的额外空间</span></span><br><span class="line">    iov[<span class="number">1</span>].iov_base = buff;</span><br><span class="line">    iov[<span class="number">1</span>].iov_len = <span class="built_in">sizeof</span>(buff);</span><br><span class="line"></span><br><span class="line">    <span class="type">ssize_t</span> len = <span class="built_in">readv</span>(fd,iov,<span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span>(len&lt;<span class="number">0</span>)&#123;</span><br><span class="line">        *Errno = errno;</span><br><span class="line">    &#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">static_cast</span>&lt;<span class="type">size_t</span>&gt;(len) &lt;= writeable)&#123;</span><br><span class="line">        <span class="comment">//若len小于writable,说明写区可以容纳len，不用用上额外空间</span></span><br><span class="line">        writePos_+=len;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        writePos_=buffer_.<span class="built_in">size</span>();<span class="comment">// buffer_写满了</span></span><br><span class="line">        <span class="comment">//对buffer_扩容，然后将额外空间上的内容追加回buffer_中</span></span><br><span class="line">        <span class="built_in">Append</span>(buff,<span class="built_in">static_cast</span>&lt;<span class="type">size_t</span>&gt;(len-writeable));<span class="comment">//剩余长度</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这是将额外扩展的空间append到buffer后的函数</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Buffer::MakeSpace_</span><span class="params">(<span class="type">size_t</span> len)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//当可写区域以及预留区域都小于len时，通过resize进行扩容</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">WritableBytes</span>() + <span class="built_in">PrependableBytes</span>() &lt; len) &#123;</span><br><span class="line">        buffer_.<span class="built_in">resize</span>(writePos_ + len + <span class="number">1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//将后面的内容往前移动，即如下效果</span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">        prependablebytes(105)|reader(50)|writer(50)</span></span><br><span class="line"><span class="comment">        往前移动100个字节</span></span><br><span class="line"><span class="comment">        prependablebytes(5)|reader(50)|writer(150)</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="type">size_t</span> readable = <span class="built_in">ReadableBytes</span>();</span><br><span class="line">        <span class="comment">//将读位置到写位置之间的数据复制到缓冲区的起始位置beginptr，重置读写位置的指针位置</span></span><br><span class="line">        std::<span class="built_in">copy</span>(<span class="built_in">BeginPtr_</span>() + readPos_, <span class="built_in">BeginPtr_</span>() + writePos_, <span class="built_in">BeginPtr_</span>());</span><br><span class="line">        readPos_ = <span class="number">0</span>;<span class="comment">//将读位置重置为缓冲区起始位置</span></span><br><span class="line">        writePos_ = readable;<span class="comment">//写位置重置为已读取的字节数</span></span><br><span class="line">        <span class="built_in">assert</span>(readable == <span class="built_in">ReadableBytes</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <h4 id="从buffer写数据到fd中"><a href="#从buffer写数据到fd中" class="headerlink" title="从buffer写数据到fd中"></a>从buffer写数据到fd中</h4><p>在写操作时，调用write将buffer可读取的数据写到fd中，peek返回缓冲区当前位置指针，readable返回可读取字节数，在写完后，将len指针移动到已完成写的buffer位置，防止之前写过的内容被重复写到fd中</p>
 <div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将buffer中可读的区域写入fd中</span></span><br><span class="line"><span class="function"><span class="type">ssize_t</span> <span class="title">Buffer::WriteFd</span><span class="params">(<span class="type">int</span> fd, <span class="type">int</span>* Errno)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//ssize_t类型的len用于表示操作的字节数或返回值，用于I/O相关的系统调用</span></span><br><span class="line">    <span class="comment">//调用write将buffer可读取的数据写到fd中，peek返回缓冲区当前位置指针，readable返回可读取字节数</span></span><br><span class="line">    <span class="type">ssize_t</span> len = <span class="built_in">write</span>(fd, <span class="built_in">Peek</span>(), <span class="built_in">ReadableBytes</span>());</span><br><span class="line">    <span class="comment">//检查返回值是否小于0，如果是则代表写入错误</span></span><br><span class="line">    <span class="keyword">if</span>(len &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        *Errno = errno;<span class="comment">//通过Errno指针获取错误信息</span></span><br><span class="line">        <span class="keyword">return</span> len;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="comment">//移动读指针至len，即代表len长度的buffer内容已读到fd中，避免重复写</span></span><br><span class="line">    <span class="built_in">Retrieve</span>(len);</span><br><span class="line">    <span class="keyword">return</span> len;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
 <h3 id="HTTP请求与解析"><a href="#HTTP请求与解析" class="headerlink" title="HTTP请求与解析"></a>HTTP请求与解析</h3><p>在一个http请求过程中，客户端发来一个请求报文，服务端会读取这个请求报文，并对其进行解析处理，然后根据解析得到的状态，生成对应的响应数据，编写响应报文返回给客户端。到此就完成了http的请求与解析。</p>
-<h4 id="http请求报文"><a href="#http请求报文" class="headerlink" title="http请求报文"></a>http请求报文</h4><p><img src="D:\Git\upload4git\source\_posts\webserver复盘\http请求报文.jpg" alt="请求报文"></p>
+<h4 id="http请求报文"><a href="#http请求报文" class="headerlink" title="http请求报文"></a>http请求报文</h4><p><img src=".\webserver复盘\http请求报文.jpg" alt="请求报文"></p>
 <p>一个请求报文主要由请求方法，请求URL，HTTP协议，报文头以及报文体组成。</p>
 <p>在请求方法中，最常见的是get和post，其中get方法一般用于查询数据，获取数据等；由于只是获取资源，这种操作不会对服务器产生副作用，是安全的。而post方法的提交信息操作会修改服务器文件，同时也可以修改服务器的状态，所以相对不安全。</p>
 <p>请求方法后的URI与报文头的host属性组成完整的请求URL。报文头包含若干个属性，格式为“属性名：属性值”，服务端根据这个来获取客户端的信息</p>
@@ -300,8 +300,8 @@
 </ul>
 <p>在报文体中，它将一个页面表单中的组件值通过param1=value1&amp;param2=value2的键值对形式编码成一个格式化串，它承载多个请求参数的数据。这通常用于传递服务器返回的数据，如HTML页面、图片、视频等。例如，当用户访问一个网站时，服务器会生成相应的HTML页面，并将HTML代码放到HTTP响应的报文体中，发送给客户端。不但报文体可以传递请求参数，请求URL也可以通过类似于“/chapter15/user.html? param1=value1¶m2=value2”的方式传递请求参数。</p>
 <h4 id="有限状态机"><a href="#有限状态机" class="headerlink" title="有限状态机"></a>有限状态机</h4><p>在HTTP通信过程中，客户端和服务器之间会根据特定的规则进行状态的转换。这些状态包括等待请求、处理请求、发送响应等。通过使用有限状态机，可以清晰地描述每个状态以及状态之间的转换条件。在代码中，对于请求报文的解析主要通过 ParseRequestLine<em> ();//解析请求头ParseHeader</em> ();//解析请求头 ParseBody<em> ();//解析请求体 这三个函数进行解析。在解析的过程中，通过state</em> 这个变量来执行状态的转移</p>
-<p>通过正则表达式匹配请求行，若匹配到请求头的格式，则将状态设置为state<em> = HEADERS;然后再继续对请求头进行键值对的正则表达式匹配，若不是键值对的形式，说明已经完成对请求头的解析了，此时state</em> = BODY，对请求体进行解析，并调用ParsePost<em> 函数解析POST请求的表单数据。然后将state</em> = FINISH，由此就完成了一个状态机。整体流程如下图所示<img src="/2024/01/21/webserver%E5%A4%8D%E7%9B%98/Git\upload4git\source\_posts\webserver复盘\有限状态机.png" alt="有限状态机"></p>
-<h4 id="http响应报文"><a href="#http响应报文" class="headerlink" title="http响应报文"></a>http响应报文</h4><p>与请求报文类似，响应报文也由响应行，响应头，空行，响应体组成<img src="D:\Git\upload4git\source\_posts\webserver复盘\http响应报文.jpg" alt="响应报文"></p>
+<p>通过正则表达式匹配请求行，若匹配到请求头的格式，则将状态设置为state<em> = HEADERS;然后再继续对请求头进行键值对的正则表达式匹配，若不是键值对的形式，说明已经完成对请求头的解析了，此时state</em> = BODY，对请求体进行解析，并调用ParsePost<em> 函数解析POST请求的表单数据。然后将state</em> = FINISH，由此就完成了一个状态机。整体流程如下图所示<img src="/2024/01/21/webserver%E5%A4%8D%E7%9B%98/webserver复盘\有限状态机.png" alt="有限状态机"></p>
+<h4 id="http响应报文"><a href="#http响应报文" class="headerlink" title="http响应报文"></a>http响应报文</h4><p>与请求报文类似，响应报文也由响应行，响应头，空行，响应体组成<img src=".\webserver复盘\http响应报文.jpg" alt="响应报文"></p>
 <p>响应行由http协议版本号，状态码，状态消息三部分组成</p>
 <p>响应头与请求头一样，也是一个键值对结构，并由多个属性组成：</p>
 <ul>
@@ -371,7 +371,7 @@
         <li><strong>Created at:</strong> 2024-01-21 16:25:59</li>
         
             <li>
-                <strong>Updated at:</strong> 2024-01-31 23:32:41
+                <strong>Updated at:</strong> 2024-03-01 13:00:39
             </li>
         
         <li>
@@ -392,6 +392,21 @@
 
             
                 <div class="article-nav">
+                    
+                        <div class="article-prev">
+                            <a class="prev"
+                            rel="prev"
+                            href="/2024/02/07/golearn/"
+                            >
+                                <span class="left arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-left"></i>
+                                </span>
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Golang语法记录</span>
+                                    <span class="post-nav-item">Prev posts</span>
+                                </span>
+                            </a>
+                        </div>
                     
                     
                         <div class="article-next">

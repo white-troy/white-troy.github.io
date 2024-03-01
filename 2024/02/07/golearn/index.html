@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Hexo Theme Redefine">
+    
+    <meta name="author" content="硫酸钾">
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="https://white-troy.github.io/2024/02/07/golearn/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+        <meta name="description" content="前言经过一个星期的学习，结合c++和python的语法格式，对于go有了一个初步的了解，在此记录下来，方便后续的温习 12345package mainimport &quot;fmt&quot;func main()&amp;#123;    fmt.Println(&quot;hello world&quot;)&amp;#125; 参考链接：go语言十分钟入门教程 - 掘金 (juejin.cn) ；Go">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Golang语法记录">
+<meta property="og:url" content="https://white-troy.github.io/2024/02/07/golearn/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言经过一个星期的学习，结合c++和python的语法格式，对于go有了一个初步的了解，在此记录下来，方便后续的温习 12345package mainimport &quot;fmt&quot;func main()&amp;#123;    fmt.Println(&quot;hello world&quot;)&amp;#125; 参考链接：go语言十分钟入门教程 - 掘金 (juejin.cn) ；Go">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://white-troy.github.io/2024/02/07/golearn/golearn/guanjianzi.png">
+<meta property="og:image" content="https://white-troy.github.io/2024/02/07/golearn/golearn/leixing.png">
+<meta property="article:published_time" content="2024-02-07T03:11:10.081Z">
+<meta property="article:modified_time" content="2024-03-01T05:01:32.293Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://white-troy.github.io/2024/02/07/golearn/golearn/guanjianzi.png">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/redefine-favicon.svg" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/redefine-favicon.svg">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/redefine-favicon.svg">
+    <!--- Page Info-->
+    
+    <title>
+        
+            Golang语法记录 -
+        
+        硫酸钾的个人博客
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+    
+<link rel="stylesheet" href="/fonts/Satoshi/satoshi.css">
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+
+    <!--- Inject Part-->
+    
+    <script id="hexo-configurations">
+    let Global = window.Global || {};
+    Global.hexo_config = {"hostname":"white-troy.github.io","root":"/","language":"en"};
+    Global.theme_config = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"mac","font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":true,"lazyload":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-valley.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"busuanzi_counter":{"enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"pjax":true,"open_graph":true,"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-valley.webp","dark":"/images/wallhaven-cat.webp"},"title":"welcome!","subtitle":{"text":[],"hitokoto":{"enable":false,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":false,"links":{"github":"https://github.com/white-troy","email":"zs1115996793@qq.com"}}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null}]},"mermaid":{"enable":false,"version":"9.3.0"}},"version":"2.2.1","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":false,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur"},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"links":null},"article_date_format":"YYYY-MM-DD","categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footerStart":"2022/8/17 11:45:14"};
+    Global.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+    Global.data_config = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+    <!--自定义看板娘-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+    <script src="/live2d-widget/autoload.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css"/>
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fa-solid fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="main-content-container">
+
+        <div class="main-content-header">
+            <header class="navbar-container">
+    
+    <div class="navbar-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                
+                硫酸钾的个人博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class="" 
+                                    href="/"  >
+                                    
+                                        
+                                            <i class="fa-regular fa-house"></i>
+                                        
+                                        HOME
+                                    
+                                </a>
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile drawer -->
+    <div class="navbar-drawer">
+        <ul class="drawer-navbar-list">
+            
+                
+                    <li class="drawer-navbar-item flex-center">
+                        <a class="" 
+                        href="/"  >
+                             
+                                
+                                    <i class="fa-regular fa-house"></i>
+                                
+                                HOME
+                            
+                        </a>
+                    </li>
+                    <!-- Submenu -->
+                    
+            
+
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="main-content-body">
+
+            
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="post-page-container">
+        <div class="article-content-container">
+
+            
+            
+                <div class="article-title">
+                    <h1 class="article-title-regular">Golang语法记录</h1>
+                </div>
+            
+                
+            
+
+            
+                <div class="article-header">
+                    <div class="avatar">
+                        <img src="/images/redefine-avatar.svg">
+                    </div>
+                    <div class="info">
+                        <div class="author">
+                            <span class="name">硫酸钾</span>
+                            
+                                <span class="author-label">Lv3</span>
+                            
+                        </div>
+                        <div class="meta-info">
+                            <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2024-02-07 11:11:10</span>
+        <span class="mobile">2024-02-07 11:11</span>
+        <span class="hover-info">Created</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2024-03-01 13:01:32</span>
+            <span class="mobile">2024-03-01 13:01</span>
+            <span class="hover-info">Updated</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            
+
+            <div class="article-content markdown-body">
+                <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>经过一个星期的学习，结合c++和python的语法格式，对于go有了一个初步的了解，在此记录下来，方便后续的温习</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;hello world&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>参考链接：<a class="link" target="_blank" rel="noopener" href="https://juejin.cn/post/6935012161852801038">go语言十分钟入门教程 - 掘金 (juejin.cn) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a>；<a class="link" target="_blank" rel="noopener" href="https://tour.go-zh.org/welcome/1">Go 语言之旅 (go-zh.org) <i class="fa-regular fa-arrow-up-right-from-square fa-sm"></i></a></p>
+<h4 id="关键字"><a href="#关键字" class="headerlink" title="关键字"></a>关键字</h4><p><img src="/2024/02/07/golearn/golearn\guanjianzi.png" alt="go的关键字"></p>
+<p>这是go语言中的一些关键字，与c++不同的是，go中没有while关键字，而是使用for来实现while的相关功能</p>
+<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><p>在go语言中，数据类型用于声明函数和变量，按类别总共有以下几种数据类型<img src="/2024/02/07/golearn/golearn\leixing.png" alt="数据类型"></p>
+<h4 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h4><p>在go语言中，类型决定了变量内存的长度和存储格式，我们只能修改变量值，无法改变类型。不同于c++的变量声明格式，go语言在定义时将类型放在变量后面，同时如果显示的提供了初始值，则可以省略变量类型，编译器会自动推断，未提供初始值则会定义为0等初始值。在go中，可以通过var关键字定义变量</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明单一变量</span></span><br><span class="line"><span class="keyword">var</span> x <span class="type">int</span></span><br><span class="line"><span class="comment">//显示声明变量，编译器自动推断类型</span></span><br><span class="line"><span class="keyword">var</span> y = <span class="literal">false</span></span><br><span class="line"><span class="comment">//定义多个变量</span></span><br><span class="line"><span class="keyword">var</span> x,y <span class="type">int</span></span><br><span class="line"><span class="comment">//定义多个变量并分别赋值</span></span><br><span class="line"><span class="keyword">var</span> a,b = <span class="number">100</span>,<span class="string">&quot;abc&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>在函数中，可以通过简短赋值语句对变量进行定义以及初始化，但只能在函数内部中使用，且不能提供数据类型，编译器会根据赋予的初始值进行自动推断。函数外的每个语句都必须以关键字开始（var,func等）</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> i,j = <span class="number">1</span>,<span class="number">2</span></span><br><span class="line">    k,l:=i+<span class="number">1</span>,j+<span class="number">2</span><span class="comment">//多变量进行赋值时，先计算出等号右边的值，再依次完成赋值操作</span></span><br><span class="line">    c,python,java:=<span class="literal">true</span>,<span class="literal">false</span>,<span class="string">&quot;no!&quot;</span></span><br><span class="line">    fmt.Println(i,j,k,l,c,python,java)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h4><p>常量表示运行时不可修改的值，常量值必须是可确定的字符，字符串，数值或布尔值。可以指定常量类型，或者由编译器通过初始化推断。在go中，通过关键字“const”来定义常量，在go中，没有明确的枚举类型，但可以通过iota标识符来实现一组自增常量值来实现枚举类型</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> x,y <span class="type">int</span> = <span class="number">1</span>,<span class="number">2</span></span><br><span class="line"><span class="keyword">const</span> a,b = <span class="string">&quot;hello&quot;</span>,<span class="string">&quot;world&quot;</span></span><br><span class="line"><span class="comment">//通过iota关键字来实现枚举自增</span></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">	a = <span class="literal">iota</span><span class="comment">//0</span></span><br><span class="line">    b <span class="comment">//1</span></span><br><span class="line">    c <span class="comment">//2</span></span><br><span class="line">)</span><br><span class="line"><span class="comment">//若中途中断了iota自增，则必须显式恢复</span></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">  a = <span class="literal">iota</span> <span class="comment">// 0</span></span><br><span class="line">  b        <span class="comment">// 1</span></span><br><span class="line">  c = <span class="number">100</span>  <span class="comment">// 100</span></span><br><span class="line">  d        <span class="comment">// 100 (与上一行常量值表达式一致)</span></span><br><span class="line">  e = <span class="literal">iota</span> <span class="comment">// 4 (恢复iota自增，计数包括c、d)</span></span><br><span class="line">  f        <span class="comment">// 5</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<h4 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h4><p>使用func关键字来定义函数，可以指定参数和返回值，函数定义的语法是func 函数名(参数列表) 返回值类型 { 函数体 }</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//func:函数关键字声明，add：函数名 a,b int：接收的参数以及参数类型 int：返回的参数类型</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(a,b <span class="type">int</span>)</span></span> <span class="type">int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> a+b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h4 id="流程控制语句"><a href="#流程控制语句" class="headerlink" title="流程控制语句"></a>流程控制语句</h4><h5 id="for"><a href="#for" class="headerlink" title="for"></a>for</h5><p>在go中只有一个循环结构，即是for循环。for循环与C/C++的for结构类似，同样由初始化语句，条件表达式，后置语句组成，但不同的是，这里没有小括号，但有大括号</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//go的for循环</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">for_function_v1</span><span class="params">(n <span class="type">int</span>)</span></span>&#123;</span><br><span class="line">    sum := <span class="number">0</span></span><br><span class="line">    <span class="comment">//初始化语句：i:=0(可以选择不写)</span></span><br><span class="line">    <span class="comment">//条件表达式：i&lt;=n</span></span><br><span class="line">    <span class="comment">//后置语句：  i++（可以选择不写）</span></span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;=n;i++&#123;</span><br><span class="line">        sum+=i</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(sum)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//go的for循环，不写初始化语句和后置语句</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">for_function_v2</span><span class="params">(n <span class="type">int</span>)</span></span>&#123;</span><br><span class="line">    sum :=<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> ; sum&lt;=n; &#123;</span><br><span class="line">        sum += sum</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(sum)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<div class="highlight-container" data-rel="C++"><figure class="iseeu highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//c++的for循环</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">for_function</span><span class="params">(<span class="type">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="type">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i = <span class="number">0</span>;i&lt;=n;i++)&#123;</span><br><span class="line">        sum += i;</span><br><span class="line">    &#125;</span><br><span class="line">    std::cout&lt;&lt;sum&lt;&lt;std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="for是go中的”while”"><a href="#for是go中的”while”" class="headerlink" title="for是go中的”while”"></a>for是go中的”while”</h5><p>在for循环中，不写初始化语句和后置语句，同时将分号去掉的时候，for就变成了while的功能</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//for可以充当while</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">for2while</span><span class="params">(n <span class="type">int</span>)</span></span>&#123;</span><br><span class="line">    sum := <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> sum&lt;n &#123;</span><br><span class="line">        sum += sum <span class="comment">//在sum&lt;n的条件下不断累加，此时就成为了while</span></span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(sum)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="if"><a href="#if" class="headerlink" title="if"></a>if</h5><p>和for类似，if在go中也是不需要小括号，但需要大括号</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sqrt</span><span class="params">(x <span class="type">float64</span>)</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> x&lt;<span class="number">0</span> &#123; <span class="comment">//表达式中无需写成if(condition)的形式</span></span><br><span class="line">        <span class="keyword">return</span> sqrt(-x) + <span class="string">&#x27;i&#x27;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprint(math.Sqrt(x))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>此外，if也可以在条件表达式之前执行一个简单的语句，该语句声明的变量的作用域仅在if之内，同时可以在对应的else中使用</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pow</span><span class="params">(x,n,lim <span class="type">float64</span>)</span></span> <span class="type">float64</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> v:= math.Pow(x,n);v&lt;lim&#123;</span><br><span class="line">        <span class="keyword">return</span> v <span class="comment">//当x的n次方小于lim时，返回v，否则返回lim</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        fmt.Printf(<span class="string">&quot;%g &gt;= %g\n&quot;</span>,v,lim)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//从这里开始就不可以使用v了</span></span><br><span class="line">    <span class="keyword">return</span> lim</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h5><p>switch是编写一连串if-else语句的简单方式，与其他语言的switch语法格式类似，但在go中，switch只会运行选定的case，而不会运行所有的case，也就是go在case语句中自带了一个break语句，除非以fallthrough语句结束，不然case分支会自动终止。此外，switch的case无需为常量，取值也不必为整数</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    fmt.Print(<span class="string">&#x27;Go runs on&#x27;</span>)</span><br><span class="line">    swicth os:= runtime.GOOS;os&#123;</span><br><span class="line">        <span class="keyword">case</span><span class="string">&quot;darwin&quot;</span>:</span><br><span class="line">        	fmt.Println(<span class="string">&quot;OS X.&quot;</span>)</span><br><span class="line">        <span class="keyword">case</span><span class="string">&quot;linux&quot;</span>:</span><br><span class="line">        	fmt.Println(<span class="string">&quot;Linux&quot;</span>)</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">        	fmt.Println(<span class="string">&quot;%s.\n&quot;</span>,os)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>当switch语句没有具体的表达式或变量作为条件时，这种形式的switch被称为开关语句，下方的case会依次执行判断，直到找到一个匹配的条件分支</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	t := time.Now()</span><br><span class="line">	<span class="keyword">switch</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> t.Hour() &lt; <span class="number">12</span>:</span><br><span class="line">		fmt.Println(<span class="string">&quot;Good morning!&quot;</span>)</span><br><span class="line">	<span class="keyword">case</span> t.Hour() &lt; <span class="number">17</span>:</span><br><span class="line">		fmt.Println(<span class="string">&quot;Good afternoon.&quot;</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">&quot;Good evening.&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="defer"><a href="#defer" class="headerlink" title="defer"></a>defer</h5><p>defer语句会将函数推迟到外层函数返回之后执行，推迟调用的函数会立即求值，但直到外层函数返回前都不会调用这个函数。相当于defer对应的这个函数被压入了栈，然后按照后入先出的顺序依次调用</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">defer_func</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">defer</span> fmt.Println(<span class="string">&quot;world&quot;</span>)</span><br><span class="line">    fmt.Println(<span class="string">&quot;hello&quot;</span>)</span><br><span class="line">   <span class="comment">//defer_func会先打印hello，在hello返回后再打印world</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;counting&quot;</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">		<span class="keyword">defer</span> fmt.Println(i)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">&quot;done&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<h4 id="数据"><a href="#数据" class="headerlink" title="数据"></a>数据</h4><h5 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h5><p>go提供了数组类型的数据结构，数组是具有相同唯一类型的一组已编号且长度固定的数据项序列，这种类型可以是任意的原始类型例如整型、字符串或者自定义类型。</p>
+<p>数组的声明表达式为 var a[n]T，表示声明一个名为’a’的有n个T类型的值的数组，数组的长度是其类型的一部分，因此数组不能改变大小，可以通过索引来访问数组中的元素</p>
+<h5 id="切片"><a href="#切片" class="headerlink" title="切片"></a>切片</h5><p>切片(slice)本身不是动态数组或动态指针，只是它内部采用数组存储数据，当数组长度达到数组容量是，会进行动态扩容。</p>
+<h6 id="创建切片"><a href="#创建切片" class="headerlink" title="创建切片"></a>创建切片</h6><p>切片可以用内建函数make()来创建，make函数会分配一个元素为零值的数组并返回一个引用了它的切片</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a:=<span class="built_in">make</span>([]<span class="type">int</span>,<span class="number">5</span>)<span class="comment">//len(a)=5</span></span><br><span class="line">b:=<span class="built_in">make</span>([]<span class="type">int</span>,<span class="number">0</span>,<span class="number">5</span>)<span class="comment">//len(b)=0,cap(b)=5，指定长度为0，容量为5</span></span><br><span class="line">b = b[:<span class="built_in">cap</span>(b)]<span class="comment">//len(b)=5,cap(b)=5</span></span><br><span class="line">b = b[<span class="number">1</span>:]<span class="comment">//len(b)=4,cap(b)=4</span></span><br></pre></td></tr></table></figure></div>
+<p>切片通过两个下标来界定，即一个上界和一个下界，二者以冒号分割，切片[ ]T的声明表达式为a[low: high]T，表示一个类型T的切片，从low切到high，是一个左闭右开的区间</p>
+<p>切片的下界默认值为0，上界则是该切片的长度，对于数组var a[10] int来说，下面的切片写法是等价的：</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a[<span class="number">0</span>:<span class="number">10</span>]</span><br><span class="line">a[:<span class="number">10</span>]</span><br><span class="line">a[<span class="number">0</span>:]</span><br><span class="line">a[:]</span><br></pre></td></tr></table></figure></div>
+<h6 id="切片的属性"><a href="#切片的属性" class="headerlink" title="切片的属性"></a>切片的属性</h6><p>切片拥有长度和容量，切片的长度就是他所包含的元素个数，可以通过len(s)来获取；切片的容量是从他的第一个元素开始数，到其低层数组元素末尾的个数，可以通过cap(s)来获取。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	s := []<span class="type">int</span>&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>&#125;</span><br><span class="line">	printSlice(s)</span><br><span class="line">	<span class="comment">// 截取切片使其长度为 0</span></span><br><span class="line">	s = s[:<span class="number">0</span>]</span><br><span class="line">	printSlice(s)</span><br><span class="line">	<span class="comment">// 拓展其长度</span></span><br><span class="line">	s = s[:<span class="number">4</span>]</span><br><span class="line">	printSlice(s)</span><br><span class="line">	<span class="comment">// 舍弃前两个值</span></span><br><span class="line">	s = s[<span class="number">2</span>:]</span><br><span class="line">	printSlice(s)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printSlice</span><span class="params">(s []<span class="type">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;len=%d cap=%d %v\n&quot;</span>, <span class="built_in">len</span>(s), <span class="built_in">cap</span>(s), s)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//运行结果如下</span></span><br><span class="line"><span class="built_in">len</span>=<span class="number">6</span> <span class="built_in">cap</span>=<span class="number">6</span> [<span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">7</span> <span class="number">11</span> <span class="number">13</span>]</span><br><span class="line"><span class="built_in">len</span>=<span class="number">0</span> <span class="built_in">cap</span>=<span class="number">6</span> []<span class="comment">// 截取切片使其长度为 0</span></span><br><span class="line"><span class="built_in">len</span>=<span class="number">4</span> <span class="built_in">cap</span>=<span class="number">6</span> [<span class="number">2</span> <span class="number">3</span> <span class="number">5</span> <span class="number">7</span>]<span class="comment">// 拓展其长度</span></span><br><span class="line"><span class="built_in">len</span>=<span class="number">2</span> <span class="built_in">cap</span>=<span class="number">4</span> [<span class="number">5</span> <span class="number">7</span>]<span class="comment">// 舍弃前两个值，此时去掉了头，只剩下末尾，如果没有s[:0]，此时的显示应该为5,7,11,13</span></span><br></pre></td></tr></table></figure></div>
+<p>切片的零值是nil，nil切片的长度和容量都为0且没有底层数组</p>
+<h6 id="添加元素"><a href="#添加元素" class="headerlink" title="添加元素"></a>添加元素</h6><p>向切片追加元素可以使用append函数，func append(s [ ]T, vs…T)[ ]T,append的第一个参数s是一个元素类型为T的切片，其余类型为T的值将追加到该切片的末尾。</p>
+<p>当s的底层数组太小，不足以容纳所有给定的值时，他就会分配一个更大的数组</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> s []<span class="type">int</span></span><br><span class="line">	printSlice(s)</span><br><span class="line">	<span class="comment">// 添加一个空切片</span></span><br><span class="line">	s = <span class="built_in">append</span>(s, <span class="number">0</span>)</span><br><span class="line">	printSlice(s)</span><br><span class="line">	<span class="comment">// 这个切片会按需增长</span></span><br><span class="line">	s = <span class="built_in">append</span>(s, <span class="number">1</span>)</span><br><span class="line">	printSlice(s)</span><br><span class="line">	<span class="comment">//此时cap(s)=2，增加2个元素不会超出原数组范围，所以cap为4</span></span><br><span class="line">	s = <span class="built_in">append</span>(s,<span class="number">2</span>,<span class="number">3</span>)</span><br><span class="line">	printSlice(s)</span><br><span class="line">	<span class="comment">// 可以一次性添加多个元素，添加3个元素则超过了2，此时会再增加一个长度为4的数组在原数组上</span></span><br><span class="line">	s = <span class="built_in">append</span>(s, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line">	printSlice(s)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//运行结果</span></span><br><span class="line"><span class="built_in">len</span>=<span class="number">0</span> <span class="built_in">cap</span>=<span class="number">0</span> []</span><br><span class="line"><span class="built_in">len</span>=<span class="number">1</span> <span class="built_in">cap</span>=<span class="number">1</span> [<span class="number">0</span>]<span class="comment">// 添加一个空切片</span></span><br><span class="line"><span class="built_in">len</span>=<span class="number">2</span> <span class="built_in">cap</span>=<span class="number">2</span> [<span class="number">0</span> <span class="number">1</span>]<span class="comment">// 这个切片会按需增长</span></span><br><span class="line"><span class="built_in">len</span>=<span class="number">4</span> <span class="built_in">cap</span>=<span class="number">4</span> [<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]<span class="comment">//此时cap(s)=2，增加2个元素不会超出原数组范围，所以cap为4</span></span><br><span class="line"><span class="built_in">len</span>=<span class="number">7</span> <span class="built_in">cap</span>=<span class="number">8</span> [<span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>]<span class="comment">// 可以一次性添加多个元素，添加3个元素则超过了2，此时会再增加一个长度为4的数组在原数组上</span></span><br></pre></td></tr></table></figure></div>
+<h6 id="Range"><a href="#Range" class="headerlink" title="Range"></a>Range</h6><p><code>for</code> 循环的 <code>range</code> 形式可遍历切片或映射。当使用 <code>for</code> 循环遍历切片时，每次迭代都会返回两个值。第一个值为当前元素的下标，第二个值为该下标所对应元素的一份副本。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pow = []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">16</span>, <span class="number">32</span>, <span class="number">64</span>, <span class="number">128</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//类似于python的for k,v in pow:</span></span><br><span class="line">	<span class="keyword">for</span> i, v := <span class="keyword">range</span> pow &#123;</span><br><span class="line">		fmt.Printf(<span class="string">&quot;2**%d = %d\n&quot;</span>, i, v)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></div>
+<p>在range中，可以将下标或值用_来忽略它</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i, _ := <span class="keyword">range</span> pow</span><br><span class="line"><span class="keyword">for</span> _, value := <span class="keyword">range</span> pow</span><br><span class="line"><span class="comment">//若只需要索引，则可以直接忽略第二个变量</span></span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> pow</span><br></pre></td></tr></table></figure></div>
+<h5 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h5><p>go的指针保存了值的内存地址，*T是指向T类型的指针，其零值为nil。&amp;操作符会生成一个指向其操作数的指针，与C/C++不同的是，go没有指针运算</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	i, j := <span class="number">42</span>, <span class="number">2701</span></span><br><span class="line">	p := &amp;i         <span class="comment">// 指向 i</span></span><br><span class="line">	fmt.Println(*p) <span class="comment">// 通过指针读取 i 的值</span></span><br><span class="line">	*p = <span class="number">21</span>         <span class="comment">// 通过指针设置 i 的值</span></span><br><span class="line">	fmt.Println(i)  <span class="comment">// 查看 i 的值</span></span><br><span class="line">	p = &amp;j         <span class="comment">// 指向 j</span></span><br><span class="line">	*p = *p / <span class="number">37</span>   <span class="comment">// 通过指针对 j 进行除法运算</span></span><br><span class="line">	fmt.Println(j) <span class="comment">// 查看 j 的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h5 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h5><p>结构体(struct)将多个不同类型命名字段(field)序列打包成一个复合类型。字段名必须唯一，可用”_”补位，支持使用自身指针类型成员。字段属性为基本数据类型。字段可以通过 ‘.’ 方法来调用</p>
+<p>这与c++的 ‘类’ 类似，结构体struct可以类比为class，字段属性可以类比为类成员变量，方法可以类比为类成员方法。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">  name <span class="type">string</span> <span class="comment">// 字段name 其数据类型为string</span></span><br><span class="line">  age <span class="type">int</span> <span class="comment">// 字段age 其数据类型为int </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    u := User&#123;<span class="string">&#x27;mark&#x27;</span>,<span class="number">18</span>&#125;</span><br><span class="line">    u.name = <span class="string">&#x27;john&#x27;</span> <span class="comment">//通过&#x27;.&#x27;来修改值</span></span><br><span class="line">    fmt.Println(u.name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>结构体字段可以通过结构体指针来访问。如果我们有一个指向结构体的指针 <code>p</code>，那么可以通过 <code>(*p).X</code> 来访问其字段 <code>X</code>。不过这么写太啰嗦了，所以语言也允许我们使用隐式间接引用，直接写 <code>p.X</code> 就可以。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">  name <span class="type">string</span> <span class="comment">// 字段name 其数据类型为string</span></span><br><span class="line">  age <span class="type">int</span> <span class="comment">// 字段age 其数据类型为int </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    u := User&#123;<span class="string">&#x27;mark&#x27;</span>,<span class="number">18</span>&#125;</span><br><span class="line">    p := &amp;u</span><br><span class="line">    p.name = <span class="string">&#x27;john&#x27;</span> <span class="comment">//隐式引用，即*p.name</span></span><br><span class="line">    fmt.Println(u.name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>结构体文法通过直接列出字段的值来重新分配一个结构体，使用name: value语法可以仅列出部分字段，特殊的前缀&amp;返回一个指向结构体的指针</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Vertex <span class="keyword">struct</span> &#123;</span><br><span class="line">	X, Y <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">	v1 = Vertex&#123;<span class="number">1</span>, <span class="number">2</span>&#125;  <span class="comment">// 创建一个 Vertex 类型的结构体</span></span><br><span class="line">	v2 = Vertex&#123;X: <span class="number">1</span>&#125;  <span class="comment">// Y:0 被隐式地赋予</span></span><br><span class="line">	v3 = Vertex&#123;&#125;      <span class="comment">// X:0 Y:0</span></span><br><span class="line">	p  = &amp;Vertex&#123;<span class="number">1</span>, <span class="number">2</span>&#125; <span class="comment">// 创建一个 *Vertex 类型的结构体（指针）</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></div>
+<h5 id="map字典"><a href="#map字典" class="headerlink" title="map字典"></a>map字典</h5><p>字典是一个使用频率较高的数据结构，作为无序键值对集合，字典key值必须是支持相等运算符的数据类型，比如数字、字符串、指针、数组、结构体，以及对应接口类型。通过make函数或初始化表达语句来创建</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   <span class="comment">// 定义 变量strMap</span></span><br><span class="line">   <span class="keyword">var</span> strMap <span class="keyword">map</span>[<span class="type">int</span>]<span class="type">string</span></span><br><span class="line">   <span class="comment">// 进行初始化</span></span><br><span class="line">   strMap = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="type">int</span>]<span class="type">string</span>)</span><br><span class="line">   <span class="comment">// 给map 赋值</span></span><br><span class="line">   <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">      strMap[i]  = <span class="string">&quot;map字典&quot;</span></span><br><span class="line">   &#125;</span><br><span class="line">   <span class="comment">// 打印出map值 k为键，v为值</span></span><br><span class="line">   <span class="keyword">for</span> k, v := <span class="keyword">range</span> strMap&#123;</span><br><span class="line">      fmt.Println(k, <span class="string">&quot;:&quot;</span>, v)</span><br><span class="line">   &#125;</span><br><span class="line">  <span class="comment">// 打印出map 长度</span></span><br><span class="line">  fmt.Println(<span class="built_in">len</span>(strMap))   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<p>map的文法与结构体类似，但必须有键名，若顶级类型只是一个类型名，可以在文法的元素中省略它。</p>
+<div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Vertex <span class="keyword">struct</span> &#123;</span><br><span class="line">	Lat, Long <span class="type">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> m = <span class="keyword">map</span>[<span class="type">string</span>]Vertex&#123;</span><br><span class="line">	<span class="string">&quot;Bell Labs&quot;</span>: Vertex&#123;</span><br><span class="line">		<span class="number">40.68433</span>, <span class="number">-74.39967</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="string">&quot;Google&quot;</span>: Vertex&#123;</span><br><span class="line">		<span class="number">37.42202</span>, <span class="number">-122.08408</span>,</span><br><span class="line">	&#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//省略类型名</span></span><br><span class="line"><span class="keyword">var</span> m = <span class="keyword">map</span>[<span class="type">string</span>]Vertex&#123;</span><br><span class="line">	<span class="string">&quot;Bell Labs&quot;</span>: &#123;<span class="number">40.68433</span>, <span class="number">-74.39967</span>&#125;,</span><br><span class="line">	<span class="string">&quot;Google&quot;</span>:    &#123;<span class="number">37.42202</span>, <span class="number">-122.08408</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div>
+<h6 id="map修改"><a href="#map修改" class="headerlink" title="map修改"></a>map修改</h6><div class="highlight-container" data-rel="Go"><figure class="iseeu highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在map m 中插入或修改元素</span></span><br><span class="line">m[key] = elem</span><br><span class="line"><span class="comment">//获取元素</span></span><br><span class="line">elem = m[key]</span><br><span class="line"><span class="comment">//删除元素</span></span><br><span class="line"><span class="built_in">delete</span>(m,key)</span><br><span class="line"><span class="comment">//通过双赋值检测某个键是否存在</span></span><br><span class="line">elem,ok = m[key]</span><br><span class="line"><span class="comment">//若 key 在 m 中，ok 为 true ；否则，ok 为 false。</span></span><br><span class="line"><span class="comment">//若 key 不在映射中，那么 elem 是该映射元素类型的零值。</span></span><br><span class="line"><span class="comment">//同样的，当从映射中读取某个不存在的键时，结果是映射的元素类型的零值。</span></span><br></pre></td></tr></table></figure></div>
+
+            </div>
+
+            
+                <div class="post-copyright-info">
+                    <div class="article-copyright-info-container">
+    <ul>
+        <li><strong>Title:</strong> Golang语法记录</li>
+        <li><strong>Author:</strong> 硫酸钾</li>
+        <li><strong>Created at:</strong> 2024-02-07 11:11:10</li>
+        
+            <li>
+                <strong>Updated at:</strong> 2024-03-01 13:01:32
+            </li>
+        
+        <li>
+            <strong>Link:</strong> https://white-troy.github.io/2024/02/07/golearn/
+        </li>
+        <li>
+            <strong>License:</strong> This work is licensed under <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a>.
+        </li>
+    </ul>
+</div>
+
+                </div>
+            
+
+            
+
+            
+
+            
+                <div class="article-nav">
+                    
+                    
+                        <div class="article-next">
+                            <a class="next"
+                            rel="next"
+                            href="/2024/01/21/webserver%E5%A4%8D%E7%9B%98/"
+                            >
+                                <span class="title flex-center">
+                                    <span class="post-nav-title-item">Tiny-WebServer复盘</span>
+                                    <span class="post-nav-item">Next posts</span>
+                                </span>
+                                <span class="right arrow-icon flex-center">
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                </span>
+                            </a>
+                        </div>
+                    
+                </div>
+            
+
+
+            
+        </div>
+
+        
+            <div class="toc-content-container">
+                <div class="post-toc-wrap">
+    <div class="post-toc">
+        <div class="toc-title">On this page</div>
+        <div class="page-title">Golang语法记录</div>
+        <ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-text">前言</span></a></li></ol>
+
+    </div>
+</div>
+            </div>
+        
+    </div>
+</div>
+
+
+                
+
+            </div>
+            
+            
+
+        </div>
+
+        <div class="main-content-footer">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info">
+            &copy;
+            
+              <span>2022</span>
+              -
+            
+            2024&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">硫酸钾</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv" class="busuanzi_container_site_uv">
+                        VISITOR COUNT&nbsp;<span id="busuanzi_value_site_uv" class="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="busuanzi_container_site_pv">
+                        TOTAL PAGE VIEWS&nbsp;<span id="busuanzi_value_site_pv" class="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            <span class="powered-by-container">POWERED BY <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <br>
+            <span class="theme-version-container">THEME&nbsp;<a class="theme-version" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.2.1</a>
+        </div>
+        
+        
+        
+            <div>
+                Blog up for <span class="odometer" id="runtime_days" ></span> days <span class="odometer" id="runtime_hours"></span> hrs <span class="odometer" id="runtime_minutes"></span> Min <span class="odometer" id="runtime_seconds"></span> Sec
+            </div>
+        
+        
+        
+            <script async data-pjax>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="article-tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="right-bottom-tools page-aside-toggle">
+                <i class="fa-regular fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-side-tools-container">
+        <div class="side-tools-container">
+    <ul class="hidden-tools-list">
+        <li class="right-bottom-tools tool-font-adjust-plus flex-center">
+            <i class="fa-regular fa-magnifying-glass-plus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-font-adjust-minus flex-center">
+            <i class="fa-regular fa-magnifying-glass-minus"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-expand-width flex-center">
+            <i class="fa-regular fa-expand"></i>
+        </li>
+
+        <li class="right-bottom-tools tool-dark-light-toggle flex-center">
+            <i class="fa-regular fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+
+        <li class="right-bottom-tools tool-scroll-to-bottom flex-center">
+            <i class="fa-regular fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="visible-tools-list">
+        <li class="right-bottom-tools toggle-tools-list flex-center">
+            <i class="fa-regular fa-cog fa-spin"></i>
+        </li>
+        
+            <li class="right-bottom-tools tool-scroll-to-top flex-center">
+                <i class="arrow-up fas fa-arrow-up"></i>
+                <span class="percent"></span>
+            </li>
+        
+        
+    </ul>
+</div>
+
+    </div>
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/layouts/navbarShrink.js"></script>
+
+<script src="/js/tools/scrollTopBottom.js"></script>
+
+<script src="/js/tools/lightDarkSwitch.js"></script>
+
+
+
+
+
+    
+<script src="/js/tools/codeBlock.js"></script>
+
+
+
+
+
+
+    
+<script src="/js/tools/runtime.js"></script>
+
+    
+<script src="/js/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+  
+<script src="/js/libs/Typed.min.js"></script>
+
+  
+<script src="/js/plugins/typed.js"></script>
+
+
+
+
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/tools/tocToggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/layouts/toc.js"></script>
+
+<script src="/js/plugins/tabs.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax',
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            Global.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            Global.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            Global.refresh();
+        });
+    });
+</script>
+
+
+
+
+</body>
+</html>
